@@ -10,10 +10,14 @@ public class JsonHarvester : MonoBehaviour
     string path;
     string jsonString;
     QuizManager quizManager;
+    TextAsset file;
+    string fileContent;
     // Start is called before the first frame update
     void Start()
     {
-        path = "C:\\Users\\Client\\Quizzos\\Assets\\Quiz\\Question Database" + "\\triviaDemo.json";
+        file = Resources.Load("triviaDemo") as TextAsset;
+        fileContent = file.ToString();
+        //path = "C:\\Users\\Client\\Desktop\\Version control\\Quizzos\\Quizzos\\Assets\\Quiz\\Question Database" + "\\triviaDemo.json";
         quizManager = FindObjectOfType<QuizManager>();
         HarvestQuestionsFromFileAndSetupQuiz();
 
@@ -21,8 +25,8 @@ public class JsonHarvester : MonoBehaviour
 
     private void HarvestQuestionsFromFileAndSetupQuiz()
     {
-        jsonString = File.ReadAllText(path);
-        questions = JsonHelper.FromJson<Question>(jsonString);
+        //jsonString = File.ReadAllText(path);
+        questions = JsonHelper.FromJson<Question>(fileContent);
         Debug.Log(questions.Length);
 
         for (int i = 0; i < questions.Length; i++)
