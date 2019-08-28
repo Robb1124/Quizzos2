@@ -8,10 +8,14 @@ public class Warrior : CharacterClass
     [SerializeField] int maxHP = 120;
     [SerializeField] int baseDmg = 25;
     [SerializeField] float basicAttackDmgModifier = 1;
-    [SerializeField] float chargeAttackDmgModifier = 4;
+    [SerializeField] int chargeAttackCooldown = 3;
+    [SerializeField] float chargeAttackDmgModifier = 4;    
     Monster currentTarget;
     Abilities currentAbility;
     QuizManager quizManager;
+
+    public int ChargeAttackCooldown { get => chargeAttackCooldown; set => chargeAttackCooldown = value; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +56,7 @@ public class Warrior : CharacterClass
 
     public override void TriggerAbilities(int numberOfCorrectAnswers)
     {
+        abilitySlot = FindObjectOfType<AbilitySlot>();
         switch (currentAbility)
         {
             case Abilities.BasicAttack:
@@ -67,6 +72,7 @@ public class Warrior : CharacterClass
                 break;
             case Abilities.SpecialAbility1:
                 player.currentAbilityDmgModifier = chargeAttackDmgModifier;
+                abilitySlot.ActivateSpecialAbilityCooldown(1, ChargeAttackCooldown);
                 if (numberOfCorrectAnswers == 1)
                 {
                     player.AttackIsSuccessfull = true;

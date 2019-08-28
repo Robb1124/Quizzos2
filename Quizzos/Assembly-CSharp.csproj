@@ -74,6 +74,13 @@
     <Compile Include="Assets\Quiz\QuestionQuery.cs" />
     <Compile Include="Assets\Quiz\Questions.cs" />
     <Compile Include="Assets\Quiz\QuizManager.cs" />
+    <Compile Include="Assets\Turn Manager\MonsterTurn.cs" />
+    <Compile Include="Assets\Turn Manager\NotInCombat.cs" />
+    <Compile Include="Assets\Turn Manager\PlayerTurn.cs" />
+    <Compile Include="Assets\Turn Manager\PreMonsterTurn.cs" />
+    <Compile Include="Assets\Turn Manager\PrePlayerTurn.cs" />
+    <Compile Include="Assets\Turn Manager\TurnManager.cs" />
+    <Compile Include="Assets\Turn Manager\TurnState.cs" />
     <Compile Include="Assets\WorldMap\StageFile.cs" />
     <Compile Include="Assets\WorldMap\StageManager.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />

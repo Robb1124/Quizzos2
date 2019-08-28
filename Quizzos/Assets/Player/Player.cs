@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     Monster currentTarget;
     QuizManager quizManager;
     bool playerHasAnswered = false;
-
+    [SerializeField] AbilitySlot abilitySlot;
     public bool PlayerHasAnswered { get => playerHasAnswered; set => playerHasAnswered = value; }
 
     // Start is called before the first frame update
@@ -162,6 +162,15 @@ public class Player : MonoBehaviour
         {
             abilityButtons[i].interactable = true;
         }
+        if (!abilitySlot.SpecialAbility1IsReady)
+        {
+            abilityButtons[1].interactable = false;
+        }
+        if (!abilitySlot.SpecialAbility2IsReady)
+        {
+            abilityButtons[2].interactable = false;
+        }
+
     }   
 
     public void ReceiveClass(int choosenClassIndex)
