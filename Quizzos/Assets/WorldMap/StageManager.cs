@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 public class StageManager : MonoBehaviour
 {
-    
+    [SerializeField] TurnManager turnManager;
     [SerializeField] Image stageBackground;
     [SerializeField] Text stageName;
     [SerializeField] GameObject worldMapElementsHolder;
@@ -14,7 +14,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI stagePreviewNameField;
     [SerializeField] TextMeshProUGUI stageDescriptionField;
     StageFile currentStage;
-    MonsterManager monsterManager;
+    [SerializeField] MonsterManager monsterManager;
     
     // Start is called before the first frame update
     void Start()
@@ -31,10 +31,11 @@ public class StageManager : MonoBehaviour
 
     //methode pour ouvrir un preview du level
 
-    public void LoadLevel()
+    public void LoadLevel(StageFile stageFile)
     {
-        monsterManager.ReceiveStageFile(currentStage);
+        monsterManager.ReceiveStageFile(stageFile);
         monsterManager.SpawnWaveOfMonsters(1);
+        turnManager.ChangeTurnState(turnManager.GetComponentInChildren<PlayerTurn>());
         worldMapElementsHolder.SetActive(false);
         instanceElementsHolder.SetActive(true);
         stageName.text = currentStage.stageName;

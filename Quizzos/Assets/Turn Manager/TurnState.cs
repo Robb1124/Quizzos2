@@ -15,4 +15,9 @@ public class TurnState : MonoBehaviour
     {
         
     }
+
+    public virtual void OnStateChange()
+    {
+
+    }
 }

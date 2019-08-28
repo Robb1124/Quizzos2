@@ -14,14 +14,12 @@ public class MonsterManager : MonoBehaviour
     [SerializeField] int roomNumber = 1;
     [SerializeField] Text roomText;
     [SerializeField] Player player;
+    [SerializeField] TurnManager turnManager;
     MonsterSheet[] currentRound;
     StageFile stageFile;
-    bool allDead = false;
     int stageRoundsCount;
 
-    public delegate void OnTurnChangeForPlayer(); // declare new delegate type
-    public event OnTurnChangeForPlayer onTurnChangeForPlayer; // instantiate an observer set
-
+    public bool AllDead { get; set; } = false;
 
     // Start is called before the first frame update
     void Start()
@@ -58,7 +56,7 @@ public class MonsterManager : MonoBehaviour
         monsterCount--;
         if(monsterCount == 0)
         {
-            allDead = true;
+            AllDead = true;
             StartCoroutine(DelayBetweenSpawn());
             
         }
@@ -75,41 +73,6 @@ public class MonsterManager : MonoBehaviour
         {
             //stage is over ! VICTORY
         }
-    }
-
-    public void MonsterTurn()
-    {
-        StartCoroutine(MonsterAttacks());
-    }
-
-    IEnumerator MonsterAttacks()
-    {
-        int monstersThatWillAttack = 0;
-        for(int i = 0; i < monsters.Length; i++)
-        {
-            if (monsters[i].isActiveAndEnabled)
-            {
-                monstersThatWillAttack++;
-            }
-        }
-
-        for (int i = 0; i < monsters.Length; i++)
-        {
-            if (monsters[i].isActiveAndEnabled && !allDead)
-            {
-                monstersThatWillAttack--;
-                yield return new WaitForSeconds(1f);
-                monsters[i].AttackPlayerAnimation();
-                if(monstersThatWillAttack == 0)
-                {
-                    yield return new WaitForSeconds(1f);
-                }
-                
-            }
-        }
-        onTurnChangeForPlayer();
-        player.PlayerTurn();
-        allDead = false;
     }
 
     public void ReceiveStageFile(StageFile stageFile)

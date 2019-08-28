@@ -77,7 +77,6 @@
     <Compile Include="Assets\Turn Manager\MonsterTurn.cs" />
     <Compile Include="Assets\Turn Manager\NotInCombat.cs" />
     <Compile Include="Assets\Turn Manager\PlayerTurn.cs" />
-    <Compile Include="Assets\Turn Manager\PreMonsterTurn.cs" />
     <Compile Include="Assets\Turn Manager\PrePlayerTurn.cs" />
     <Compile Include="Assets\Turn Manager\TurnManager.cs" />
     <Compile Include="Assets\Turn Manager\TurnState.cs" />

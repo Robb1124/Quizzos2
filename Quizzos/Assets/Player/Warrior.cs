@@ -5,11 +5,13 @@ using UnityEngine;
 public class Warrior : CharacterClass
 {
     Player player;
+    PlayerTurn playerTurnState;
     [SerializeField] int maxHP = 120;
     [SerializeField] int baseDmg = 25;
     [SerializeField] float basicAttackDmgModifier = 1;
     [SerializeField] int chargeAttackCooldown = 3;
-    [SerializeField] float chargeAttackDmgModifier = 4;    
+    [SerializeField] float chargeAttackDmgModifier = 4;
+    
     Monster currentTarget;
     Abilities currentAbility;
     QuizManager quizManager;
@@ -57,29 +59,30 @@ public class Warrior : CharacterClass
     public override void TriggerAbilities(int numberOfCorrectAnswers)
     {
         abilitySlot = FindObjectOfType<AbilitySlot>();
+        playerTurnState = FindObjectOfType<PlayerTurn>();
         switch (currentAbility)
         {
             case Abilities.BasicAttack:
-                player.currentAbilityDmgModifier = basicAttackDmgModifier;
+                playerTurnState.CurrentAbilityDmgModifier = basicAttackDmgModifier;
                 if(numberOfCorrectAnswers == 1)
                 {
-                    player.AttackIsSuccessfull = true;
+                    playerTurnState.AttackIsSuccessfull = true;
                 }
                 else
                 {
-                    player.AttackIsSuccessfull = false;
+                    playerTurnState.AttackIsSuccessfull = false;
                 }
                 break;
             case Abilities.SpecialAbility1:
-                player.currentAbilityDmgModifier = chargeAttackDmgModifier;
+                playerTurnState.CurrentAbilityDmgModifier = chargeAttackDmgModifier;
                 abilitySlot.ActivateSpecialAbilityCooldown(1, ChargeAttackCooldown);
                 if (numberOfCorrectAnswers == 1)
                 {
-                    player.AttackIsSuccessfull = true;
+                    playerTurnState.AttackIsSuccessfull = true;
                 }
                 else
                 {
-                    player.AttackIsSuccessfull = false;
+                    playerTurnState.AttackIsSuccessfull = false;
                 }
                 break;
             case Abilities.SpecialAbility2:

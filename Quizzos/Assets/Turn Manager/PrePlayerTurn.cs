@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PrePlayerTurn : TurnState
 {
+    [SerializeField] TurnManager turnManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +15,11 @@ public class PrePlayerTurn : TurnState
     void Update()
     {
         
+    }
+
+    public override void OnStateChange()
+    {
+        print("prepre");
+        turnManager.ChangeTurnState(turnManager.GetComponentInChildren<PlayerTurn>());
     }
 }

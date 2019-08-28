@@ -10,7 +10,7 @@ public class AbilitySlot : MonoBehaviour
     Player player;
     [SerializeField] GameObject[] abilitySlots;
     [SerializeField] Sprite[] warriorAbilitySprites;
-    MonsterManager monsterManager;
+    [SerializeField] TurnManager turnManager;
     [SerializeField] TextMeshProUGUI[] specialAbilitiesCooldownTexts;
     int specialAbility1CooldownTurns = 1;
     int specialAbility1RemainingCdTurns = 0;
@@ -23,9 +23,8 @@ public class AbilitySlot : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        monsterManager = FindObjectOfType<MonsterManager>();
-        monsterManager.onTurnChangeForPlayer += OnTurnChangeForPlayer;
+    {       
+        turnManager.onTurnChangeForPlayer += OnTurnChangeForPlayer;
         player = FindObjectOfType<Player>();
         if (player.gameObject.GetComponent<Warrior>())
         {

@@ -12,7 +12,8 @@ public class QuizManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI questionText;
     [SerializeField] TextMeshProUGUI[] choicesText;
     [SerializeField] Player player;
-    [SerializeField] Image[] choicesBackgrounds; 
+    [SerializeField] Image[] choicesBackgrounds;
+    [SerializeField] PlayerTurn playerTurnState;
     int numberOfQuestionsRemaining;
     int numberOfRightAnswers;
     bool initialSetupIsDone = false;
@@ -75,7 +76,7 @@ public class QuizManager : MonoBehaviour
     {
         numberOfQuestionsRemaining = numberOfQuestions;
         NumberOfRightAnswers = 0;
-        player.PlayerHasAnswered = false;
+        playerTurnState.PlayerHasAnswered = false;
     }
 
     public void ShuffleAnswers()
@@ -126,7 +127,7 @@ public class QuizManager : MonoBehaviour
     {
         if (numberOfQuestionsRemaining == 0)
         {
-            player.PlayerHasAnswered = true;
+            playerTurnState.PlayerHasAnswered = true;
             questionPopUp.SetActive(false);
             initialSetupIsDone = false;
         }
