@@ -8,21 +8,26 @@ using System;
 public class QuizManager : MonoBehaviour
 {
     Question currentQuestion;
+    [SerializeField] TurnManager turnManager;
     [SerializeField] GameObject questionPopUp;
     [SerializeField] TextMeshProUGUI questionText;
     [SerializeField] TextMeshProUGUI[] choicesText;
     [SerializeField] Player player;
     [SerializeField] Image[] choicesBackgrounds;
     [SerializeField] PlayerTurn playerTurnState;
+    [SerializeField] PrePlayerTurn prePlayerTurn;
+    bool playerHasAnswered = false;
     int numberOfQuestionsRemaining;
-    int numberOfRightAnswers;
     bool initialSetupIsDone = false;
     List<String> choices = new List<String>();
 
-    public int NumberOfRightAnswers { get => numberOfRightAnswers; set => numberOfRightAnswers = value; }
+    public int NumberOfRightAnswers { get; set; }
     public List<Question> PoolOfKnowledge { get; set; } = new List<Question>();
     public List<Question> PlayerDeckOfQuestions { get; set; } = new List<Question>();
+    public int BadAnswersInCombat { get; set; } = 0;
 
+    public delegate void OnWrongAnswers(int badAnswersInCombat); // declare new delegate type
+    public event OnWrongAnswers onWrongAnswers; // instantiate an observer set
 
     // Start is called before the first frame update
     void Start()
@@ -69,14 +74,30 @@ public class QuizManager : MonoBehaviour
             choicesText[i].text = choices[i];
         }
         numberOfQuestionsRemaining--;
+        StartCoroutine(WaitForPlayerToAnswer());
+    }
 
+    private IEnumerator WaitForPlayerToAnswer()
+    {        
+        while (!playerHasAnswered)
+        {
+            yield return new WaitForSeconds(0.05f);
+        }
+        if(turnManager.TurnState is PlayerTurn)
+        {
+            playerTurnState.TriggerAbilities();
+        }
+        else if(turnManager.TurnState is PrePlayerTurn)
+        {
+            prePlayerTurn.DoneWithTheQuiz(NumberOfRightAnswers);
+        }
     }
 
     private void InitialSetup(int numberOfQuestions)
     {
         numberOfQuestionsRemaining = numberOfQuestions;
         NumberOfRightAnswers = 0;
-        playerTurnState.PlayerHasAnswered = false;
+        playerHasAnswered = false;
     }
 
     public void ShuffleAnswers()
@@ -103,13 +124,14 @@ public class QuizManager : MonoBehaviour
         if(choices[answerChosen] == currentQuestion.correct_answer)
         {
             choicesBackgrounds[answerChosen].color = Color.green;
-            StartCoroutine(ShowGoodAnswerDelay());
             //Popup une felicitation
-            numberOfRightAnswers++;
+            NumberOfRightAnswers++;
               
         }
         else
         {
+            BadAnswersInCombat++;
+            onWrongAnswers(BadAnswersInCombat);
             choicesBackgrounds[answerChosen].color = Color.red;
             for(int i = 0; i < choices.Count; i++)
             {
@@ -118,16 +140,18 @@ public class QuizManager : MonoBehaviour
                     choicesBackgrounds[i].color = Color.green;
                 }
             }
-            StartCoroutine(ShowGoodAnswerDelay());
             //Popup un mauvaise reponse
         }
+        
+        StartCoroutine(ShowGoodAnswerDelay());
+
     }
 
     private void CheckQuestionsRemaining()
     {
         if (numberOfQuestionsRemaining == 0)
         {
-            playerTurnState.PlayerHasAnswered = true;
+            playerHasAnswered = true;
             questionPopUp.SetActive(false);
             initialSetupIsDone = false;
         }
@@ -148,7 +172,7 @@ public class QuizManager : MonoBehaviour
         for (int i = 0; i < choicesCount; i++)
         {
             choices.Remove(choices[choicesCount - 1 - i]);
-        }
+        }       
         CheckQuestionsRemaining();
     }
 }

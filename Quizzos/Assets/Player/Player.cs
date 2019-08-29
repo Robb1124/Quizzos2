@@ -12,12 +12,15 @@ public class Player : MonoBehaviour
     [SerializeField] int playerMaxHp = 100;
     [SerializeField] float playerCurrentHp;
     [SerializeField] int playerBaseDmg = 25;
+    [SerializeField] float dmgReduction = 0;
     [SerializeField] Text playerHpText;
     [SerializeField] Image playerHpBar;
     [SerializeField] CharacterClass characterClass;
+    [SerializeField] PrePlayerTurn prePlayerTurn;
     
     public CharacterClass CharacterClass { get => characterClass; set => characterClass = value; }
     public int PlayerBaseDmg { get => playerBaseDmg; set => playerBaseDmg = value; }
+    public float DmgReduction { get => dmgReduction; set => dmgReduction = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -33,8 +36,8 @@ public class Player : MonoBehaviour
     }
 
     public void TakeDamage(float amountOfDamage)
-    {
-        playerCurrentHp -= amountOfDamage;
+    {      
+        playerCurrentHp -= (amountOfDamage * (1 - DmgReduction));
     }
 
     public void ReceiveClass(int choosenClassIndex)

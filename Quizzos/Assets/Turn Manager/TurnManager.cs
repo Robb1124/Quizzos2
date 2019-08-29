@@ -7,8 +7,12 @@ public class TurnManager : MonoBehaviour
 {    
     [SerializeField] TurnState turnState;
 
+    public TurnState TurnState { get => turnState; set => turnState = value; }
+
     public delegate void OnTurnChangeForPlayer(); // declare new delegate type
     public event OnTurnChangeForPlayer onTurnChangeForPlayer; // instantiate an observer set
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +29,9 @@ public class TurnManager : MonoBehaviour
     {
         if (turnState.GetComponent<PrePlayerTurn>())
         {
-            onTurnChangeForPlayer();
+            onTurnChangeForPlayer(); //Observer pattern for cooldown and special ability availability management.
         }
-        this.turnState = turnState;
+        this.TurnState = turnState;
         
         turnState.OnStateChange();
     }

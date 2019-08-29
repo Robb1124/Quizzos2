@@ -33,6 +33,7 @@ public class AbilitySlot : MonoBehaviour
                 abilitySlots[i].GetComponent<Image>().sprite = warriorAbilitySprites[i];
             }
             specialAbility1CooldownTurns = player.GetComponent<Warrior>().ChargeAttackCooldown;
+            specialAbility2CooldownTurns = player.GetComponent<Warrior>().ShieldUpCooldown;
             
         }
     }
@@ -61,11 +62,11 @@ public class AbilitySlot : MonoBehaviour
         if (specialAbility2RemainingCdTurns > 0)
         {
             SpecialAbility2IsReady = false;
-            specialAbilitiesCooldownTexts[1].gameObject.SetActive(false);
         }
         else
         {
             SpecialAbility2IsReady = true;
+            specialAbilitiesCooldownTexts[1].gameObject.SetActive(false);
         }
         specialAbilitiesCooldownTexts[0].text = specialAbility1RemainingCdTurns.ToString();
         specialAbilitiesCooldownTexts[1].text = specialAbility2RemainingCdTurns.ToString();

@@ -5,6 +5,9 @@ using UnityEngine;
 public class CharacterClass : MonoBehaviour
 {
     protected AbilitySlot abilitySlot;
+
+    public bool SpecialAbility2SelfCast { get; set; } = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +31,11 @@ public class CharacterClass : MonoBehaviour
     }
 
     public virtual void TriggerAbilities(int numberOfCorrectAnswers)
+    {
+
+    }
+
+    public virtual void RemoveShieldUp()
     {
 
     }

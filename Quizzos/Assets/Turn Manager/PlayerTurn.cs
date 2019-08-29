@@ -16,8 +16,8 @@ public class PlayerTurn : TurnState
     [SerializeField] TurnManager turnManager;
     Abilities currentAbility;
     Monster currentTarget;
-    public bool PlayerHasAnswered { get; set; } = false;
     public bool AttackIsSuccessfull { get; set; } = false;
+    public bool isAnAttack { get; set; } = false;
     public float CurrentAbilityDmgModifier { get; set; }
     // Start is called before the first frame update
     void Start()
@@ -64,7 +64,11 @@ public class PlayerTurn : TurnState
         else if ((Abilities)ability == Abilities.SpecialAbility2)
         {
             currentAbility = Abilities.SpecialAbility2;
-
+            if (player.CharacterClass.SpecialAbility2SelfCast)
+            {
+                DesactivateAbilityButtons();
+                quizManager.DrawQuestions(player.CharacterClass.CastAbilities(currentAbility)); //self cast doesnt need to go throught targeting.
+            }
         }
         else if ((Abilities)ability == Abilities.ItemPouch)
         {
@@ -100,10 +104,7 @@ public class PlayerTurn : TurnState
             selectTargetPopUp.SetActive(false);
         }
         //Deactivate Ability buttons until next turn
-        for (int i = 0; i < abilityButtons.Length; i++)
-        {
-            abilityButtons[i].interactable = false;
-        }
+        DesactivateAbilityButtons();
 
         switch (monsterNumber)
         {
@@ -119,35 +120,38 @@ public class PlayerTurn : TurnState
         }
     }
 
+    private void DesactivateAbilityButtons()
+    {
+        for (int i = 0; i < abilityButtons.Length; i++)
+        {
+            abilityButtons[i].interactable = false;
+        }
+    }
+
     public void CastAbilities(Monster target)
     {
         currentTarget = target;
         quizManager.DrawQuestions(player.CharacterClass.CastAbilities(currentAbility));
-        StartCoroutine(WaitForPlayerToAnswer());
     }
 
-    private IEnumerator WaitForPlayerToAnswer()
-    {
-        while (!PlayerHasAnswered)
-        {
-            yield return new WaitForSeconds(0.1f);
-        }
-        TriggerAbilities(currentAbility);
-    }
+    
 
-    public void TriggerAbilities(Abilities currentAbility)
+    public void TriggerAbilities()
     {
         player.CharacterClass.TriggerAbilities(quizManager.NumberOfRightAnswers);
-        StartCoroutine(DelayForPlayerAttack());
-        
+        StartCoroutine(DelayForPlayerAttack());        
     }
 
     private IEnumerator DelayForPlayerAttack()
     {
         yield return new WaitForSeconds(0.7f);
-        if (AttackIsSuccessfull)
+        if (AttackIsSuccessfull && isAnAttack)
         {
             currentTarget.TakeDamage(player.PlayerBaseDmg * CurrentAbilityDmgModifier);
+        }
+        else if (AttackIsSuccessfull && !isAnAttack)
+        {
+            //special sound/animation for the successull ability.
         }
         else
         {
@@ -155,5 +159,24 @@ public class PlayerTurn : TurnState
         }
         yield return new WaitForSeconds(0.7f);
         turnManager.ChangeTurnState(turnManager.GetComponentInChildren<MonsterTurn>());
+    }
+
+    public void PassiveProc(int target, float damageModifier)
+    {
+        if(target == 4)
+        {
+            int randomTarget;
+            do
+            {
+                randomTarget = Random.Range(0, monstersSlot.Length);
+            } while (!monstersSlot[randomTarget].isActiveAndEnabled);
+            StartCoroutine(DelayForPassiveProc(randomTarget, damageModifier));
+        }
+    }
+
+    public IEnumerator DelayForPassiveProc(int target, float damageModifier)
+    {
+        yield return new WaitForSeconds(1.5f);
+        monstersSlot[target].TakeDamage(player.PlayerBaseDmg * damageModifier);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,17 +7,28 @@ public class Warrior : CharacterClass
 {
     Player player;
     PlayerTurn playerTurnState;
+    PrePlayerTurn prePlayerTurnState;
     [SerializeField] int maxHP = 120;
     [SerializeField] int baseDmg = 25;
     [SerializeField] float basicAttackDmgModifier = 1;
     [SerializeField] int chargeAttackCooldown = 3;
     [SerializeField] float chargeAttackDmgModifier = 4;
-    
+    [SerializeField] int shieldUpCooldown = 4;
+    [SerializeField] float shieldUpDmgModifier = 0;
+    [SerializeField] bool shieldUpActive;
+    [SerializeField] float shieldUpDmgReduction = 0.95f;
+    [SerializeField] float passiveAttackDmgModifier = 1;
+    [SerializeField] int numberOfBadAnswersForPassiveProc = 3;
+    [SerializeField] QuestionQuery basicAttackQuestionQuery = new QuestionQuery(false, 1, QuestionCategory.Any);
+    [SerializeField] QuestionQuery chargeAttackQuestionQuery = new QuestionQuery(true, 1, QuestionCategory.Sports);
     Monster currentTarget;
     Abilities currentAbility;
-    QuizManager quizManager;
+    [SerializeField] QuizManager quizManager;
 
     public int ChargeAttackCooldown { get => chargeAttackCooldown; set => chargeAttackCooldown = value; }
+    public int ShieldUpCooldown { get => shieldUpCooldown; set => shieldUpCooldown = value; }
+    public QuestionQuery ShieldUpQuestionQuery { get; set; } = new QuestionQuery(false, 1, QuestionCategory.Any);
+    public float ShieldUpDmgReduction { get => shieldUpDmgReduction; set => shieldUpDmgReduction = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -32,10 +44,21 @@ public class Warrior : CharacterClass
 
     public override void OnClassEquip()
     {
-        print("cookie");
+        playerTurnState = FindObjectOfType<PlayerTurn>();
+        quizManager = FindObjectOfType<QuizManager>();
+        quizManager.onWrongAnswers += OnWrongAnswers;
         player = GetComponent<Player>();
+        SpecialAbility2SelfCast = true;
         player.SetPlayerMaxHpAndBaseDmg(maxHP, baseDmg);
         //Draw starting cards corresponding to class
+    }
+
+    private void OnWrongAnswers(int badAnswersInCombat)
+    {
+        if(badAnswersInCombat % 3 == 0 && badAnswersInCombat > 0)
+        {
+            playerTurnState.PassiveProc(4, 1);
+        }
     }
 
     public override QuestionQuery CastAbilities(Abilities currentAbility)
@@ -44,12 +67,11 @@ public class Warrior : CharacterClass
         switch (currentAbility)
         {
             case Abilities.BasicAttack:
-                return new QuestionQuery(false, 1, QuestionCategory.Any);
+                return basicAttackQuestionQuery;
             case Abilities.SpecialAbility1:
-                return new QuestionQuery(true, 1, QuestionCategory.Sports);
+                return chargeAttackQuestionQuery;
             case Abilities.SpecialAbility2:
-
-                break;
+                return ShieldUpQuestionQuery;
             case Abilities.ItemPouch:
                 break;
         }
@@ -59,7 +81,7 @@ public class Warrior : CharacterClass
     public override void TriggerAbilities(int numberOfCorrectAnswers)
     {
         abilitySlot = FindObjectOfType<AbilitySlot>();
-        playerTurnState = FindObjectOfType<PlayerTurn>();
+        prePlayerTurnState = FindObjectOfType<PrePlayerTurn>();
         switch (currentAbility)
         {
             case Abilities.BasicAttack:
@@ -67,6 +89,7 @@ public class Warrior : CharacterClass
                 if(numberOfCorrectAnswers == 1)
                 {
                     playerTurnState.AttackIsSuccessfull = true;
+                    playerTurnState.isAnAttack = true;
                 }
                 else
                 {
@@ -75,10 +98,11 @@ public class Warrior : CharacterClass
                 break;
             case Abilities.SpecialAbility1:
                 playerTurnState.CurrentAbilityDmgModifier = chargeAttackDmgModifier;
-                abilitySlot.ActivateSpecialAbilityCooldown(1, ChargeAttackCooldown);
+                abilitySlot.ActivateSpecialAbilityCooldown(1, chargeAttackCooldown);
                 if (numberOfCorrectAnswers == 1)
                 {
                     playerTurnState.AttackIsSuccessfull = true;
+                    playerTurnState.isAnAttack = true;
                 }
                 else
                 {
@@ -86,11 +110,30 @@ public class Warrior : CharacterClass
                 }
                 break;
             case Abilities.SpecialAbility2:
-
+                playerTurnState.CurrentAbilityDmgModifier = shieldUpDmgModifier;
+                abilitySlot.ActivateSpecialAbilityCooldown(2, shieldUpCooldown);
+                if (numberOfCorrectAnswers == 1)
+                {
+                    playerTurnState.AttackIsSuccessfull = true;
+                    playerTurnState.isAnAttack = false;
+                    prePlayerTurnState.CurrentSpecialEffects.Add(SpecialEffects.ShieldUp);
+                    prePlayerTurnState.ShieldUpActive = true;
+                    prePlayerTurnState.RefreshSpecialEffectsSlots();
+                    player.DmgReduction += shieldUpDmgReduction;
+                }
+                else
+                {
+                    playerTurnState.AttackIsSuccessfull = false;
+                }
                 break;
             case Abilities.ItemPouch:
                 break;
         }
+    }
+
+    public override void RemoveShieldUp()
+    {
+        player.DmgReduction -= shieldUpDmgReduction;
     }
 
 
