@@ -9,9 +9,14 @@ public class AbilitySlot : MonoBehaviour
 {
     Player player;
     [SerializeField] GameObject[] abilitySlots;
+    [SerializeField] GameObject passiveSlot;
     [SerializeField] Sprite[] warriorAbilitySprites;
+    [SerializeField] Sprite warriorPassiveSprite;
+    [SerializeField] TextMeshProUGUI passiveText;
     [SerializeField] TurnManager turnManager;
     [SerializeField] TextMeshProUGUI[] specialAbilitiesCooldownTexts;
+
+    [SerializeField] QuizManager quizManager;
     int specialAbility1CooldownTurns = 1;
     int specialAbility1RemainingCdTurns = 0;
     int specialAbility2CooldownTurns = 1;
@@ -23,7 +28,8 @@ public class AbilitySlot : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {       
+    {
+        quizManager.onWrongAnswers += OnWrongAnswers;
         turnManager.onTurnChangeForPlayer += OnTurnChangeForPlayer;
         player = FindObjectOfType<Player>();
         if (player.gameObject.GetComponent<Warrior>())
@@ -32,11 +38,13 @@ public class AbilitySlot : MonoBehaviour
             {
                 abilitySlots[i].GetComponent<Image>().sprite = warriorAbilitySprites[i];
             }
+            passiveSlot.GetComponent<Image>().sprite = warriorPassiveSprite;
+
             specialAbility1CooldownTurns = player.GetComponent<Warrior>().ChargeAttackCooldown;
             specialAbility2CooldownTurns = player.GetComponent<Warrior>().ShieldUpCooldown;
             
         }
-    }
+    }   
 
     private void OnTurnChangeForPlayer()
     {
@@ -84,6 +92,17 @@ public class AbilitySlot : MonoBehaviour
                 break;
         }
     }
+
+    private void OnWrongAnswers(int badAnswersInCombat)
+    {
+        passiveText.gameObject.SetActive(true);
+        passiveText.text = (badAnswersInCombat % 3).ToString();
+        if (badAnswersInCombat % 3 == 0)
+        {
+            passiveText.gameObject.SetActive(false);
+        }
+    }
+    
 
     // Update is called once per frame
     void Update()

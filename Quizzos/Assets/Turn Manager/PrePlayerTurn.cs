@@ -50,24 +50,24 @@ public class PrePlayerTurn : TurnState
     {
         if (ShieldUpActive)
         {
-            
-        }
-        for (int i = 0; i < CurrentSpecialEffects.Count; i++)
-        {
-            switch (CurrentSpecialEffects[i])
+            for (int i = 0; i < CurrentSpecialEffects.Count; i++)
             {
-                case SpecialEffects.ShieldUp:
-                    quizManager.DrawQuestions(player.GetComponent<Warrior>().ShieldUpQuestionQuery);
-                    shieldUpSlot = specialEffectsSlots[i];
-                    shieldUpSlot.gameObject.SetActive(true);
-                    shieldUpSlot.sprite = shieldUpSprite;
-                    while (!CurrentEffectIsDone)
-                    {
-                        yield return new WaitForSeconds(0.1f);
-                    }
-                    break;
+                switch (CurrentSpecialEffects[i])
+                {
+                    case SpecialEffects.ShieldUp:
+                        quizManager.DrawQuestions(player.GetComponent<Warrior>().ShieldUpQuestionQuery);
+                        shieldUpSlot = specialEffectsSlots[i];
+                        shieldUpSlot.gameObject.SetActive(true);
+                        shieldUpSlot.sprite = shieldUpSprite;
+                        while (!CurrentEffectIsDone)
+                        {
+                            yield return new WaitForSeconds(0.1f);
+                        }
+                        break;
+                }
             }
         }
+        
         //RESOLVE ALL OTHER EFFECTS UP THERE.
         yield return new WaitForSeconds(0.1f);
         GoToPlayerTurn();
@@ -84,6 +84,14 @@ public class PrePlayerTurn : TurnState
             CurrentEffectIsDone = true;
             ShieldUpActive = false;
             shieldUpSlot.gameObject.SetActive(false);
+            for(int i = 0; i < CurrentSpecialEffects.Count; i++)
+            {
+                if(CurrentSpecialEffects[i] == SpecialEffects.ShieldUp)
+                {
+                    CurrentSpecialEffects.Remove(CurrentSpecialEffects[i]);
+                    break;
+                }
+            }
             player.CharacterClass.RemoveShieldUp();
         }
     }

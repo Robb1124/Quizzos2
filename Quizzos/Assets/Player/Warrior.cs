@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class Warrior : CharacterClass
 {
     Player player;
@@ -19,6 +19,7 @@ public class Warrior : CharacterClass
     [SerializeField] float shieldUpDmgReduction = 0.95f;
     [SerializeField] float passiveAttackDmgModifier = 1;
     [SerializeField] int numberOfBadAnswersForPassiveProc = 3;
+    [SerializeField] TextMeshProUGUI passiveText;
     [SerializeField] QuestionQuery basicAttackQuestionQuery = new QuestionQuery(false, 1, QuestionCategory.Any);
     [SerializeField] QuestionQuery chargeAttackQuestionQuery = new QuestionQuery(true, 1, QuestionCategory.Sports);
     Monster currentTarget;
@@ -54,7 +55,7 @@ public class Warrior : CharacterClass
     }
 
     private void OnWrongAnswers(int badAnswersInCombat)
-    {
+    {        
         if(badAnswersInCombat % 3 == 0 && badAnswersInCombat > 0)
         {
             playerTurnState.PassiveProc(4, 1);
