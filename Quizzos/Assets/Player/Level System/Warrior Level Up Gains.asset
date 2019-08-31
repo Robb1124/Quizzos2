@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34b29ed391d93a44fae017dc4404984d, type: 3}
+  m_Name: Warrior Level Up Gains
+  m_EditorClassIdentifier: 
+  HpGains: 1800000020000000260000002e0000003c0000004c0000005c0000007200000086000000
+  baseDamageGains: 02000000030000000300000004000000050000000600000008000000090000000a000000
+  questionsGained: 050000000500000005000000050000000a0000000a0000000a0000000a0000000a000000

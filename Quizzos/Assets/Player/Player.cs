@@ -22,6 +22,9 @@ public class Player : MonoBehaviour
     public int PlayerBaseDmg { get => playerBaseDmg; set => playerBaseDmg = value; }
     public float DmgReduction { get => dmgReduction; set => dmgReduction = value; }
 
+    public delegate void OnPlayerDeath(); // declare new delegate type
+    public event OnPlayerDeath onPlayerDeath; // instantiate an observer set
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +41,12 @@ public class Player : MonoBehaviour
     public void TakeDamage(float amountOfDamage)
     {      
         playerCurrentHp -= (amountOfDamage * (1 - DmgReduction));
+        if(playerCurrentHp <= 0)
+        {
+            GameOver();
+        }
     }
+   
 
     public void ReceiveClass(int choosenClassIndex)
     {
@@ -59,6 +67,17 @@ public class Player : MonoBehaviour
         PlayerBaseDmg = baseDmg;
     }
 
+    private void GameOver()
+    {
+        
+        onPlayerDeath();
+    }
 
+    public void AddMaxHpAndBaseDamage(int maxHpGain, int maxDmgGain)
+    {
+        playerMaxHp += maxHpGain;
+        playerCurrentHp = playerMaxHp;
+        playerBaseDmg += maxDmgGain;
+    }
 
 }

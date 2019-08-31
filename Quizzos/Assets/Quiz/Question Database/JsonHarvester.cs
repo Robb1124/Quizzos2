@@ -36,7 +36,16 @@ public class JsonHarvester : MonoBehaviour
         for (int i = 0; i < initialDeckQuestions; i++)
         {
             //TODO make it respect deck composition
-            quizManager.PlayerDeckOfQuestions.Add(questions[i]);
+            quizManager.PlayerDeckOfQuestions.Add(questions[Random.Range(0, questions.Length)]);
+        }
+    }
+
+    public void AddQuestionsToTheDeck(int questionsAmount)
+    {
+        for (int i = 0; i < questionsAmount; i++)
+        {
+            //TODO make it respect deck composition
+            quizManager.PlayerDeckOfQuestions.Add(questions[Random.Range(0, questions.Length)]);
         }
     }
 

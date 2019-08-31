@@ -67,6 +67,8 @@
     <Compile Include="Assets\Monsters\MonsterSheet.cs" />
     <Compile Include="Assets\Player\AbilitySlot.cs" />
     <Compile Include="Assets\Player\CharacterClass.cs" />
+    <Compile Include="Assets\Player\Level System\LevelSystem.cs" />
+    <Compile Include="Assets\Player\Level System\LevelUpGains.cs" />
     <Compile Include="Assets\Player\Player.cs" />
     <Compile Include="Assets\Player\Warrior.cs" />
     <Compile Include="Assets\Quiz\Question Database\JsonHarvester.cs" />

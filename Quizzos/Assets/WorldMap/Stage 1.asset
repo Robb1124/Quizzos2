@@ -20,30 +20,41 @@ MonoBehaviour:
   rounds:
   - round:
     - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
+    xp: 110
   - round:
     - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
     - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
+    xp: 11
   - round:
     - {fileID: 11400000, guid: 273e04939c0f8f846b06f096c8276ca5, type: 2}
+    xp: 8
   - round:
     - {fileID: 11400000, guid: 273e04939c0f8f846b06f096c8276ca5, type: 2}
     - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
+    xp: 14
   - round:
     - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
     - {fileID: 11400000, guid: 273e04939c0f8f846b06f096c8276ca5, type: 2}
     - {fileID: 11400000, guid: 273e04939c0f8f846b06f096c8276ca5, type: 2}
+    xp: 21
   - round:
     - {fileID: 11400000, guid: 129f5f41a68405644a521297a9868dde, type: 2}
+    xp: 0
   - round:
     - {fileID: 11400000, guid: 129f5f41a68405644a521297a9868dde, type: 2}
     - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
+    xp: 17
   - round:
     - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
     - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
     - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
+    xp: 18
   - round:
     - {fileID: 11400000, guid: 273e04939c0f8f846b06f096c8276ca5, type: 2}
     - {fileID: 11400000, guid: 129f5f41a68405644a521297a9868dde, type: 2}
+    xp: 19
   - round:
     - {fileID: 11400000, guid: 129f5f41a68405644a521297a9868dde, type: 2}
     - {fileID: 11400000, guid: 129f5f41a68405644a521297a9868dde, type: 2}
+    xp: 24
+  xpBonusForCompletion: 32

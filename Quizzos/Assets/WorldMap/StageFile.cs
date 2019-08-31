@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Round
 {
     public MonsterSheet[] round;
+    public float xp;
 }
 
 [CreateAssetMenu(menuName = "Stage File")]
@@ -17,4 +18,5 @@ public class StageFile : ScriptableObject
     public string levelRange;
     public Image stageBackground;
     public Round[] rounds;
+    public float xpBonusForCompletion;
 }

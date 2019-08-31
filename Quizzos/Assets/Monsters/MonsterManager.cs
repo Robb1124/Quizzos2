@@ -18,6 +18,7 @@ public class MonsterManager : MonoBehaviour
     MonsterSheet[] currentRound;
     StageFile stageFile;
     int stageRoundsCount;
+    bool stageComplete = false;
 
     public bool AllDead { get; set; } = false;
 
@@ -81,5 +82,24 @@ public class MonsterManager : MonoBehaviour
         stageRoundsCount = stageFile.rounds.Length;
     }
 
-    
+    public float CalculateExp()
+    {
+        float expCalculated = 0;
+
+        if (roomNumber > 1)
+        {
+            for (int i = 0; i < roomNumber - 2; i++) //gives exp only for room cleared
+            {
+                expCalculated += stageFile.rounds[i].xp;
+            }
+        }
+        
+        if (stageComplete)
+        {
+            expCalculated += stageFile.xpBonusForCompletion;
+        }
+        stageComplete = false;
+        return expCalculated;
+       
+    }
 }
