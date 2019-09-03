@@ -3,13 +3,22 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - AbilitySlot
     - JsonHarvester
+    - LevelSystem
+    - LevelUpGains
     - Monster
     - MonsterManager
     - MonsterSheet
+    - MonsterTurn
     - Player
+    - PlayerTurn
+    - PrePlayerTurn
     - QuizManager
     - StageFile
     - StageManager
+    - Tooltip
+    - TooltipHandler
+    - TurnManager
+    - Warrior
     Unity.TextMeshPro.dll:
     - TMPro.TMP_FontAsset
     - TMPro.TMP_Settings
@@ -29,9 +38,13 @@ ScriptsOnlyBuild:
     - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
+    - UnityEngine.UI.ContentSizeFitter
     - UnityEngine.UI.GraphicRaycaster
+    - UnityEngine.UI.HorizontalLayoutGroup
     - UnityEngine.UI.Image
+    - UnityEngine.UI.LayoutElement
     - UnityEngine.UI.Text
+    - UnityEngine.UI.VerticalLayoutGroup
   sceneClasses:
     Assets/Scenes/SampleScene.unity:
     - Class: 1
@@ -65,47 +78,73 @@ ScriptsOnlyBuild:
     - Class: 109
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9452}
+      Script: {instanceID: 9394}
     - Class: 114
-      Script: {instanceID: 9454}
+      Script: {instanceID: 9402}
     - Class: 114
       Script: {instanceID: 9460}
     - Class: 114
-      Script: {instanceID: 9466}
+      Script: {instanceID: 9462}
+    - Class: 114
+      Script: {instanceID: 9464}
+    - Class: 114
+      Script: {instanceID: 9468}
     - Class: 114
       Script: {instanceID: 9474}
     - Class: 114
-      Script: {instanceID: 9510}
+      Script: {instanceID: 9478}
     - Class: 114
-      Script: {instanceID: 9512}
+      Script: {instanceID: 9482}
+    - Class: 114
+      Script: {instanceID: 9486}
+    - Class: 114
+      Script: {instanceID: 9518}
+    - Class: 114
+      Script: {instanceID: 9520}
+    - Class: 114
+      Script: {instanceID: 9530}
     - Class: 114
       Script: {instanceID: 9684}
     - Class: 114
-      Script: {instanceID: 9834}
+      Script: {instanceID: 9692}
     - Class: 114
-      Script: {instanceID: 9940}
+      Script: {instanceID: 9728}
     - Class: 114
-      Script: {instanceID: 10170}
+      Script: {instanceID: 9776}
     - Class: 114
-      Script: {instanceID: 10208}
+      Script: {instanceID: 9848}
     - Class: 114
-      Script: {instanceID: 10332}
+      Script: {instanceID: 9954}
     - Class: 114
-      Script: {instanceID: 10344}
+      Script: {instanceID: 10180}
     - Class: 114
-      Script: {instanceID: 10456}
+      Script: {instanceID: 10186}
     - Class: 114
-      Script: {instanceID: 10474}
+      Script: {instanceID: 10226}
     - Class: 114
-      Script: {instanceID: 10586}
+      Script: {instanceID: 10230}
     - Class: 114
-      Script: {instanceID: 10676}
+      Script: {instanceID: 10352}
     - Class: 114
-      Script: {instanceID: 10740}
+      Script: {instanceID: 10364}
     - Class: 114
-      Script: {instanceID: 10744}
+      Script: {instanceID: 10476}
     - Class: 114
-      Script: {instanceID: 10772}
+      Script: {instanceID: 10494}
+    - Class: 114
+      Script: {instanceID: 10606}
+    - Class: 114
+      Script: {instanceID: 10696}
+    - Class: 114
+      Script: {instanceID: 10738}
+    - Class: 114
+      Script: {instanceID: 10764}
+    - Class: 114
+      Script: {instanceID: 10768}
+    - Class: 114
+      Script: {instanceID: 10784}
+    - Class: 114
+      Script: {instanceID: 10798}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -143,10 +182,22 @@ ScriptsOnlyBuild:
     className: TMP_Dropdown
   - hash:
       serializedVersion: 2
+      Hash: 49a115bfb35e5bb15b31b1ffe4e32bdc
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TurnManager
+  - hash:
+      serializedVersion: 2
       Hash: e7a73f5f78ba6445195ec23b74a1ce2d
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_ScrollbarEventHandler
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Tooltip
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -557,13 +608,13 @@ ScriptsOnlyBuild:
     className: SignalAsset
   - hash:
       serializedVersion: 2
-      Hash: be064426a665a5e4923a5ff8ef63790b
+      Hash: f6d4c6ed6c69a149de10210aeca05864
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Warrior
   - hash:
       serializedVersion: 2
-      Hash: 9609d3a9b2630af17c6aa34351bbc016
+      Hash: 8c98b44a826ba3962eabbdfb59af734f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MonsterManager
@@ -575,16 +626,34 @@ ScriptsOnlyBuild:
     className: AnimationTrack
   - hash:
       serializedVersion: 2
+      Hash: f8120741dc68e46b0d1eabfa84e8a700
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: LevelSystem
+  - hash:
+      serializedVersion: 2
       Hash: 00274a21279f5cb831ce20f895049e38
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_SubMeshUI
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: NotInCombat
+  - hash:
+      serializedVersion: 2
       Hash: 780e8f682b3221346c034a6712a0fd25
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: AnimationPlayableAsset
+  - hash:
+      serializedVersion: 2
+      Hash: 096bdbe79aaa7ffc82ad1881225c4d08
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: LevelUpGains
   - hash:
       serializedVersion: 2
       Hash: 303ad70ce203ad874efe2965d0fbcff9
@@ -827,7 +896,7 @@ ScriptsOnlyBuild:
     className: WireframeTrackableEventHandler
   - hash:
       serializedVersion: 2
-      Hash: 4a0773bdf1c220f75e2a12849e0ab6c2
+      Hash: c0a2f524d5a4ee2be456d57415f7f25e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: StageFile
@@ -1049,7 +1118,13 @@ ScriptsOnlyBuild:
     className: AnalyticsEventTrackerEditor
   - hash:
       serializedVersion: 2
-      Hash: b9025b78780858ed489120427c9b79fe
+      Hash: e5517eaa021ba0d3113bf94810b91850
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MonsterTurn
+  - hash:
+      serializedVersion: 2
+      Hash: a53baf649707353304ed758d51f7ac4d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: QuizManager
@@ -1061,10 +1136,22 @@ ScriptsOnlyBuild:
     className: TMP_SpriteAnimator
   - hash:
       serializedVersion: 2
-      Hash: da2d8aeaa02763cfdcff2b5ec7964916
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TurnState
+  - hash:
+      serializedVersion: 2
+      Hash: 26b6fcd9e1526960078fa042a0dfae51
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: AbilitySlot
+  - hash:
+      serializedVersion: 2
+      Hash: afc2c7190eb2ff7352454e920604f860
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TooltipHandler
   - hash:
       serializedVersion: 2
       Hash: 4fd8bf02e3089425d3502e26c44ba31a
@@ -1181,13 +1268,19 @@ ScriptsOnlyBuild:
     className: TMP_StyleSheet
   - hash:
       serializedVersion: 2
+      Hash: 41eec984c7dec82f3464fcc4d6fa89e8
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerTurn
+  - hash:
+      serializedVersion: 2
       Hash: 05b1159a8d9f38dfa0302be759e5bed4
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Monster
   - hash:
       serializedVersion: 2
-      Hash: 0057f96a9c572cb3cc3a96ef1ffe06c8
+      Hash: 81845b7dab7a4441b7734a54aaa645f5
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: StageManager
@@ -1205,7 +1298,13 @@ ScriptsOnlyBuild:
     className: TMP_ColorGradient
   - hash:
       serializedVersion: 2
-      Hash: e719e35391e038900f140261939e5214
+      Hash: 378bfbc1945cd7f68134c4239cdff368
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PrePlayerTurn
+  - hash:
+      serializedVersion: 2
+      Hash: e0f5f2463f3bf9f16539e4ac7b91bebc
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player

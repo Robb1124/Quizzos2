@@ -54,19 +54,19 @@ public class PlayerTurn : TurnState
         {
             ActivateTarget(false);
             currentAbility = Abilities.BasicAttack;
-            quizManager.AbilityText.text = player.CharacterClass.GetAbilityText(0);
+            quizManager.AbilityText.text = player.CharacterClass.GetAbilityTextForQuizTitle(0);
 
         }
         else if ((Abilities)ability == Abilities.SpecialAbility1)
         {
             ActivateTarget(false);
             currentAbility = Abilities.SpecialAbility1;
-            quizManager.AbilityText.text = player.CharacterClass.GetAbilityText(1);
+            quizManager.AbilityText.text = player.CharacterClass.GetAbilityTextForQuizTitle(1);
         }
         else if ((Abilities)ability == Abilities.SpecialAbility2)
         {
             currentAbility = Abilities.SpecialAbility2;
-            quizManager.AbilityText.text = player.CharacterClass.GetAbilityText(2);
+            quizManager.AbilityText.text = player.CharacterClass.GetAbilityTextForQuizTitle(2);
             if (player.CharacterClass.SpecialAbility2SelfCast)
             {
                 DesactivateAbilityButtons();

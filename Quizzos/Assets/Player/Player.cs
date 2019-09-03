@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     [SerializeField] CharacterClass characterClass;
     [SerializeField] PrePlayerTurn prePlayerTurn;
     [SerializeField] LevelSystem levelSystem;
+    [SerializeField] StageManager stageManager;
     int classIndex;
     
     public CharacterClass CharacterClass { get => characterClass; set => characterClass = value; }
@@ -57,7 +58,7 @@ public class Player : MonoBehaviour
         switch (choosenClassIndex)
         {
             case 0:
-                gameObject.AddComponent<Warrior>();
+                //Remove every other class script
                 CharacterClass = GetComponent<Warrior>();
                 ClassIndex = 0;
                 break;
@@ -87,7 +88,7 @@ public class Player : MonoBehaviour
 
     public void SavePlayer()
     {
-        SaveSystem.SavePlayer(this, levelSystem);
+        SaveSystem.SavePlayer(this, levelSystem, stageManager);
     }
 
     public void LoadPlayer()
@@ -100,10 +101,13 @@ public class Player : MonoBehaviour
         playerCurrentHp = playerMaxHp;
         PlayerBaseDmg = data.playerBaseDmg;
         classIndex = data.classIndex;
+        stageManager.StageCompleted = data.stageCompleted;
+        stageManager.ActivateUnlockedStageButtons();
         switch (classIndex)
         {
             case 0:
-                gameObject.AddComponent<Warrior>();
+                //remove other classes
+                characterClass = GetComponent<Warrior>();
                 break;
         }
 

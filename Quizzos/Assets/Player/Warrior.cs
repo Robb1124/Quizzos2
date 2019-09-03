@@ -19,6 +19,8 @@ public class Warrior : CharacterClass
     [SerializeField] float shieldUpDmgReduction = 0.95f;
     [SerializeField] float passiveAttackDmgModifier = 1;
     [SerializeField] int numberOfBadAnswersForPassiveProc = 3;
+    [TextArea(3,6)]
+    [SerializeField] string[] abilityTextsForTooltip;
     [SerializeField] TextMeshProUGUI passiveText;
     [SerializeField] string[] abilityTextForQuestionPopUp = { "Basic Attack", "Charge", "Shield Up" };
     [SerializeField] QuestionQuery basicAttackQuestionQuery = new QuestionQuery(false, 1, QuestionCategory.Any);
@@ -47,7 +49,6 @@ public class Warrior : CharacterClass
     public override void OnClassEquip()
     {
         playerTurnState = FindObjectOfType<PlayerTurn>();
-        quizManager = FindObjectOfType<QuizManager>();
         quizManager.onWrongAnswers += OnWrongAnswers;
         player = GetComponent<Player>();
         SpecialAbility2SelfCast = true;
@@ -138,9 +139,14 @@ public class Warrior : CharacterClass
         player.DmgReduction -= shieldUpDmgReduction;
     }
 
-    public override string GetAbilityText(int abilityIndex)
+    public override string GetAbilityTextForQuizTitle(int abilityIndex)
     {
         return abilityTextForQuestionPopUp[abilityIndex];
+    }
+
+    public override string GetAbilityToolTip(int abilityIndex)
+    {
+        return abilityTextsForTooltip[abilityIndex];
     }
 
 }

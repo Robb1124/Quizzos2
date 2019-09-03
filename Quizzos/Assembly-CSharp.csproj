@@ -84,6 +84,8 @@
     <Compile Include="Assets\Turn Manager\PrePlayerTurn.cs" />
     <Compile Include="Assets\Turn Manager\TurnManager.cs" />
     <Compile Include="Assets\Turn Manager\TurnState.cs" />
+    <Compile Include="Assets\UI\Tooltip\Tooltip.cs" />
+    <Compile Include="Assets\UI\Tooltip\TooltipHandler.cs" />
     <Compile Include="Assets\WorldMap\StageFile.cs" />
     <Compile Include="Assets\WorldMap\StageManager.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />

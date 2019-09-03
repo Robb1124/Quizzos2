@@ -11,14 +11,23 @@ public class StageManager : MonoBehaviour
     [SerializeField] GameObject worldMapElementsHolder;
     [SerializeField] GameObject instanceElementsHolder;
     [SerializeField] StageFile[] stages;
+    [SerializeField] Button[] stageButtons;
+    [SerializeField] List<bool> stageCompleted;
     [SerializeField] TextMeshProUGUI stagePreviewNameField;
     [SerializeField] TextMeshProUGUI stageDescriptionField;
     StageFile currentStage;
     [SerializeField] MonsterManager monsterManager;
-    
+
+    public List<bool> StageCompleted { get => stageCompleted; set => stageCompleted = value; }
+
     // Start is called before the first frame update
     void Start()
     {
+        for (int i = 0; i < stages.Length; i++)
+        {
+            StageCompleted.Add(false);
+        }
+        ActivateUnlockedStageButtons();
         monsterManager = FindObjectOfType<MonsterManager>();
         
     }
@@ -51,5 +60,21 @@ public class StageManager : MonoBehaviour
                                         "Reward : \n" +
                                         "xxx XP  \n" +
                                         "xxx Gold ";
+    }
+
+    public void ActivateUnlockedStageButtons()
+    {
+        stageButtons[0].interactable = true;
+        for (int i = 0; i < stages.Length; i++)
+        {
+            if (StageCompleted[i])
+            {
+                stageButtons[i + 1].interactable = true;
+            }
+            else
+            {
+                stageButtons[i + 1].interactable = false;
+            }
+        }
     }
 }

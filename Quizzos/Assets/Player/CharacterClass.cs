@@ -40,8 +40,13 @@ public class CharacterClass : MonoBehaviour
 
     }
 
-    public virtual string GetAbilityText(int abilityIndex)
+    public virtual string GetAbilityTextForQuizTitle(int abilityIndex)
     {
         return "nothing";
+    }
+
+    public virtual string GetAbilityToolTip(int abilityIndex)
+    {
+        return null;
     }
 }

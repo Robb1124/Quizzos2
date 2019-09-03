@@ -15,6 +15,7 @@ public class MonsterManager : MonoBehaviour
     [SerializeField] Text roomText;
     [SerializeField] Player player;
     [SerializeField] TurnManager turnManager;
+    [SerializeField] StageManager stageManager;
     MonsterSheet[] currentRound;
     StageFile stageFile;
     int stageRoundsCount;
@@ -24,7 +25,7 @@ public class MonsterManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {        
+    {
 
     }
 
@@ -72,7 +73,10 @@ public class MonsterManager : MonoBehaviour
         }
         else
         {
-            //stage is over ! VICTORY
+            if(!stageManager.StageCompleted[stageFile.stageNumber - 1])
+            {
+                stageManager.StageCompleted[stageFile.stageNumber - 1] = true;
+            }
         }
     }
 
@@ -96,10 +100,12 @@ public class MonsterManager : MonoBehaviour
         
         if (stageComplete)
         {
-            expCalculated += stageFile.xpBonusForCompletion;
+            
         }
         stageComplete = false;
+        roomNumber = 1;
         return expCalculated;
        
     }
+
 }

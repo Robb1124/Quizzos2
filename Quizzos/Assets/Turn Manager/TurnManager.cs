@@ -11,6 +11,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField] GameObject gameOverPopup;
     [SerializeField] MonsterManager monsterManager;
     [SerializeField] LevelSystem levelSystem;
+    [SerializeField] StageManager stageManager;
     public TurnState TurnState { get => turnState; set => turnState = value; }
     public float ExpCalculated { get; set; } = 0;
 
@@ -52,7 +53,9 @@ public class TurnManager : MonoBehaviour
     public void ClaimRewardsButton()
     {
         levelSystem.GainExp(ExpCalculated);
-        SaveSystem.SavePlayer(player, levelSystem);
+        SaveSystem.SavePlayer(player, levelSystem, stageManager);
+        stageManager.ActivateUnlockedStageButtons();
+
         //place for other rewards methods
     }
 
