@@ -39,4 +39,9 @@ public class CharacterClass : MonoBehaviour
     {
 
     }
+
+    public virtual string GetAbilityText(int abilityIndex)
+    {
+        return "nothing";
+    }
 }

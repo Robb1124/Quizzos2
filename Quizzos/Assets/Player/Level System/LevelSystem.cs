@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 using System;
 
 public class LevelSystem : MonoBehaviour
@@ -9,9 +10,9 @@ public class LevelSystem : MonoBehaviour
     [SerializeField] int playerLevel = 1;
     [SerializeField] int[] xpRequirementsForLevelUp;
     [SerializeField] TextMeshProUGUI levelText;
+    [SerializeField] Image levelUpBar;
     [SerializeField] GameObject levelUpPopUp;
     [SerializeField] TextMeshProUGUI levelUpPopUpText;
-    [SerializeField] float experiencePoints;
     [SerializeField] TurnManager turnManager;
     [SerializeField] float maxHpGainOnLvlUp;
     [SerializeField] float baseDmgGainOnLvlUp;
@@ -20,11 +21,15 @@ public class LevelSystem : MonoBehaviour
     [SerializeField] JsonHarvester jsonHarvester;
     Player player;
 
+    public int PlayerLevel { get => playerLevel; set => playerLevel = value; }
+    public float ExperiencePoints { get; set; }
+
     // Start is called before the first frame update
     void Start()
     {
         player = GetComponent<Player>();
-        levelText.text = "Level " + playerLevel;
+        levelText.text = "Level " + PlayerLevel;
+        levelUpBar.fillAmount = ExperiencePoints / xpRequirementsForLevelUp[PlayerLevel - 1];
     }
 
     // Update is called once per frame
@@ -35,26 +40,27 @@ public class LevelSystem : MonoBehaviour
 
     public void GainExp(float expPointsGained)
     {
-        experiencePoints += expPointsGained;
-        if(experiencePoints >= xpRequirementsForLevelUp[playerLevel - 1])
+        ExperiencePoints += expPointsGained;
+        if(ExperiencePoints >= xpRequirementsForLevelUp[PlayerLevel - 1])
         {
-            experiencePoints -= xpRequirementsForLevelUp[playerLevel - 1];
+            ExperiencePoints -= xpRequirementsForLevelUp[PlayerLevel - 1];
             OnLevelUp();
         }
+        levelUpBar.fillAmount = ExperiencePoints / xpRequirementsForLevelUp[PlayerLevel - 1];
     }
 
     private void OnLevelUp()
     {
         Debug.Log("LEVEL UP!");
-        playerLevel++;
-        levelText.text = "Level " + playerLevel;
+        PlayerLevel++;
+        levelText.text = "Level " + PlayerLevel;
         if (player.GetComponent<Warrior>())
         {
-            maxHpGainOnLvlUp = warriorsLvlUpGains.HpGains[playerLevel - 2];
-            baseDmgGainOnLvlUp = warriorsLvlUpGains.baseDamageGains[playerLevel - 2];
-            questionsAddedOnLvlUp = warriorsLvlUpGains.questionsGained[playerLevel - 2];
+            maxHpGainOnLvlUp = warriorsLvlUpGains.HpGains[PlayerLevel - 2];
+            baseDmgGainOnLvlUp = warriorsLvlUpGains.baseDamageGains[PlayerLevel - 2];
+            questionsAddedOnLvlUp = warriorsLvlUpGains.questionsGained[PlayerLevel - 2];
         }
-        levelUpPopUpText.text = "You are now level " + playerLevel + " !\n" +
+        levelUpPopUpText.text = "You are now level " + PlayerLevel + " !\n" +
                                                             "+" + maxHpGainOnLvlUp + "\n" +
                                                             "+" + baseDmgGainOnLvlUp + "\n" +
                                                             "+" + questionsAddedOnLvlUp;

@@ -55,6 +55,7 @@ public class PrePlayerTurn : TurnState
                 switch (CurrentSpecialEffects[i])
                 {
                     case SpecialEffects.ShieldUp:
+                        quizManager.AbilityText.text = player.CharacterClass.GetAbilityText(2);
                         quizManager.DrawQuestions(player.GetComponent<Warrior>().ShieldUpQuestionQuery);
                         shieldUpSlot = specialEffectsSlots[i];
                         shieldUpSlot.gameObject.SetActive(true);

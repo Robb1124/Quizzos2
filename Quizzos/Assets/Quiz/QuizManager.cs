@@ -16,6 +16,8 @@ public class QuizManager : MonoBehaviour
     [SerializeField] Image[] choicesBackgrounds;
     [SerializeField] PlayerTurn playerTurnState;
     [SerializeField] PrePlayerTurn prePlayerTurn;
+    [SerializeField] TextMeshProUGUI abilityText;
+
     bool playerHasAnswered = false;
     int numberOfQuestionsRemaining;
     bool initialSetupIsDone = false;
@@ -25,6 +27,7 @@ public class QuizManager : MonoBehaviour
     public List<Question> PoolOfKnowledge { get; set; } = new List<Question>();
     public List<Question> PlayerDeckOfQuestions { get; set; } = new List<Question>();
     public int BadAnswersInCombat { get; set; } = 0;
+    public TextMeshProUGUI AbilityText { get => abilityText; set => abilityText = value; }
 
     public delegate void OnWrongAnswers(int badAnswersInCombat); // declare new delegate type
     public event OnWrongAnswers onWrongAnswers; // instantiate an observer set

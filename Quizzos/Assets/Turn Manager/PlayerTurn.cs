@@ -14,6 +14,7 @@ public class PlayerTurn : TurnState
     [SerializeField] QuizManager quizManager;
     [SerializeField] MonsterManager monsterManager;
     [SerializeField] TurnManager turnManager;
+
     Abilities currentAbility;
     Monster currentTarget;
     public bool AttackIsSuccessfull { get; set; } = false;
@@ -53,17 +54,19 @@ public class PlayerTurn : TurnState
         {
             ActivateTarget(false);
             currentAbility = Abilities.BasicAttack;
+            quizManager.AbilityText.text = player.CharacterClass.GetAbilityText(0);
 
         }
         else if ((Abilities)ability == Abilities.SpecialAbility1)
         {
             ActivateTarget(false);
             currentAbility = Abilities.SpecialAbility1;
-
+            quizManager.AbilityText.text = player.CharacterClass.GetAbilityText(1);
         }
         else if ((Abilities)ability == Abilities.SpecialAbility2)
         {
             currentAbility = Abilities.SpecialAbility2;
+            quizManager.AbilityText.text = player.CharacterClass.GetAbilityText(2);
             if (player.CharacterClass.SpecialAbility2SelfCast)
             {
                 DesactivateAbilityButtons();

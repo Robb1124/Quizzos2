@@ -52,6 +52,7 @@ public class TurnManager : MonoBehaviour
     public void ClaimRewardsButton()
     {
         levelSystem.GainExp(ExpCalculated);
+        SaveSystem.SavePlayer(player, levelSystem);
         //place for other rewards methods
     }
 

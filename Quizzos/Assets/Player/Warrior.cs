@@ -20,6 +20,7 @@ public class Warrior : CharacterClass
     [SerializeField] float passiveAttackDmgModifier = 1;
     [SerializeField] int numberOfBadAnswersForPassiveProc = 3;
     [SerializeField] TextMeshProUGUI passiveText;
+    [SerializeField] string[] abilityTextForQuestionPopUp = { "Basic Attack", "Charge", "Shield Up" };
     [SerializeField] QuestionQuery basicAttackQuestionQuery = new QuestionQuery(false, 1, QuestionCategory.Any);
     [SerializeField] QuestionQuery chargeAttackQuestionQuery = new QuestionQuery(true, 1, QuestionCategory.Sports);
     Monster currentTarget;
@@ -137,6 +138,9 @@ public class Warrior : CharacterClass
         player.DmgReduction -= shieldUpDmgReduction;
     }
 
-
+    public override string GetAbilityText(int abilityIndex)
+    {
+        return abilityTextForQuestionPopUp[abilityIndex];
+    }
 
 }

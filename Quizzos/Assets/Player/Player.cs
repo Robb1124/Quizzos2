@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 
 public enum Abilities { BasicAttack, SpecialAbility1, SpecialAbility2, ItemPouch};
 
@@ -17,10 +17,14 @@ public class Player : MonoBehaviour
     [SerializeField] Image playerHpBar;
     [SerializeField] CharacterClass characterClass;
     [SerializeField] PrePlayerTurn prePlayerTurn;
+    [SerializeField] LevelSystem levelSystem;
+    int classIndex;
     
     public CharacterClass CharacterClass { get => characterClass; set => characterClass = value; }
     public int PlayerBaseDmg { get => playerBaseDmg; set => playerBaseDmg = value; }
     public float DmgReduction { get => dmgReduction; set => dmgReduction = value; }
+    public int PlayerMaxHp { get => playerMaxHp; set => playerMaxHp = value; }
+    public int ClassIndex { get => classIndex; set => classIndex = value; }
 
     public delegate void OnPlayerDeath(); // declare new delegate type
     public event OnPlayerDeath onPlayerDeath; // instantiate an observer set
@@ -28,14 +32,14 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerCurrentHp = playerMaxHp;
+        playerCurrentHp = PlayerMaxHp;
     }
 
     // Update is called once per frame
     void Update()
     {
         playerHpText.text = playerCurrentHp.ToString();
-        playerHpBar.fillAmount = playerCurrentHp / playerMaxHp;
+        playerHpBar.fillAmount = playerCurrentHp / PlayerMaxHp;
     }
 
     public void TakeDamage(float amountOfDamage)
@@ -55,6 +59,7 @@ public class Player : MonoBehaviour
             case 0:
                 gameObject.AddComponent<Warrior>();
                 CharacterClass = GetComponent<Warrior>();
+                ClassIndex = 0;
                 break;
         }
         CharacterClass.OnClassEquip();
@@ -62,8 +67,8 @@ public class Player : MonoBehaviour
 
     public void SetPlayerMaxHpAndBaseDmg(int maxHp, int baseDmg)
     {
-        playerMaxHp = maxHp;
-        playerCurrentHp = playerMaxHp;
+        PlayerMaxHp = maxHp;
+        playerCurrentHp = PlayerMaxHp;
         PlayerBaseDmg = baseDmg;
     }
 
@@ -75,9 +80,33 @@ public class Player : MonoBehaviour
 
     public void AddMaxHpAndBaseDamage(int maxHpGain, int maxDmgGain)
     {
-        playerMaxHp += maxHpGain;
-        playerCurrentHp = playerMaxHp;
+        PlayerMaxHp += maxHpGain;
+        playerCurrentHp = PlayerMaxHp;
         playerBaseDmg += maxDmgGain;
+    }
+
+    public void SavePlayer()
+    {
+        SaveSystem.SavePlayer(this, levelSystem);
+    }
+
+    public void LoadPlayer()
+    {
+        PlayerData data = SaveSystem.LoadPlayer();
+
+        levelSystem.PlayerLevel = data.playerLevel;
+        levelSystem.ExperiencePoints = data.expPoints;
+        playerMaxHp = data.playerMaxHp;
+        playerCurrentHp = playerMaxHp;
+        PlayerBaseDmg = data.playerBaseDmg;
+        classIndex = data.classIndex;
+        switch (classIndex)
+        {
+            case 0:
+                gameObject.AddComponent<Warrior>();
+                break;
+        }
+
     }
 
 }
