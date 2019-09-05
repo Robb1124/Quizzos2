@@ -734,10 +734,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: b7d6a682-f344-4bd7-9034-f46a26b9f398
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: Quizzos
+  organizationId: jordan-huot-roberge
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

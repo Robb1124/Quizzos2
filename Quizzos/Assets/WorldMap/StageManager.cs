@@ -42,6 +42,7 @@ public class StageManager : MonoBehaviour
 
     public void LoadLevel(StageFile stageFile)
     {
+        monsterManager.InitialSetup();
         monsterManager.ReceiveStageFile(stageFile);
         monsterManager.SpawnWaveOfMonsters(1);
         turnManager.ChangeTurnState(turnManager.GetComponentInChildren<PlayerTurn>());

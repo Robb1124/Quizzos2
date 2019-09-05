@@ -28,6 +28,8 @@ public class QuizManager : MonoBehaviour
     public List<Question> PlayerDeckOfQuestions { get; set; } = new List<Question>();
     public int BadAnswersInCombat { get; set; } = 0;
     public TextMeshProUGUI AbilityText { get => abilityText; set => abilityText = value; }
+    public int[] PlayerDeckQuestionIds { get; set; } 
+
 
     public delegate void OnWrongAnswers(int badAnswersInCombat); // declare new delegate type
     public event OnWrongAnswers onWrongAnswers; // instantiate an observer set
@@ -177,5 +179,23 @@ public class QuizManager : MonoBehaviour
             choices.Remove(choices[choicesCount - 1 - i]);
         }       
         CheckQuestionsRemaining();
+    }
+
+    public void RefreshQuestionsIdsForSave()
+    {
+        PlayerDeckQuestionIds = new int[PlayerDeckOfQuestions.Count];
+        for (int i = 0; i < PlayerDeckOfQuestions.Count; i++)
+        {
+            PlayerDeckQuestionIds[i] = PlayerDeckOfQuestions[i].id;
+        }
+    }
+
+    public void RecreatePlayerDeckOnLoad()
+    {
+        JsonHarvester jsonHarvester = GetComponent<JsonHarvester>();
+        for (int i = 0; i < PlayerDeckQuestionIds.Length; i++)
+        {
+            PlayerDeckOfQuestions.Add(jsonHarvester.QuestionByIndex(PlayerDeckQuestionIds[i]));
+        }
     }
 }

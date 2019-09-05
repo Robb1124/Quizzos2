@@ -182,7 +182,7 @@ ScriptsOnlyBuild:
     className: TMP_Dropdown
   - hash:
       serializedVersion: 2
-      Hash: 49a115bfb35e5bb15b31b1ffe4e32bdc
+      Hash: f14bffd5459500ec732de178d332657c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TurnManager
@@ -608,7 +608,7 @@ ScriptsOnlyBuild:
     className: SignalAsset
   - hash:
       serializedVersion: 2
-      Hash: f6d4c6ed6c69a149de10210aeca05864
+      Hash: 12b52deaafd31b6435a9e57825f4b0f1
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Warrior
@@ -1232,7 +1232,7 @@ ScriptsOnlyBuild:
     className: TextMeshProUGUI
   - hash:
       serializedVersion: 2
-      Hash: 814dfa4487e2efe6ef05bb74078502e0
+      Hash: f8e7b93eb310ef52f3b63e2bb9704935
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: JsonHarvester
@@ -1304,7 +1304,7 @@ ScriptsOnlyBuild:
     className: PrePlayerTurn
   - hash:
       serializedVersion: 2
-      Hash: e0f5f2463f3bf9f16539e4ac7b91bebc
+      Hash: 4b4f8dbe1ff6231234dbb3ee653bf0a2
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player

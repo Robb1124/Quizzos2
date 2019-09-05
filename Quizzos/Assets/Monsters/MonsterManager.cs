@@ -30,7 +30,7 @@ public class MonsterManager : MonoBehaviour
     }
 
     public void SpawnWaveOfMonsters(int roomNumber)
-    {
+    {        
         currentRound = stageFile.rounds[roomNumber - 1].round;
         roomText.text = "Room : " + roomNumber;
         monstersToSpawn = currentRound.Length;
@@ -108,4 +108,11 @@ public class MonsterManager : MonoBehaviour
        
     }
 
+    public void InitialSetup()
+    {
+        for (int i = 0; i < monsters.Length; i++)
+        {
+            monsters[i].gameObject.SetActive(false);
+        }
+    }
 }

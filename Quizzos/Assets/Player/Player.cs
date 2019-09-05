@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     [SerializeField] PrePlayerTurn prePlayerTurn;
     [SerializeField] LevelSystem levelSystem;
     [SerializeField] StageManager stageManager;
+    [SerializeField] QuizManager quizManager;
     int classIndex;
     
     public CharacterClass CharacterClass { get => characterClass; set => characterClass = value; }
@@ -74,9 +75,9 @@ public class Player : MonoBehaviour
     }
 
     private void GameOver()
-    {
-        
+    {        
         onPlayerDeath();
+        playerCurrentHp = PlayerMaxHp;
     }
 
     public void AddMaxHpAndBaseDamage(int maxHpGain, int maxDmgGain)
@@ -88,7 +89,7 @@ public class Player : MonoBehaviour
 
     public void SavePlayer()
     {
-        SaveSystem.SavePlayer(this, levelSystem, stageManager);
+        SaveSystem.SavePlayer(this, levelSystem, stageManager, quizManager);
     }
 
     public void LoadPlayer()
@@ -103,6 +104,16 @@ public class Player : MonoBehaviour
         classIndex = data.classIndex;
         stageManager.StageCompleted = data.stageCompleted;
         stageManager.ActivateUnlockedStageButtons();
+        if(quizManager.PlayerDeckQuestionIds != null)
+        {
+            quizManager.PlayerDeckQuestionIds = data.playerDeckQuestionIds;
+            quizManager.RecreatePlayerDeckOnLoad();
+        }
+        else
+        {
+            //example of how to catch past saves errors, would do something here, ex : new questions based on level.
+        }
+        
         switch (classIndex)
         {
             case 0:

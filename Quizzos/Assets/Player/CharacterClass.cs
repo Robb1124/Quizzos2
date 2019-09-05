@@ -49,4 +49,9 @@ public class CharacterClass : MonoBehaviour
     {
         return null;
     }
+
+    public virtual QuestionCategory GetMainQuestionCategory()
+    {
+        return QuestionCategory.Any;
+    }
 }

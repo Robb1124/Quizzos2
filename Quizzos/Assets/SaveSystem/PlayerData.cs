@@ -12,8 +12,9 @@ public class PlayerData
     public int playerBaseDmg;
     public int classIndex;
     public List<bool> stageCompleted;
+    public int[] playerDeckQuestionIds;
 
-    public PlayerData(Player player, LevelSystem levelSystem, StageManager stageManager)
+    public PlayerData(Player player, LevelSystem levelSystem, StageManager stageManager, QuizManager quizManager)
     {
         playerLevel = levelSystem.PlayerLevel;
         expPoints = (int)levelSystem.ExperiencePoints;
@@ -21,5 +22,7 @@ public class PlayerData
         playerBaseDmg = player.PlayerBaseDmg;
         classIndex = player.ClassIndex;
         stageCompleted = stageManager.StageCompleted;
+        playerDeckQuestionIds = quizManager.PlayerDeckQuestionIds;
+
     }
 }

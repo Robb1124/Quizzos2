@@ -25,6 +25,7 @@ public class Warrior : CharacterClass
     [SerializeField] string[] abilityTextForQuestionPopUp = { "Basic Attack", "Charge", "Shield Up" };
     [SerializeField] QuestionQuery basicAttackQuestionQuery = new QuestionQuery(false, 1, QuestionCategory.Any);
     [SerializeField] QuestionQuery chargeAttackQuestionQuery = new QuestionQuery(true, 1, QuestionCategory.Sports);
+    [SerializeField] QuestionCategory mainQuestionCategory;
     Monster currentTarget;
     Abilities currentAbility;
     [SerializeField] QuizManager quizManager;
@@ -33,11 +34,16 @@ public class Warrior : CharacterClass
     public int ShieldUpCooldown { get => shieldUpCooldown; set => shieldUpCooldown = value; }
     public QuestionQuery ShieldUpQuestionQuery { get; set; } = new QuestionQuery(false, 1, QuestionCategory.Any);
     public float ShieldUpDmgReduction { get => shieldUpDmgReduction; set => shieldUpDmgReduction = value; }
+    public QuestionCategory MainQuestionCategory { get => mainQuestionCategory; set => mainQuestionCategory = value; }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerTurnState = FindObjectOfType<PlayerTurn>();
+        quizManager.onWrongAnswers += OnWrongAnswers;
+        player = GetComponent<Player>();
+        SpecialAbility2SelfCast = true;
+        player.SetPlayerMaxHpAndBaseDmg(maxHP, baseDmg);
     }
 
     // Update is called once per frame
@@ -48,11 +54,7 @@ public class Warrior : CharacterClass
 
     public override void OnClassEquip()
     {
-        playerTurnState = FindObjectOfType<PlayerTurn>();
-        quizManager.onWrongAnswers += OnWrongAnswers;
-        player = GetComponent<Player>();
-        SpecialAbility2SelfCast = true;
-        player.SetPlayerMaxHpAndBaseDmg(maxHP, baseDmg);
+        
         //Draw starting cards corresponding to class
     }
 
@@ -149,4 +151,8 @@ public class Warrior : CharacterClass
         return abilityTextsForTooltip[abilityIndex];
     }
 
+    public override QuestionCategory GetMainQuestionCategory()
+    {
+        return mainQuestionCategory;
+    }
 }
