@@ -98,6 +98,7 @@ public class Player : MonoBehaviour
 
         levelSystem.PlayerLevel = data.playerLevel;
         levelSystem.ExperiencePoints = data.expPoints;
+        levelSystem.UpdateExpBar();
         playerMaxHp = data.playerMaxHp;
         playerCurrentHp = playerMaxHp;
         PlayerBaseDmg = data.playerBaseDmg;

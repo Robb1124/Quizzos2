@@ -20,21 +20,16 @@ MonoBehaviour:
   rounds:
   - round:
     - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
-    xp: 6
-  - round:
-    - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
-    - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
-    xp: 11
-  - round:
-    - {fileID: 11400000, guid: 273e04939c0f8f846b06f096c8276ca5, type: 2}
-    xp: 8
-  - round:
-    - {fileID: 11400000, guid: 273e04939c0f8f846b06f096c8276ca5, type: 2}
-    - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
     xp: 14
   - round:
     - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
+    - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
+    xp: 26
+  - round:
     - {fileID: 11400000, guid: 273e04939c0f8f846b06f096c8276ca5, type: 2}
+    xp: 19
+  - round:
     - {fileID: 11400000, guid: 273e04939c0f8f846b06f096c8276ca5, type: 2}
-    xp: 21
-  xpBonusForCompletion: 32
+    - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
+    xp: 32
+  xpBonusForCompletion: 18

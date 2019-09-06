@@ -20,6 +20,8 @@ public class PlayerTurn : TurnState
     public bool AttackIsSuccessfull { get; set; } = false;
     public bool isAnAttack { get; set; } = false;
     public float CurrentAbilityDmgModifier { get; set; }
+    public Monster CurrentTarget { get => currentTarget; set => currentTarget = value; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -133,7 +135,7 @@ public class PlayerTurn : TurnState
 
     public void CastAbilities(Monster target)
     {
-        currentTarget = target;
+        CurrentTarget = target;
         quizManager.DrawQuestions(player.CharacterClass.CastAbilities(currentAbility));
     }
 
@@ -150,7 +152,7 @@ public class PlayerTurn : TurnState
         yield return new WaitForSeconds(0.7f);
         if (AttackIsSuccessfull && isAnAttack)
         {
-            currentTarget.TakeDamage(player.PlayerBaseDmg * CurrentAbilityDmgModifier);
+            CurrentTarget.TakeDamage(player.PlayerBaseDmg * CurrentAbilityDmgModifier);
         }
         else if (AttackIsSuccessfull && !isAnAttack)
         {

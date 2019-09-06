@@ -3023,6 +3023,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 376306325}
   m_CullTransparentMesh: 0
+--- !u!114 &384042583 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4297504875584514549, guid: e9115457e4aa9ec4f90791b4c151d631,
+    type: 3}
+  m_PrefabInstance: {fileID: 4297504875956924554}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &406438195
 GameObject:
   m_ObjectHideFlags: 0
@@ -6473,7 +6485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLevel: 1
-  xpRequirementsForLevelUp: 64000000af00000018010000c2010000bc0200001a04000000000000000000000000000000000000
+  xpRequirementsForLevelUp: 64000000dc000000fd000000220100004e01000080010000ba010000fd01000049020000a0020000060300007a030000ff030000990400004905000014060000fe0600000b0800003f090000
   levelText: {fileID: 802212195}
   levelUpBar: {fileID: 32043125}
   levelUpPopUp: {fileID: 1448784940}
@@ -6500,7 +6512,7 @@ MonoBehaviour:
   baseDmg: 25
   basicAttackDmgModifier: 1
   chargeAttackCooldown: 3
-  chargeAttackDmgModifier: 4
+  chargeAttackDmgModifier: 1.75
   shieldUpCooldown: 4
   shieldUpDmgModifier: 0
   shieldUpActive: 0
@@ -7581,6 +7593,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &969419732 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4586706147148625607, guid: b0a669ca7bfe2674e8bc3510792700cd,
+    type: 3}
+  m_PrefabInstance: {fileID: 3980890390677782534}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1014247075
 GameObject:
   m_ObjectHideFlags: 0
@@ -9346,6 +9370,18 @@ MonoBehaviour:
   - {fileID: 1480370879}
   - {fileID: 237958537}
   quizManager: {fileID: 1626875889}
+--- !u!114 &1401060009 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6920869125852521992, guid: dde8c20a1a9ca924589f810f75bcd419,
+    type: 3}
+  m_PrefabInstance: {fileID: 7489150472767576184}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1401347761
 GameObject:
   m_ObjectHideFlags: 0
@@ -13395,6 +13431,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1231029909}
     m_Modifications:
+    - target: {fileID: 3188180503654646733, guid: b0a669ca7bfe2674e8bc3510792700cd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3980890390018629062, guid: b0a669ca7bfe2674e8bc3510792700cd,
         type: 3}
       propertyPath: m_Name
@@ -13515,6 +13556,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 538342686}
+    - target: {fileID: 3980890390018629058, guid: b0a669ca7bfe2674e8bc3510792700cd,
+        type: 3}
+      propertyPath: stunImage
+      value: 
+      objectReference: {fileID: 969419732}
     - target: {fileID: 3980890390018629059, guid: b0a669ca7bfe2674e8bc3510792700cd,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -13585,6 +13631,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1231029909}
     m_Modifications:
+    - target: {fileID: 3198487217272320434, guid: e9115457e4aa9ec4f90791b4c151d631,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4297504875584514550, guid: e9115457e4aa9ec4f90791b4c151d631,
         type: 3}
       propertyPath: m_Name
@@ -13705,6 +13756,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 538342686}
+    - target: {fileID: 4297504875584514548, guid: e9115457e4aa9ec4f90791b4c151d631,
+        type: 3}
+      propertyPath: stunImage
+      value: 
+      objectReference: {fileID: 384042583}
     - target: {fileID: 4297504875584514315, guid: e9115457e4aa9ec4f90791b4c151d631,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -14148,6 +14204,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1231029909}
     m_Modifications:
+    - target: {fileID: 8239090321121005236, guid: dde8c20a1a9ca924589f810f75bcd419,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7489150472189266432, guid: dde8c20a1a9ca924589f810f75bcd419,
         type: 3}
       propertyPath: m_Name
@@ -14268,6 +14329,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 538342686}
+    - target: {fileID: 7489150472189266434, guid: dde8c20a1a9ca924589f810f75bcd419,
+        type: 3}
+      propertyPath: stunImage
+      value: 
+      objectReference: {fileID: 1401060009}
     - target: {fileID: 7489150472189266437, guid: dde8c20a1a9ca924589f810f75bcd419,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

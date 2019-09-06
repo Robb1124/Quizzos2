@@ -46,6 +46,11 @@ public class LevelSystem : MonoBehaviour
             ExperiencePoints -= xpRequirementsForLevelUp[PlayerLevel - 1];
             OnLevelUp();
         }
+        UpdateExpBar();
+    }
+
+    public void UpdateExpBar()
+    {
         levelUpBar.fillAmount = ExperiencePoints / xpRequirementsForLevelUp[PlayerLevel - 1];
     }
 

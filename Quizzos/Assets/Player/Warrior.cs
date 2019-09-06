@@ -108,6 +108,7 @@ public class Warrior : CharacterClass
                 {
                     playerTurnState.AttackIsSuccessfull = true;
                     playerTurnState.isAnAttack = true;
+                    playerTurnState.CurrentTarget.StunEnemy(); //trigger stuns effect on the target
                 }
                 else
                 {

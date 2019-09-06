@@ -40,16 +40,20 @@ public class MonsterTurn : TurnState
 
         for (int i = 0; i < monsters.Length; i++)
         {
-            if (monsters[i].isActiveAndEnabled && !monsterManager.AllDead)
+            if (monsters[i].isActiveAndEnabled && !monsterManager.AllDead && !monsters[i].IsStunned)
             {
                 monstersThatWillAttack--;
                 yield return new WaitForSeconds(1f);
-                monsters[i].AttackPlayerAnimation();
+                monsters[i].AttackPlayerAnimation(); //Trigger event on the animation to Take Damage method from player
                 if (monstersThatWillAttack == 0)
                 {
                     yield return new WaitForSeconds(1f);
                 }
-
+            }
+            if (monsters[i].IsStunned)
+            {
+                yield return new WaitForSeconds(1f);
+                monsters[i].UnStunEnemy();
             }
         }
         turnManager.ChangeTurnState(turnManager.GetComponentInChildren<PrePlayerTurn>());
