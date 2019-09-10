@@ -47,7 +47,7 @@ public class AbilitySlot : MonoBehaviour
     }   
 
     private void OnTurnChangeForPlayer()
-    {
+    {        
         if (specialAbility1RemainingCdTurns > 0)
         {
             specialAbility1RemainingCdTurns--;

@@ -1,0 +1,44 @@
+<i><b><#D0AD7B>Shield Up</color></b></i>
+Receive 35% less 
+damage while this
+is channeled.
+
+<i><b><#b30cff>Poison</color></b></i>
+One choice will be
+hidden when you 
+answer a question.
+
+<i><b><#e8ea00>Shock</color></b></i>
+At the beggining of
+the turn, a random
+action is disabled.
+
+<i><b><#ea3b00>Burn</color></b></i>
+Every time you give a
+wrong answer, you burn
+for 4% max health.
+
+<i><b>Basic Attack</b></i>
+Single Target
+Does 100% base damage
+Cost: 1 questions from the 
+<color=#b2951a>Player Deck</color>
+
+<i><b>Charge</b></i>
+Single Target
+Does 175% base damage
+Stuns the enemy for 1 turn
+Cost : 1 SPORT question from
+the <color=#ff00f">Pool of Knowledge</color>
+
+<i><b>Shield Up</b></i>
+Self-Cast - Channeling
+Reduces damage taken by 35%
+Cost: 1 question from the <color=#b2951a>Player
+Deck</color> every turn
+
+<i><b>Learning from mistakes</b></i>
+Passive
+<color=#FBBF4C>Every 3 wrong answers,</color>
+a basic attack is thrown 
+on a random target.

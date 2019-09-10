@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public enum TooltipType { BasicAttack, SpecialAbility1, SpecialAbility2, Passive, SimpleText };
+public enum TooltipType { BasicAttack, SpecialAbility1, SpecialAbility2, Passive, SimpleText, SpecialEffects };
 
 public class TooltipHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -13,18 +13,24 @@ public class TooltipHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] TooltipType tooltipsType;
     [TextArea(2, 5)]
     [SerializeField] string simpleTextField;
+    [SerializeField] int specialEffectSlot;
     TextMeshProUGUI tooltipText;
     Player player;
     int classIndex;
-
+    PrePlayerTurn prePlayerTurn;
 
     // Start is called before the first frame update
     void Start()
     {
+        //TODO optimization : Get component only when the tooltip type needs it.
         player = FindObjectOfType<Player>();
         classIndex = player.ClassIndex;
         tooltip = FindObjectOfType<Tooltip>().gameObject;
         tooltipText = tooltip.GetComponentInChildren<TextMeshProUGUI>();
+        if(tooltipsType == TooltipType.SpecialEffects)
+        {
+            prePlayerTurn = FindObjectOfType<PrePlayerTurn>();
+        }
 
     }
 
@@ -53,6 +59,9 @@ public class TooltipHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 break;
             case TooltipType.SimpleText:
                 tooltipText.text = simpleTextField;
+                break;
+            case TooltipType.SpecialEffects:
+                tooltipText.text = prePlayerTurn.GetSpecialEffectText(specialEffectSlot);
                 break;
 
 

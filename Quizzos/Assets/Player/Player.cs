@@ -46,8 +46,21 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float amountOfDamage)
     {      
-        playerCurrentHp -= (amountOfDamage * (1 - DmgReduction));
-        if(playerCurrentHp <= 0)
+        playerCurrentHp -= (int)(amountOfDamage * (1 - DmgReduction));
+        prePlayerTurn.AddSpecialEffects(SpecialEffects.Shock);
+        prePlayerTurn.AddSpecialEffects(SpecialEffects.Burn);
+        prePlayerTurn.AddSpecialEffects(SpecialEffects.Poison);
+        if (playerCurrentHp <= 0)
+        {
+            GameOver();
+        }
+    }
+
+    public void TakeBurnDamage(float percentageOfDmg)
+    {
+        float dmgToTake = playerMaxHp * percentageOfDmg;
+        playerCurrentHp -= (int)dmgToTake;
+        if (playerCurrentHp <= 0)
         {
             GameOver();
         }

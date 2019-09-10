@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerTurn : TurnState
 {
     [SerializeField] Button[] abilityButtons;
+    [SerializeField] Image[] shockMasks;
     [SerializeField] AbilitySlot abilitySlot;
     [SerializeField] Button[] targetButtons;
     [SerializeField] GameObject selectTargetPopUp;
@@ -14,6 +15,7 @@ public class PlayerTurn : TurnState
     [SerializeField] QuizManager quizManager;
     [SerializeField] MonsterManager monsterManager;
     [SerializeField] TurnManager turnManager;
+    [SerializeField] PrePlayerTurn prePlayerTurn;
 
     Abilities currentAbility;
     Monster currentTarget;
@@ -36,6 +38,10 @@ public class PlayerTurn : TurnState
 
     public override void OnStateChange()
     {
+        for (int i = 0; i < shockMasks.Length; i++)
+        {
+            shockMasks[i].gameObject.SetActive(false);
+        }
         for (int i = 0; i < abilityButtons.Length; i++)
         {
             abilityButtons[i].interactable = true;
@@ -47,6 +53,12 @@ public class PlayerTurn : TurnState
         if (!abilitySlot.SpecialAbility2IsReady)
         {
             abilityButtons[2].interactable = false;
+        }
+        if (prePlayerTurn.ShockActive)
+        {
+            int rand = Random.Range(0, abilityButtons.Length - 1);
+            abilityButtons[rand].interactable = false; //we dont want to desactivate items from shock as of now. Design decisions to be taken. TODO
+            shockMasks[rand].gameObject.SetActive(true);
         }
     }
 
@@ -163,6 +175,14 @@ public class PlayerTurn : TurnState
             //popup fail message
         }
         yield return new WaitForSeconds(0.7f);
+        if (prePlayerTurn.ShockActive)
+        {
+            prePlayerTurn.RemoveSpecialEffects(SpecialEffects.Shock);
+        }
+        if (prePlayerTurn.PoisonActive)
+        {
+            prePlayerTurn.RemoveSpecialEffects(SpecialEffects.Poison);
+        }
         turnManager.ChangeTurnState(turnManager.GetComponentInChildren<MonsterTurn>());
     }
 

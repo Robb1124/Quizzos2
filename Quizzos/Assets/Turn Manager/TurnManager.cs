@@ -36,7 +36,7 @@ public class TurnManager : MonoBehaviour
     {
         if (turnState.GetComponent<PrePlayerTurn>())
         {
-            onTurnChangeForPlayer(); //Observer pattern for cooldown and special ability availability management.
+            onTurnChangeForPlayer?.Invoke(); //Observer pattern for cooldown and special ability availability management. If it isnt null, it will run (invoke)
         }
         this.TurnState = turnState;
         

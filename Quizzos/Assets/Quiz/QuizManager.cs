@@ -10,6 +10,7 @@ public class QuizManager : MonoBehaviour
     Question currentQuestion;
     [SerializeField] TurnManager turnManager;
     [SerializeField] GameObject questionPopUp;
+    [SerializeField] GameObject poisonMask;
     [SerializeField] TextMeshProUGUI questionText;
     [SerializeField] TextMeshProUGUI[] choicesText;
     [SerializeField] Player player;
@@ -72,6 +73,10 @@ public class QuizManager : MonoBehaviour
             currentQuestion = PlayerDeckOfQuestions[UnityEngine.Random.Range(0, PlayerDeckOfQuestions.Count)];
         }
         questionPopUp.SetActive(true);
+        if (prePlayerTurn.PoisonActive)
+        {
+            poisonMask.SetActive(true);
+        }
         questionText.text = currentQuestion.question;
         ShuffleAnswers();
         for(int i = 0; i < choices.Count; i++)
@@ -88,7 +93,7 @@ public class QuizManager : MonoBehaviour
         {
             yield return new WaitForSeconds(0.05f);
         }
-        if(turnManager.TurnState is PlayerTurn)
+        if (turnManager.TurnState is PlayerTurn)
         {
             playerTurnState.TriggerAbilities();
         }
@@ -126,12 +131,12 @@ public class QuizManager : MonoBehaviour
 
     public void IsThisTheRightAnswer(int answerChosen)
     {
-        if(choices[answerChosen] == currentQuestion.correct_answer)
+        poisonMask.SetActive(false);
+        if (choices[answerChosen] == currentQuestion.correct_answer)
         {
             choicesBackgrounds[answerChosen].color = Color.green;
             //Popup une felicitation
-            NumberOfRightAnswers++;
-              
+            NumberOfRightAnswers++;             
         }
         else
         {

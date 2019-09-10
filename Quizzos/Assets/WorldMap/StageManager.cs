@@ -45,7 +45,7 @@ public class StageManager : MonoBehaviour
         monsterManager.InitialSetup();
         monsterManager.ReceiveStageFile(stageFile);
         monsterManager.SpawnWaveOfMonsters(1);
-        turnManager.ChangeTurnState(turnManager.GetComponentInChildren<PlayerTurn>());
+        turnManager.ChangeTurnState(turnManager.GetComponentInChildren<PrePlayerTurn>());
         worldMapElementsHolder.SetActive(false);
         instanceElementsHolder.SetActive(true);
         stageName.text = currentStage.stageName;
