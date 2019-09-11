@@ -10,6 +10,10 @@ public class Warrior : CharacterClass
     PrePlayerTurn prePlayerTurnState;
     [SerializeField] int maxHP = 120;
     [SerializeField] int baseDmg = 25;
+    [SerializeField] float poisonResist;
+    [SerializeField] float burnResist;
+    [SerializeField] float shockResist;
+    [SerializeField] float frostResist;
     [SerializeField] float basicAttackDmgModifier = 1;
     [SerializeField] int chargeAttackCooldown = 3;
     [SerializeField] float chargeAttackDmgModifier = 4;
@@ -43,7 +47,7 @@ public class Warrior : CharacterClass
         quizManager.onWrongAnswers += OnWrongAnswers;
         player = GetComponent<Player>();
         SpecialAbility2SelfCast = true;
-        player.SetPlayerMaxHpAndBaseDmg(maxHP, baseDmg);
+        player.SetPlayerMaxHpAndBaseDmgAndResists(maxHP, baseDmg, poisonResist, burnResist, shockResist, frostResist);
     }
 
     // Update is called once per frame

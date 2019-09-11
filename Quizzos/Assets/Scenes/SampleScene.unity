@@ -6695,6 +6695,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 120
   baseDmg: 25
+  poisonResist: 0.1
+  burnResist: 0.1
+  shockResist: 0.1
+  frostResist: 0.1
   basicAttackDmgModifier: 1
   chargeAttackCooldown: 3
   chargeAttackDmgModifier: 1.75
@@ -14301,17 +14305,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 131056832}
     m_Modifications:
-    - target: {fileID: 7720791782639699379, guid: 2611a828f8300d945a88f5c13d3acc46,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7388393836084011717, guid: 2611a828f8300d945a88f5c13d3acc46,
         type: 3}
       propertyPath: m_Name
       value: QuizPopup Holder
       objectReference: {fileID: 0}
     - target: {fileID: 7388393836084011717, guid: 2611a828f8300d945a88f5c13d3acc46,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7720791782639699379, guid: 2611a828f8300d945a88f5c13d3acc46,
         type: 3}
       propertyPath: m_IsActive
       value: 0

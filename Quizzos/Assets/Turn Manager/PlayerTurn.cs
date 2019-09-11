@@ -183,6 +183,10 @@ public class PlayerTurn : TurnState
         {
             prePlayerTurn.RemoveSpecialEffects(SpecialEffects.Poison);
         }
+        if (prePlayerTurn.BurnActive)
+        {
+            prePlayerTurn.RemoveSpecialEffects(SpecialEffects.Burn);
+        }
         turnManager.ChangeTurnState(turnManager.GetComponentInChildren<MonsterTurn>());
     }
 

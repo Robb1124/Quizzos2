@@ -27,6 +27,10 @@ public class Player : MonoBehaviour
     public float DmgReduction { get => dmgReduction; set => dmgReduction = value; }
     public int PlayerMaxHp { get => playerMaxHp; set => playerMaxHp = value; }
     public int ClassIndex { get => classIndex; set => classIndex = value; }
+    public float PoisonResist { get; set; }
+    public float BurnResist { get; set; }
+    public float ShockResist { get; set; }
+    public float FrostResist { get; set; }
 
     public delegate void OnPlayerDeath(); // declare new delegate type
     public event OnPlayerDeath onPlayerDeath; // instantiate an observer set
@@ -44,12 +48,39 @@ public class Player : MonoBehaviour
         playerHpBar.fillAmount = playerCurrentHp / PlayerMaxHp;
     }
 
-    public void TakeDamage(float amountOfDamage)
+    public void TakeDamage(float amountOfDamage, SpecialEffects onHitSpecialEffect = SpecialEffects.None)
     {      
+        if(onHitSpecialEffect != SpecialEffects.None)
+        {
+            float rand;
+            switch (onHitSpecialEffect)
+            {
+                case SpecialEffects.Poison:
+                    rand = UnityEngine.Random.Range(0.00f, 1.00f);
+                    if(rand > PoisonResist)
+                    {
+                        prePlayerTurn.AddSpecialEffects(onHitSpecialEffect);
+                    }
+                    break;
+                case SpecialEffects.Burn:
+                    rand = UnityEngine.Random.Range(0.00f, 1.00f);
+                    if (rand > BurnResist)
+                    {
+                        prePlayerTurn.AddSpecialEffects(onHitSpecialEffect);
+                    }
+                    break;
+                case SpecialEffects.Shock:
+                    rand = UnityEngine.Random.Range(0.00f, 1.00f);
+                    if (rand > ShockResist)
+                    {
+                        prePlayerTurn.AddSpecialEffects(onHitSpecialEffect);
+                    }
+                    break;
+                    //frost here
+            }
+        }
+
         playerCurrentHp -= (int)(amountOfDamage * (1 - DmgReduction));
-        prePlayerTurn.AddSpecialEffects(SpecialEffects.Shock);
-        prePlayerTurn.AddSpecialEffects(SpecialEffects.Burn);
-        prePlayerTurn.AddSpecialEffects(SpecialEffects.Poison);
         if (playerCurrentHp <= 0)
         {
             GameOver();
@@ -80,11 +111,15 @@ public class Player : MonoBehaviour
         CharacterClass.OnClassEquip();
     }
 
-    public void SetPlayerMaxHpAndBaseDmg(int maxHp, int baseDmg)
+    public void SetPlayerMaxHpAndBaseDmgAndResists(int maxHp, int baseDmg, float poisonResist, float burnResist, float shockResist, float frostResist)
     {
         PlayerMaxHp = maxHp;
         playerCurrentHp = PlayerMaxHp;
         PlayerBaseDmg = baseDmg;
+        this.PoisonResist = poisonResist;
+        this.BurnResist = burnResist;
+        this.ShockResist = shockResist;
+        this.FrostResist = frostResist;
     }
 
     private void GameOver()
@@ -115,6 +150,10 @@ public class Player : MonoBehaviour
         playerMaxHp = data.playerMaxHp;
         playerCurrentHp = playerMaxHp;
         PlayerBaseDmg = data.playerBaseDmg;
+        PoisonResist = data.poisonResist;
+        BurnResist = data.burnResist;
+        ShockResist = data.shockResist;
+        FrostResist = data.frostResist;
         classIndex = data.classIndex;
         stageManager.StageCompleted = data.stageCompleted;
         stageManager.ActivateUnlockedStageButtons();

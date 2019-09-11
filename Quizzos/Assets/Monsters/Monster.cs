@@ -66,7 +66,7 @@ public class Monster : MonoBehaviour
 
     public void AttackPlayerDamage()
     {
-        player.TakeDamage(monsterBaseDamage);
+        player.TakeDamage(monsterBaseDamage, monsterSheet.GetSpecialEffectOnHit());
     }
 
     public void StunEnemy()

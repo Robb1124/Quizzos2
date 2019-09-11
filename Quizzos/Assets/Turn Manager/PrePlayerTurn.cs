@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum SpecialEffects { ShieldUp, Poison, Burn, Shock };
+public enum SpecialEffects { None, Poison, Burn, Shock, ShieldUp};
 
 public class PrePlayerTurn : TurnState
 {
