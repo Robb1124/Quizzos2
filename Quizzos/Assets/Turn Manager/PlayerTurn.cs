@@ -164,7 +164,7 @@ public class PlayerTurn : TurnState
         yield return new WaitForSeconds(0.7f);
         if (AttackIsSuccessfull && isAnAttack)
         {
-            CurrentTarget.TakeDamage(player.PlayerBaseDmg * CurrentAbilityDmgModifier);
+            CurrentTarget.TakeDamage(player.PlayerBaseDmg * CurrentAbilityDmgModifier, false); //check if its a crit here
         }
         else if (AttackIsSuccessfull && !isAnAttack)
         {
@@ -206,6 +206,6 @@ public class PlayerTurn : TurnState
     public IEnumerator DelayForPassiveProc(int target, float damageModifier)
     {
         yield return new WaitForSeconds(1.5f);
-        monstersSlot[target].TakeDamage(player.PlayerBaseDmg * damageModifier);
+        monstersSlot[target].TakeDamage(player.PlayerBaseDmg * damageModifier, false);
     }
 }

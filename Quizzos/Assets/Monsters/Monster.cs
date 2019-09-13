@@ -16,6 +16,7 @@ public class Monster : MonoBehaviour
     [SerializeField] int monsterNumber;
     [SerializeField] Player player;
     [SerializeField] Image stunImage;
+    [SerializeField] Text damagePopup;
     Animator animator;
     bool isStunned;
 
@@ -45,9 +46,10 @@ public class Monster : MonoBehaviour
         monsterHpBar.fillAmount = monsterCurrentHp / monsterMaxHp;
     }
 
-    public void TakeDamage(float damageDone)
+    public void TakeDamage(float damageDone, bool criticalHit)
     {
         monsterCurrentHp -= damageDone;
+        ActiveDamagePopup(damageDone, criticalHit);                
         animator.SetTrigger("TakeDamageTrigger");
         if(monsterCurrentHp <= 0)
         {
@@ -57,6 +59,12 @@ public class Monster : MonoBehaviour
             IsStunned = false;
             stunImage.gameObject.SetActive(false);
         }
+    }
+
+    private void ActiveDamagePopup(float damageDone, bool criticalHit)
+    {        
+        damagePopup.gameObject.SetActive(true);
+        damagePopup.GetComponent<DamagePopup>().ActivateDamagePopupAnimation(transform, damageDone, criticalHit);
     }
 
     public void AttackPlayerAnimation()
