@@ -12,9 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f410aa5fdd38ab41a53254493008b2c, type: 3}
   m_Name: Stage 2
   m_EditorClassIdentifier: 
-  stageNumber: 0
-  stageName: 
-  levelRange: 
-  stageBackground: {fileID: 0}
-  rounds: []
-  xpBonusForCompletion: 0
+  stageNumber: 2
+  stageName: Green Forest - 2
+  levelRange: 2
+  stageBackground: {fileID: 6187356538540030584, guid: 2db75fae9a90e9c4a940917125e7e5b1,
+    type: 3}
+  rounds:
+  - round:
+    - {fileID: 11400000, guid: 3231c8bbd607e7d49a62374df4847aae, type: 2}
+    - {fileID: 11400000, guid: 3231c8bbd607e7d49a62374df4847aae, type: 2}
+    xp: 20
+  - round:
+    - {fileID: 11400000, guid: efbb4c5573658c44d928b885eb50c8b2, type: 2}
+    xp: 16
+  - round:
+    - {fileID: 11400000, guid: efbb4c5573658c44d928b885eb50c8b2, type: 2}
+    - {fileID: 11400000, guid: ec217a0fc89cc31438d93208a9f172a9, type: 2}
+    xp: 28
+  - round:
+    - {fileID: 11400000, guid: efbb4c5573658c44d928b885eb50c8b2, type: 2}
+    - {fileID: 11400000, guid: 3231c8bbd607e7d49a62374df4847aae, type: 2}
+    - {fileID: 11400000, guid: 3231c8bbd607e7d49a62374df4847aae, type: 2}
+    xp: 36
+  xpBonusForCompletion: 14

@@ -39,7 +39,9 @@ public class Player : MonoBehaviour
     void Start()
     {
         playerCurrentHp = PlayerMaxHp;
+        stageManager.onStageLoad += OnStageLoad;
     }
+   
 
     // Update is called once per frame
     void Update()
@@ -124,8 +126,7 @@ public class Player : MonoBehaviour
 
     private void GameOver()
     {        
-        onPlayerDeath();
-        playerCurrentHp = PlayerMaxHp;
+        onPlayerDeath();        
     }
 
     public void AddMaxHpAndBaseDamage(int maxHpGain, int maxDmgGain)
@@ -175,6 +176,12 @@ public class Player : MonoBehaviour
                 break;
         }
 
+    }
+
+    private void OnStageLoad()
+    {
+        playerCurrentHp = playerMaxHp;
+        prePlayerTurn.RemoveAllSpecialEffects();
     }
 
 }

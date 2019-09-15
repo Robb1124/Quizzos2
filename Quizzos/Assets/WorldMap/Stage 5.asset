@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f410aa5fdd38ab41a53254493008b2c, type: 3}
+  m_Name: Stage 5
+  m_EditorClassIdentifier: 
+  stageNumber: 5
+  stageName: Green Forest - 5
+  levelRange: 5
+  stageBackground: {fileID: 6187356538540030584, guid: 2db75fae9a90e9c4a940917125e7e5b1,
+    type: 3}
+  rounds:
+  - round:
+    - {fileID: 11400000, guid: 2bd8568912a95c74cad5189f42072e07, type: 2}
+    - {fileID: 11400000, guid: 2bd8568912a95c74cad5189f42072e07, type: 2}
+    xp: 34
+  - round:
+    - {fileID: 11400000, guid: 1ea99de05d019674a8b293f49b5f110b, type: 2}
+    - {fileID: 11400000, guid: 1ea99de05d019674a8b293f49b5f110b, type: 2}
+    xp: 38
+  - round:
+    - {fileID: 11400000, guid: 468080cddf794d7479903a46a7e7f7f7, type: 2}
+    - {fileID: 11400000, guid: 869edcaa6919c434191eeb8bf6d1e37f, type: 2}
+    xp: 92
+  xpBonusForCompletion: 16

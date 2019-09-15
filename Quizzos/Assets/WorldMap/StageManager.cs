@@ -20,6 +20,9 @@ public class StageManager : MonoBehaviour
 
     public List<bool> StageCompleted { get => stageCompleted; set => stageCompleted = value; }
 
+    public delegate void OnStageLoad(); // declare new delegate type
+    public event OnStageLoad onStageLoad; // instantiate an observer set
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,15 +43,16 @@ public class StageManager : MonoBehaviour
 
     //methode pour ouvrir un preview du level
 
-    public void LoadLevel(StageFile stageFile)
+    public void LoadLevel()
     {
         monsterManager.InitialSetup();
-        monsterManager.ReceiveStageFile(stageFile);
+        monsterManager.ReceiveStageFile(currentStage);
         monsterManager.SpawnWaveOfMonsters(1);
         turnManager.ChangeTurnState(turnManager.GetComponentInChildren<PrePlayerTurn>());
         worldMapElementsHolder.SetActive(false);
         instanceElementsHolder.SetActive(true);
         stageName.text = currentStage.stageName;
+        onStageLoad(); //for player to regen his life + remove all status effects
         
     }
 
@@ -65,17 +69,17 @@ public class StageManager : MonoBehaviour
 
     public void ActivateUnlockedStageButtons()
     {
+        for (int i = 0; i < stages.Length; i++)
+        {
+            stageButtons[i].interactable = false;
+        }
         stageButtons[0].interactable = true;
         for (int i = 0; i < stages.Length; i++)
         {
             if (StageCompleted[i])
             {
                 stageButtons[i + 1].interactable = true;
-            }
-            else
-            {
-                stageButtons[i + 1].interactable = false;
-            }
+            }           
         }
     }
 }

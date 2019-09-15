@@ -40,7 +40,8 @@ public class PrePlayerTurn : TurnState
     void Start()
     {
         quizManager.onWrongAnswers += OnWrongAnswers;
-    }
+        player.onPlayerDeath += OnPlayerDeath;
+    }   
 
     // Update is called once per frame
     void Update()
@@ -226,6 +227,7 @@ public class PrePlayerTurn : TurnState
                 specialEffectsSlots[i].gameObject.SetActive(false);
             }
         }
+
     }
 
     private void OnWrongAnswers(int badAnswersInCombat)
@@ -252,4 +254,17 @@ public class PrePlayerTurn : TurnState
         return null;
     }
 
+    private void OnPlayerDeath()
+    {
+        RemoveAllSpecialEffects();
+        
+    }
+
+    public void RemoveAllSpecialEffects()
+    {
+        for (int i = 0; i < CurrentSpecialEffects.Count; i++)
+        {
+            RemoveSpecialEffects(CurrentSpecialEffects[0]);
+        }
+    }
 }

@@ -67,7 +67,7 @@ public class MonsterManager : MonoBehaviour
     private IEnumerator DelayBetweenSpawn()
     {
         yield return new WaitForSeconds(1);
-        if(roomNumber != stageRoundsCount)
+        if(roomNumber <= stageRoundsCount)
         {
             SpawnWaveOfMonsters(roomNumber);
         }
