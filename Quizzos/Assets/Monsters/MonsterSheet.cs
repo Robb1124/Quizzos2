@@ -10,6 +10,7 @@ public class MonsterSheet : ScriptableObject
     [SerializeField] Sprite monsterImage;
     [SerializeField] float monsterBaseDamage = 1;
     [SerializeField] SpecialEffects specialEffectOnHit;
+    [SerializeField] bool isABoss = false;
 
     public int GetMonsterHp()
     {
@@ -34,5 +35,10 @@ public class MonsterSheet : ScriptableObject
     public SpecialEffects GetSpecialEffectOnHit()
     {
         return specialEffectOnHit;
+    }
+
+    public bool IsABoss()
+    {
+        return isABoss;
     }
 }

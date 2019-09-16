@@ -109,11 +109,13 @@ public class PrePlayerTurn : TurnState
         GoToPlayerTurn();
     }
 
-    public void DoneWithTheQuiz(int numberOfRightAnswers)
+    public void DoneWithTheQuiz(int numberOfRightAnswers) //refactor to specify which special effect the quiz is about
     {
         if (numberOfRightAnswers == 1)
         {
             CurrentEffectIsDone = true;
+            player.CharacterClass.currentAbility = Abilities.SpecialAbility2;
+            player.CharacterClass.PlaySFX();
         }
         else
         {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterClass : MonoBehaviour
 {
     protected AbilitySlot abilitySlot;
-
+    public Abilities currentAbility { get; set; }
     public bool SpecialAbility2SelfCast { get; set; } = false;
 
     // Start is called before the first frame update
@@ -53,5 +53,10 @@ public class CharacterClass : MonoBehaviour
     public virtual QuestionCategory GetMainQuestionCategory()
     {
         return QuestionCategory.Any;
+    }
+
+    public virtual void PlaySFX()
+    {
+
     }
 }

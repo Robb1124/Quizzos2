@@ -15,6 +15,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] List<bool> stageCompleted;
     [SerializeField] TextMeshProUGUI stagePreviewNameField;
     [SerializeField] TextMeshProUGUI stageDescriptionField;
+    [SerializeField] QuizManager quizManager;
     StageFile currentStage;
     [SerializeField] MonsterManager monsterManager;
 
@@ -45,6 +46,7 @@ public class StageManager : MonoBehaviour
 
     public void LoadLevel()
     {
+        quizManager.BadAnswersInCombat = 0;
         monsterManager.InitialSetup();
         monsterManager.ReceiveStageFile(currentStage);
         monsterManager.SpawnWaveOfMonsters(1);
@@ -59,7 +61,7 @@ public class StageManager : MonoBehaviour
     public void StagePreviewPopUp(int stageClicked)
     {
         currentStage = stages[stageClicked - 1];
-        stagePreviewNameField.text = stageClicked + " - " + currentStage.stageName;
+        stagePreviewNameField.text = currentStage.stageName;
         stageDescriptionField.text = "Level Range : " + currentStage.levelRange + "\n" +
                                        "Number of fights : " + currentStage.rounds.Length + "\n" +
                                         "Reward : \n" +

@@ -18,6 +18,8 @@ public class QuizManager : MonoBehaviour
     [SerializeField] PlayerTurn playerTurnState;
     [SerializeField] PrePlayerTurn prePlayerTurn;
     [SerializeField] TextMeshProUGUI abilityText;
+    [SerializeField] AudioClip poisonClip;
+    AudioSource audioSource;
 
     bool playerHasAnswered = false;
     int numberOfQuestionsRemaining;
@@ -38,7 +40,7 @@ public class QuizManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -76,6 +78,8 @@ public class QuizManager : MonoBehaviour
         if (prePlayerTurn.PoisonActive)
         {
             poisonMask.SetActive(true);
+            audioSource.clip = poisonClip;
+            audioSource.Play();
         }
         questionText.text = currentQuestion.question;
         ShuffleAnswers();

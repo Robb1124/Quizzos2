@@ -165,10 +165,11 @@ public class PlayerTurn : TurnState
         if (AttackIsSuccessfull && isAnAttack)
         {
             CurrentTarget.TakeDamage(player.PlayerBaseDmg * CurrentAbilityDmgModifier, false); //check if its a crit here
+            player.CharacterClass.PlaySFX();
         }
         else if (AttackIsSuccessfull && !isAnAttack)
         {
-            //special sound/animation for the successull ability.
+            //shield up SFX being called in warrior class for better timing as of now.
         }
         else
         {
@@ -200,12 +201,15 @@ public class PlayerTurn : TurnState
                 randomTarget = Random.Range(0, monstersSlot.Length);
             } while (!monstersSlot[randomTarget].isActiveAndEnabled);
             StartCoroutine(DelayForPassiveProc(randomTarget, damageModifier));
+
         }
     }
 
     public IEnumerator DelayForPassiveProc(int target, float damageModifier)
     {
+        player.CharacterClass.currentAbility = Abilities.BasicAttack;
         yield return new WaitForSeconds(1.5f);
+        player.CharacterClass.PlaySFX();
         monstersSlot[target].TakeDamage(player.PlayerBaseDmg * damageModifier, false);
     }
 }

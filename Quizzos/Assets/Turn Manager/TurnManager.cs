@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TurnManager : MonoBehaviour
 {    
     [SerializeField] TurnState turnState;
     [SerializeField] Player player;
     [SerializeField] GameObject gameOverPopup;
+    [SerializeField] GameObject stageCompletedPopup;
+    [SerializeField] TextMeshProUGUI rewardText;
     [SerializeField] MonsterManager monsterManager;
     [SerializeField] LevelSystem levelSystem;
     [SerializeField] StageManager stageManager;
@@ -47,10 +50,22 @@ public class TurnManager : MonoBehaviour
     {
         gameOverPopup.SetActive(true);
         //Game over Sound
-        ExpCalculated = monsterManager.CalculateExp();
+        CalculateRewardsAndSetUI();
         //button click closes menu and calls the claim reward method
     }
 
+    private void CalculateRewardsAndSetUI()
+    {
+        ExpCalculated = monsterManager.CalculateExp();
+        rewardText.text = "You have gained : \n" +
+            ExpCalculated + " Experience Points.";
+    }
+
+    public void StageCompleted()
+    {
+        stageCompletedPopup.SetActive(true);
+        CalculateRewardsAndSetUI();
+    }
     public void ClaimRewardsButton()
     {
         levelSystem.GainExp(ExpCalculated);

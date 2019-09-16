@@ -23,6 +23,9 @@ public class Warrior : CharacterClass
     [SerializeField] float shieldUpDmgReduction = 0.95f;
     [SerializeField] float passiveAttackDmgModifier = 1;
     [SerializeField] int numberOfBadAnswersForPassiveProc = 3;
+    [SerializeField] AudioClip basicAttackSFX;
+    [SerializeField] AudioClip chargeAttackSFX;
+    [SerializeField] AudioClip shieldUpSFX;
     [TextArea(3,6)]
     [SerializeField] string[] abilityTextsForTooltip;
     [SerializeField] TextMeshProUGUI passiveText;
@@ -30,8 +33,8 @@ public class Warrior : CharacterClass
     [SerializeField] QuestionQuery basicAttackQuestionQuery = new QuestionQuery(false, 1, QuestionCategory.Any);
     [SerializeField] QuestionQuery chargeAttackQuestionQuery = new QuestionQuery(true, 1, QuestionCategory.Sports);
     [SerializeField] QuestionCategory mainQuestionCategory;
+    AudioSource audioSource;
     Monster currentTarget;
-    Abilities currentAbility;
     [SerializeField] QuizManager quizManager;
 
     public int ChargeAttackCooldown { get => chargeAttackCooldown; set => chargeAttackCooldown = value; }
@@ -43,6 +46,7 @@ public class Warrior : CharacterClass
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         playerTurnState = FindObjectOfType<PlayerTurn>();
         quizManager.onWrongAnswers += OnWrongAnswers;
         player = GetComponent<Player>();
@@ -126,7 +130,8 @@ public class Warrior : CharacterClass
                 {
                     playerTurnState.AttackIsSuccessfull = true;
                     playerTurnState.isAnAttack = false;
-                    prePlayerTurnState.AddSpecialEffects(SpecialEffects.ShieldUp);                    
+                    prePlayerTurnState.AddSpecialEffects(SpecialEffects.ShieldUp);
+                    PlaySFX();
                     player.DmgReduction += shieldUpDmgReduction;
                 }
                 else
@@ -158,4 +163,27 @@ public class Warrior : CharacterClass
     {
         return mainQuestionCategory;
     }
+
+    public override void PlaySFX()
+    {
+        
+        switch (currentAbility)
+        {
+            case Abilities.BasicAttack:
+                audioSource.clip = basicAttackSFX;
+                audioSource.Play();
+                break;
+            case Abilities.SpecialAbility1:
+                audioSource.clip = chargeAttackSFX;
+                audioSource.Play();
+                break;
+            case Abilities.SpecialAbility2:
+                audioSource.clip = shieldUpSFX;
+                audioSource.Play();
+                break;
+        }
+              
+    }
+
+    
 }

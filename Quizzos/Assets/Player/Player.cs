@@ -20,6 +20,10 @@ public class Player : MonoBehaviour
     [SerializeField] LevelSystem levelSystem;
     [SerializeField] StageManager stageManager;
     [SerializeField] QuizManager quizManager;
+    [SerializeField] AudioClip[] takeDamageSFXs;
+    [SerializeField] AudioClip burnDamageSFX;
+    bool playerDead = false;
+    AudioSource audioSource { get; set; }
     int classIndex;
     
     public CharacterClass CharacterClass { get => characterClass; set => characterClass = value; }
@@ -38,6 +42,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         playerCurrentHp = PlayerMaxHp;
         stageManager.onStageLoad += OnStageLoad;
     }
@@ -81,11 +86,15 @@ public class Player : MonoBehaviour
                     //frost here
             }
         }
+        audioSource.clip = (prePlayerTurn.ShieldUpActive) ? takeDamageSFXs[1] : takeDamageSFXs[0];
+        audioSource.Play();
+        
 
         playerCurrentHp -= (int)(amountOfDamage * (1 - DmgReduction));
-        if (playerCurrentHp <= 0)
+        if (playerCurrentHp <= 0 && !playerDead)
         {
             GameOver();
+            playerDead = true;
         }
     }
 
@@ -93,6 +102,7 @@ public class Player : MonoBehaviour
     {
         float dmgToTake = playerMaxHp * percentageOfDmg;
         playerCurrentHp -= (int)dmgToTake;
+        audioSource.PlayOneShot(burnDamageSFX);
         if (playerCurrentHp <= 0)
         {
             GameOver();
@@ -180,6 +190,7 @@ public class Player : MonoBehaviour
 
     private void OnStageLoad()
     {
+        playerDead = false;
         playerCurrentHp = playerMaxHp;
         prePlayerTurn.RemoveAllSpecialEffects();
     }

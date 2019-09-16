@@ -16,6 +16,7 @@ public class MonsterManager : MonoBehaviour
     [SerializeField] Player player;
     [SerializeField] TurnManager turnManager;
     [SerializeField] StageManager stageManager;
+    [SerializeField] MusicManager musicManager;
     MonsterSheet[] currentRound;
     StageFile stageFile;
     int stageRoundsCount;
@@ -41,6 +42,11 @@ public class MonsterManager : MonoBehaviour
             monsters[i - 1].MonsterSheet = currentRound[i - 1];
             monsters[i - 1].MonsterNumber = i;
             monsters[i - 1].OnSpawn();
+            if(monsters[i - 1].MonsterSheet.IsABoss())
+            {
+                musicManager.ChangeMusicTrack(3); //boss track, button cant take enum as parameter so had to make it int.
+                Debug.Log("hello");
+            }
         }
         this.roomNumber++;
     }
@@ -77,6 +83,9 @@ public class MonsterManager : MonoBehaviour
             {
                 stageManager.StageCompleted[stageFile.stageNumber - 1] = true;
             }
+            roomNumber++;
+            stageComplete = true;
+            turnManager.StageCompleted();           
         }
     }
 
@@ -100,7 +109,7 @@ public class MonsterManager : MonoBehaviour
         
         if (stageComplete)
         {
-            
+            expCalculated += stageFile.xpBonusForCompletion;
         }
         stageComplete = false;
         roomNumber = 1;
@@ -110,6 +119,7 @@ public class MonsterManager : MonoBehaviour
 
     public void InitialSetup()
     {
+        roomNumber = 1;
         for (int i = 0; i < monsters.Length; i++)
         {
             monsters[i].gameObject.SetActive(false);
