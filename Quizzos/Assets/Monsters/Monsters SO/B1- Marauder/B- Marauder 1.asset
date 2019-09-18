@@ -18,3 +18,4 @@ MonoBehaviour:
   monsterBaseDamage: 14
   specialEffectOnHit: 2
   isABoss: 1
+  expType: 3

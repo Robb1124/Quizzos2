@@ -14,34 +14,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageNumber: 4
   stageName: Green Forest - 4
-  levelRange: 4
+  stageLevel: 4
   stageBackground: {fileID: 6187356538540030584, guid: 2db75fae9a90e9c4a940917125e7e5b1,
     type: 3}
   rounds:
   - round:
-    - {fileID: 11400000, guid: a98213316fc82054ebe21d2b18351bf1, type: 2}
-    - {fileID: 11400000, guid: 355f73e30e424b94491f2a50fefc6588, type: 2}
-    xp: 22
+    - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
+    - {fileID: 11400000, guid: 273e04939c0f8f846b06f096c8276ca5, type: 2}
+    xp: 0
   - round:
-    - {fileID: 11400000, guid: 355f73e30e424b94491f2a50fefc6588, type: 2}
-    - {fileID: 11400000, guid: 638f017553c8eaf45b2d700dc7557522, type: 2}
-    xp: 31
+    - {fileID: 11400000, guid: 273e04939c0f8f846b06f096c8276ca5, type: 2}
+    - {fileID: 11400000, guid: c3c8672852cf3f84eaf815bf71c6a87e, type: 2}
+    xp: 0
   - round:
-    - {fileID: 11400000, guid: 48375c2ae5f327c4aba774c3fa278922, type: 2}
-    - {fileID: 11400000, guid: a98213316fc82054ebe21d2b18351bf1, type: 2}
-    - {fileID: 11400000, guid: a98213316fc82054ebe21d2b18351bf1, type: 2}
-    xp: 33
+    - {fileID: 11400000, guid: fae97806932efdf4ab8cef2f87744547, type: 2}
+    - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
+    - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
+    xp: 0
   - round:
-    - {fileID: 11400000, guid: 48375c2ae5f327c4aba774c3fa278922, type: 2}
-    - {fileID: 11400000, guid: 355f73e30e424b94491f2a50fefc6588, type: 2}
-    xp: 28
+    - {fileID: 11400000, guid: fae97806932efdf4ab8cef2f87744547, type: 2}
+    - {fileID: 11400000, guid: 273e04939c0f8f846b06f096c8276ca5, type: 2}
+    xp: 0
   - round:
-    - {fileID: 11400000, guid: 638f017553c8eaf45b2d700dc7557522, type: 2}
-    - {fileID: 11400000, guid: 355f73e30e424b94491f2a50fefc6588, type: 2}
-    - {fileID: 11400000, guid: a98213316fc82054ebe21d2b18351bf1, type: 2}
-    xp: 36
-  - round:
-    - {fileID: 11400000, guid: 638f017553c8eaf45b2d700dc7557522, type: 2}
-    - {fileID: 11400000, guid: 638f017553c8eaf45b2d700dc7557522, type: 2}
-    xp: 31
-  xpBonusForCompletion: 24
+    - {fileID: 11400000, guid: c3c8672852cf3f84eaf815bf71c6a87e, type: 2}
+    - {fileID: 11400000, guid: 273e04939c0f8f846b06f096c8276ca5, type: 2}
+    - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
+    xp: 0
+  xpBonusForCompletion: 0

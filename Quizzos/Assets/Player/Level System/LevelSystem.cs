@@ -11,6 +11,8 @@ public class LevelSystem : MonoBehaviour
     [SerializeField] int[] xpRequirementsForLevelUp;
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] Image levelUpBar;
+    [SerializeField] TextMeshProUGUI worldLevelText;
+    [SerializeField] Image worldLevelUpBar;
     [SerializeField] GameObject levelUpPopUp;
     [SerializeField] TextMeshProUGUI levelUpPopUpText;
     [SerializeField] TurnManager turnManager;
@@ -28,8 +30,7 @@ public class LevelSystem : MonoBehaviour
     void Start()
     {
         player = GetComponent<Player>();
-        levelText.text = "Level " + PlayerLevel;
-        levelUpBar.fillAmount = ExperiencePoints / xpRequirementsForLevelUp[PlayerLevel - 1];
+        UpdateExpBar();
     }
 
     // Update is called once per frame
@@ -52,13 +53,15 @@ public class LevelSystem : MonoBehaviour
     public void UpdateExpBar()
     {
         levelUpBar.fillAmount = ExperiencePoints / xpRequirementsForLevelUp[PlayerLevel - 1];
+        worldLevelUpBar.fillAmount = ExperiencePoints / xpRequirementsForLevelUp[PlayerLevel - 1];
+        levelText.text = "Level " + PlayerLevel;
+        worldLevelText.text = "Level " + PlayerLevel;
     }
 
     private void OnLevelUp()
     {
         Debug.Log("LEVEL UP!");
         PlayerLevel++;
-        levelText.text = "Level " + PlayerLevel;
         if (player.GetComponent<Warrior>())
         {
             maxHpGainOnLvlUp = warriorsLvlUpGains.HpGains[PlayerLevel - 2];
@@ -66,9 +69,9 @@ public class LevelSystem : MonoBehaviour
             questionsAddedOnLvlUp = warriorsLvlUpGains.questionsGained[PlayerLevel - 2];
         }
         levelUpPopUpText.text = "You are now level " + PlayerLevel + " !\n" +
-                                                            "+" + maxHpGainOnLvlUp + "\n" +
-                                                            "+" + baseDmgGainOnLvlUp + "\n" +
-                                                            "+" + questionsAddedOnLvlUp;
+                                                            "+" + maxHpGainOnLvlUp + " Maximum Health points.\n" +
+                                                            "+" + baseDmgGainOnLvlUp + " Base Damage\n" +
+                                                            "+" + questionsAddedOnLvlUp + " Questions added to your Player Deck.";
         levelUpPopUp.gameObject.SetActive(true);
         player.AddMaxHpAndBaseDamage((int)maxHpGainOnLvlUp, (int)baseDmgGainOnLvlUp);
         jsonHarvester.AddQuestionsToTheDeck(questionsAddedOnLvlUp);

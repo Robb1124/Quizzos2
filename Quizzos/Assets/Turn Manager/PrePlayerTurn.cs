@@ -41,7 +41,7 @@ public class PrePlayerTurn : TurnState
     {
         quizManager.onWrongAnswers += OnWrongAnswers;
         player.onPlayerDeath += OnPlayerDeath;
-    }   
+    }
 
     // Update is called once per frame
     void Update()
@@ -72,6 +72,7 @@ public class PrePlayerTurn : TurnState
             switch (CurrentSpecialEffects[i])
             {
                 case SpecialEffects.ShieldUp:
+
                     quizManager.AbilityText.text = player.CharacterClass.GetAbilityTextForQuizTitle(2);
                     quizManager.DrawQuestions(player.GetComponent<Warrior>().ShieldUpQuestionQuery);
                     shieldUpSlot = specialEffectsSlots[i];
@@ -121,7 +122,6 @@ public class PrePlayerTurn : TurnState
         {
             CurrentEffectIsDone = true;
             RemoveSpecialEffects(SpecialEffects.ShieldUp);
-            player.CharacterClass.RemoveShieldUp();
         }
     }
 
@@ -136,6 +136,7 @@ public class PrePlayerTurn : TurnState
         switch (specialEffectToRemove)
         {
             case SpecialEffects.ShieldUp:
+                player.CharacterClass.RemoveShieldUp();
                 ShieldUpActive = false;
                 break;
             case SpecialEffects.Shock:

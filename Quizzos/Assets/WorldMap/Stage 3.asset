@@ -14,26 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageNumber: 3
   stageName: Green Forest - 3
-  levelRange: 3
+  stageLevel: 3
   stageBackground: {fileID: 6187356538540030584, guid: 2db75fae9a90e9c4a940917125e7e5b1,
     type: 3}
   rounds:
   - round:
-    - {fileID: 11400000, guid: fab9ff929a468c8479faf0fbd015b97f, type: 2}
-    - {fileID: 11400000, guid: fab9ff929a468c8479faf0fbd015b97f, type: 2}
-    xp: 27
+    - {fileID: 11400000, guid: 273e04939c0f8f846b06f096c8276ca5, type: 2}
+    - {fileID: 11400000, guid: 273e04939c0f8f846b06f096c8276ca5, type: 2}
+    xp: 0
   - round:
-    - {fileID: 11400000, guid: 003786169ce46424699e8c020f629ec3, type: 2}
-    - {fileID: 11400000, guid: ef6335449ce72cf4bae700d1b2d8bc06, type: 2}
-    - {fileID: 11400000, guid: ef6335449ce72cf4bae700d1b2d8bc06, type: 2}
-    xp: 31
+    - {fileID: 11400000, guid: c3c8672852cf3f84eaf815bf71c6a87e, type: 2}
+    - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
+    - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
+    xp: 0
   - round:
-    - {fileID: 11400000, guid: 003786169ce46424699e8c020f629ec3, type: 2}
-    - {fileID: 11400000, guid: ef6335449ce72cf4bae700d1b2d8bc06, type: 2}
-    - {fileID: 11400000, guid: fab9ff929a468c8479faf0fbd015b97f, type: 2}
-    xp: 34
+    - {fileID: 11400000, guid: 273e04939c0f8f846b06f096c8276ca5, type: 2}
+    - {fileID: 11400000, guid: c3c8672852cf3f84eaf815bf71c6a87e, type: 2}
+    - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
+    xp: 0
   - round:
-    - {fileID: 11400000, guid: 823f24e7b14b1054a96249f3311c71c1, type: 2}
-    - {fileID: 11400000, guid: 003786169ce46424699e8c020f629ec3, type: 2}
-    xp: 28
-  xpBonusForCompletion: 16
+    - {fileID: 11400000, guid: fae97806932efdf4ab8cef2f87744547, type: 2}
+    - {fileID: 11400000, guid: c3c8672852cf3f84eaf815bf71c6a87e, type: 2}
+    xp: 0
+  xpBonusForCompletion: 0

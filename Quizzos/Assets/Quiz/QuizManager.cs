@@ -20,7 +20,7 @@ public class QuizManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI abilityText;
     [SerializeField] AudioClip poisonClip;
     AudioSource audioSource;
-
+    int previousQuestionId = -1;
     bool playerHasAnswered = false;
     int numberOfQuestionsRemaining;
     bool initialSetupIsDone = false;
@@ -59,7 +59,10 @@ public class QuizManager : MonoBehaviour
         
         if(questionQuery.inThePool && questionQuery.questionCategory == QuestionCategory.Any)
         {
-            currentQuestion = PoolOfKnowledge[UnityEngine.Random.Range(0, PoolOfKnowledge.Count)];
+            do
+            {
+                currentQuestion = PoolOfKnowledge[UnityEngine.Random.Range(0, PoolOfKnowledge.Count)];
+            } while (previousQuestionId == currentQuestion.id);
 
         }
         else if(questionQuery.inThePool && questionQuery.questionCategory != QuestionCategory.Any)
@@ -68,11 +71,14 @@ public class QuizManager : MonoBehaviour
             do
             {
                 currentQuestion = PoolOfKnowledge[UnityEngine.Random.Range(0, PoolOfKnowledge.Count)];
-            } while ( currentQuestion.category != requestedCategory);
+            } while ( currentQuestion.category != requestedCategory || previousQuestionId == currentQuestion.id);
         }
         else if(!questionQuery.inThePool && questionQuery.questionCategory == QuestionCategory.Any)
         {
-            currentQuestion = PlayerDeckOfQuestions[UnityEngine.Random.Range(0, PlayerDeckOfQuestions.Count)];
+            do
+            {
+                currentQuestion = PlayerDeckOfQuestions[UnityEngine.Random.Range(0, PlayerDeckOfQuestions.Count)];
+            } while (previousQuestionId == currentQuestion.id);
         }
         questionPopUp.SetActive(true);
         if (prePlayerTurn.PoisonActive)
@@ -82,6 +88,7 @@ public class QuizManager : MonoBehaviour
             audioSource.Play();
         }
         questionText.text = currentQuestion.question;
+        previousQuestionId = currentQuestion.id;
         ShuffleAnswers();
         for(int i = 0; i < choices.Count; i++)
         {

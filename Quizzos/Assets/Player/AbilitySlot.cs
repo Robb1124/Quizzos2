@@ -15,6 +15,7 @@ public class AbilitySlot : MonoBehaviour
     [SerializeField] TextMeshProUGUI passiveText;
     [SerializeField] TurnManager turnManager;
     [SerializeField] TextMeshProUGUI[] specialAbilitiesCooldownTexts;
+    [SerializeField] StageManager stageManager;
 
     [SerializeField] QuizManager quizManager;
     int specialAbility1CooldownTurns = 1;
@@ -29,6 +30,7 @@ public class AbilitySlot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        stageManager.onStageLoad += OnStageLoad;
         quizManager.onWrongAnswers += OnWrongAnswers;
         turnManager.onTurnChangeForPlayer += OnTurnChangeForPlayer;
         player = FindObjectOfType<Player>();
@@ -44,7 +46,13 @@ public class AbilitySlot : MonoBehaviour
             specialAbility2CooldownTurns = player.GetComponent<Warrior>().ShieldUpCooldown;
             
         }
-    }   
+    }
+
+    private void OnStageLoad()
+    {
+        specialAbility1RemainingCdTurns = 0;
+        specialAbility2RemainingCdTurns = 0;
+    }
 
     private void OnTurnChangeForPlayer()
     {        

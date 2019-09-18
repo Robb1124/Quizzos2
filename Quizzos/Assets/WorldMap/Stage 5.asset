@@ -14,20 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageNumber: 5
   stageName: Green Forest - 5
-  levelRange: 5
+  stageLevel: 5
   stageBackground: {fileID: 6187356538540030584, guid: 2db75fae9a90e9c4a940917125e7e5b1,
     type: 3}
   rounds:
   - round:
-    - {fileID: 11400000, guid: 2bd8568912a95c74cad5189f42072e07, type: 2}
-    - {fileID: 11400000, guid: 2bd8568912a95c74cad5189f42072e07, type: 2}
-    xp: 34
+    - {fileID: 11400000, guid: fae97806932efdf4ab8cef2f87744547, type: 2}
+    - {fileID: 11400000, guid: fae97806932efdf4ab8cef2f87744547, type: 2}
+    xp: 0
   - round:
-    - {fileID: 11400000, guid: 1ea99de05d019674a8b293f49b5f110b, type: 2}
-    - {fileID: 11400000, guid: 1ea99de05d019674a8b293f49b5f110b, type: 2}
-    xp: 38
+    - {fileID: 11400000, guid: c3c8672852cf3f84eaf815bf71c6a87e, type: 2}
+    - {fileID: 11400000, guid: c3c8672852cf3f84eaf815bf71c6a87e, type: 2}
+    xp: 0
   - round:
-    - {fileID: 11400000, guid: 468080cddf794d7479903a46a7e7f7f7, type: 2}
-    - {fileID: 11400000, guid: 869edcaa6919c434191eeb8bf6d1e37f, type: 2}
-    xp: 92
-  xpBonusForCompletion: 16
+    - {fileID: 11400000, guid: 5be4c63f3d111f64c868c461c314b00b, type: 2}
+    - {fileID: 11400000, guid: 273e04939c0f8f846b06f096c8276ca5, type: 2}
+    xp: 0
+  xpBonusForCompletion: 0

@@ -21,7 +21,7 @@ public class MonsterManager : MonoBehaviour
     StageFile stageFile;
     int stageRoundsCount;
     bool stageComplete = false;
-
+    int expCalculated = 0;
     public bool AllDead { get; set; } = false;
 
     // Start is called before the first frame update
@@ -41,7 +41,7 @@ public class MonsterManager : MonoBehaviour
             monsters[i - 1].gameObject.SetActive(true);
             monsters[i - 1].MonsterSheet = currentRound[i - 1];
             monsters[i - 1].MonsterNumber = i;
-            monsters[i - 1].OnSpawn();
+            monsters[i - 1].OnSpawn(stageFile.stageLevel);
             if(monsters[i - 1].MonsterSheet.IsABoss())
             {
                 musicManager.ChangeMusicTrack(3); //boss track, button cant take enum as parameter so had to make it int.
@@ -59,7 +59,9 @@ public class MonsterManager : MonoBehaviour
 
     public void MonsterDeath(int monsterNumber)
     {
+
         //Monster death (on peut inserer un delai pour animation/son)
+        stageManager.MonsterDeathAddExp(monsters[monsterNumber - 1].MonsterSheet.GetExpType());
         monsters[monsterNumber - 1].gameObject.SetActive(false);
         monsterCount--;
         if(monsterCount == 0)
@@ -72,6 +74,11 @@ public class MonsterManager : MonoBehaviour
 
     private IEnumerator DelayBetweenSpawn()
     {
+        if(roomNumber > stageRoundsCount)
+        {
+            //stop turn state from changing
+            turnManager.CombatIsOver = true;
+        }
         yield return new WaitForSeconds(1);
         if(roomNumber <= stageRoundsCount)
         {
@@ -84,41 +91,20 @@ public class MonsterManager : MonoBehaviour
                 stageManager.StageCompleted[stageFile.stageNumber - 1] = true;
             }
             roomNumber++;
-            stageComplete = true;
             turnManager.StageCompleted();           
         }
     }
 
     public void ReceiveStageFile(StageFile stageFile)
     {
+        expCalculated = 0;
         this.stageFile = stageFile;
         stageRoundsCount = stageFile.rounds.Length;
     }
 
-    public float CalculateExp()
-    {
-        float expCalculated = 0;
-
-        if (roomNumber > 1)
-        {
-            for (int i = 0; i < roomNumber - 2; i++) //gives exp only for room cleared
-            {
-                expCalculated += stageFile.rounds[i].xp;
-            }
-        }
-        
-        if (stageComplete)
-        {
-            expCalculated += stageFile.xpBonusForCompletion;
-        }
-        stageComplete = false;
-        roomNumber = 1;
-        return expCalculated;
-       
-    }
-
     public void InitialSetup()
     {
+        AllDead = false;
         roomNumber = 1;
         for (int i = 0; i < monsters.Length; i++)
         {

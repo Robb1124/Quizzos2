@@ -86,6 +86,7 @@
     <Compile Include="Assets\Turn Manager\TurnManager.cs" />
     <Compile Include="Assets\Turn Manager\TurnState.cs" />
     <Compile Include="Assets\UI\Damage Popup\DamagePopup.cs" />
+    <Compile Include="Assets\UI\Loading Screen\LoadingScreen.cs" />
     <Compile Include="Assets\UI\Tooltip\Tooltip.cs" />
     <Compile Include="Assets\UI\Tooltip\TooltipHandler.cs" />
     <Compile Include="Assets\WorldMap\StageFile.cs" />

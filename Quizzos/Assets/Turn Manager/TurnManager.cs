@@ -16,8 +16,10 @@ public class TurnManager : MonoBehaviour
     [SerializeField] LevelSystem levelSystem;
     [SerializeField] StageManager stageManager;
     [SerializeField] QuizManager quizManager;
+    bool stageComplete = false;
     public TurnState TurnState { get => turnState; set => turnState = value; }
     public float ExpCalculated { get; set; } = 0;
+    public bool CombatIsOver { get; set; } = false;
 
     public delegate void OnTurnChangeForPlayer(); // declare new delegate type
     public event OnTurnChangeForPlayer onTurnChangeForPlayer; // instantiate an observer set
@@ -41,9 +43,12 @@ public class TurnManager : MonoBehaviour
         {
             onTurnChangeForPlayer?.Invoke(); //Observer pattern for cooldown and special ability availability management. If it isnt null, it will run (invoke)
         }
-        this.TurnState = turnState;
-        
-        turnState.OnStateChange();
+
+        if (!CombatIsOver)
+        {
+            this.TurnState = turnState;
+            turnState.OnStateChange();
+        }
     }
 
     private void OnPlayerDeath()
@@ -56,14 +61,16 @@ public class TurnManager : MonoBehaviour
 
     private void CalculateRewardsAndSetUI()
     {
-        ExpCalculated = monsterManager.CalculateExp();
+        ExpCalculated = stageManager.CalculateExp(stageComplete);
         rewardText.text = "You have gained : \n" +
             ExpCalculated + " Experience Points.";
+        stageComplete = false;
     }
 
     public void StageCompleted()
     {
         stageCompletedPopup.SetActive(true);
+        stageComplete = true;
         CalculateRewardsAndSetUI();
     }
     public void ClaimRewardsButton()
@@ -71,7 +78,7 @@ public class TurnManager : MonoBehaviour
         levelSystem.GainExp(ExpCalculated);
         SaveSystem.SavePlayer(player, levelSystem, stageManager, quizManager);
         stageManager.ActivateUnlockedStageButtons();
-
+        CombatIsOver = false;
         //place for other rewards methods
     }
 

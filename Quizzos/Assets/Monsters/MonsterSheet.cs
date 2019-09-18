@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ExpType { Low, Medium, High, Boss };
 [CreateAssetMenu(menuName = "Monster Sheet")]
 public class MonsterSheet : ScriptableObject
 {
@@ -11,6 +12,7 @@ public class MonsterSheet : ScriptableObject
     [SerializeField] float monsterBaseDamage = 1;
     [SerializeField] SpecialEffects specialEffectOnHit;
     [SerializeField] bool isABoss = false;
+    [SerializeField] ExpType expType;
 
     public int GetMonsterHp()
     {
@@ -40,5 +42,10 @@ public class MonsterSheet : ScriptableObject
     public bool IsABoss()
     {
         return isABoss;
+    }
+
+    public ExpType GetExpType()
+    {
+        return expType;
     }
 }

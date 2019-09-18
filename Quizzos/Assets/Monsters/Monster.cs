@@ -17,6 +17,8 @@ public class Monster : MonoBehaviour
     [SerializeField] Player player;
     [SerializeField] Image stunImage;
     [SerializeField] Text damagePopup;
+    [SerializeField] float dmgAndHpLevelMultiplier = 1.1f;
+    int monsterLevel;
     Animator animator;
     bool isStunned;
 
@@ -31,10 +33,11 @@ public class Monster : MonoBehaviour
         monsterManager = FindObjectOfType<MonsterManager>();        
     }
 
-    public void OnSpawn()
+    public void OnSpawn(int monsterLevel)
     {
-        monsterMaxHp = monsterSheet.GetMonsterHp();
-        monsterBaseDamage = monsterSheet.GetMonsterBaseDamage();
+        this.monsterLevel = monsterLevel;
+        monsterMaxHp = Mathf.RoundToInt(monsterSheet.GetMonsterHp() * Mathf.Pow(dmgAndHpLevelMultiplier, monsterLevel - 1));
+        monsterBaseDamage = Mathf.RoundToInt(monsterSheet.GetMonsterBaseDamage() * Mathf.Pow(dmgAndHpLevelMultiplier, monsterLevel - 1));
         monsterName.text = monsterSheet.GetMonsterName();
         GetComponent<Image>().sprite = monsterSheet.GetMonsterImage();
         monsterCurrentHp = monsterMaxHp;
@@ -53,7 +56,7 @@ public class Monster : MonoBehaviour
         animator.SetTrigger("TakeDamageTrigger");
         if(monsterCurrentHp <= 0)
         {
-            //Monster death
+            //Monster death            
             monsterManager.MonsterDeath(monsterNumber);
             //Unstunning
             IsStunned = false;

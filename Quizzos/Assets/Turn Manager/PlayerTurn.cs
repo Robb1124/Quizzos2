@@ -50,7 +50,7 @@ public class PlayerTurn : TurnState
         {
             abilityButtons[1].interactable = false;
         }
-        if (!abilitySlot.SpecialAbility2IsReady)
+        if (!abilitySlot.SpecialAbility2IsReady || prePlayerTurn.ShieldUpActive)
         {
             abilityButtons[2].interactable = false;
         }

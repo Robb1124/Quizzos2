@@ -15,10 +15,16 @@ public class StageManager : MonoBehaviour
     [SerializeField] List<bool> stageCompleted;
     [SerializeField] TextMeshProUGUI stagePreviewNameField;
     [SerializeField] TextMeshProUGUI stageDescriptionField;
+    [SerializeField] int[] baseExpPerType;
+    [SerializeField] float baseExpMultiplier = 1.1f;
+    float expMultiplier;
+    [SerializeField] float bonusExpPercentageForCompletion;
+    int expToGain = 0;
     [SerializeField] QuizManager quizManager;
     StageFile currentStage;
     [SerializeField] MonsterManager monsterManager;
-
+    int totalStageExpPreview;
+    List<ExpType> expList = new List<ExpType>();
     public List<bool> StageCompleted { get => stageCompleted; set => stageCompleted = value; }
 
     public delegate void OnStageLoad(); // declare new delegate type
@@ -47,26 +53,56 @@ public class StageManager : MonoBehaviour
     public void LoadLevel()
     {
         quizManager.BadAnswersInCombat = 0;
+        expToGain = 0;
         monsterManager.InitialSetup();
         monsterManager.ReceiveStageFile(currentStage);
         monsterManager.SpawnWaveOfMonsters(1);
+        onStageLoad(); //for player to regen his life + remove all status effects
         turnManager.ChangeTurnState(turnManager.GetComponentInChildren<PrePlayerTurn>());
         worldMapElementsHolder.SetActive(false);
         instanceElementsHolder.SetActive(true);
         stageName.text = currentStage.stageName;
-        onStageLoad(); //for player to regen his life + remove all status effects
         
     }
 
     public void StagePreviewPopUp(int stageClicked)
     {
+        totalStageExpPreview = 0;
+        expList.Clear();
         currentStage = stages[stageClicked - 1];
+        for (int i = 0; i < currentStage.rounds.Length; i++)
+        {
+            for (int j = 0; j < currentStage.rounds[i].round.Length; j++)
+            {
+                expList.Add(currentStage.rounds[i].round[j].GetExpType());
+                Debug.Log("lol");
+            }
+        }
+        expMultiplier = Mathf.Pow(baseExpMultiplier, currentStage.stageLevel - 1);
+        foreach(ExpType expType in expList)
+        {
+            switch (expType)
+            {
+                case ExpType.Low:
+                    totalStageExpPreview += Mathf.RoundToInt(baseExpPerType[0] * expMultiplier);
+                    break;
+                case ExpType.Medium:
+                    totalStageExpPreview += Mathf.RoundToInt(baseExpPerType[1] * expMultiplier);
+                    break;
+                case ExpType.High:
+                    totalStageExpPreview += Mathf.RoundToInt(baseExpPerType[2] * expMultiplier);
+                    break;
+                case ExpType.Boss:
+                    totalStageExpPreview += Mathf.RoundToInt(baseExpPerType[3] * expMultiplier);
+                    break;
+            }
+        }
+        totalStageExpPreview = (int)(totalStageExpPreview * bonusExpPercentageForCompletion);
         stagePreviewNameField.text = currentStage.stageName;
-        stageDescriptionField.text = "Level Range : " + currentStage.levelRange + "\n" +
+        stageDescriptionField.text = "Level Range : " + currentStage.stageLevel + "\n" +
                                        "Number of fights : " + currentStage.rounds.Length + "\n" +
                                         "Reward : \n" +
-                                        "xxx XP  \n" +
-                                        "xxx Gold ";
+                                        "Up to " + totalStageExpPreview + " XP";
     }
 
     public void ActivateUnlockedStageButtons()
@@ -83,5 +119,33 @@ public class StageManager : MonoBehaviour
                 stageButtons[i + 1].interactable = true;
             }           
         }
+    }
+
+    public void MonsterDeathAddExp(ExpType monsterExpType)
+    {
+        switch (monsterExpType)
+        {
+            case ExpType.Low:
+                expToGain += Mathf.RoundToInt(baseExpPerType[0] * expMultiplier);
+                break;
+            case ExpType.Medium:
+                expToGain += Mathf.RoundToInt(baseExpPerType[1] * expMultiplier);
+                break;
+            case ExpType.High:
+                expToGain += Mathf.RoundToInt(baseExpPerType[2] * expMultiplier);
+                break;
+            case ExpType.Boss:
+                expToGain += Mathf.RoundToInt(baseExpPerType[3] * expMultiplier);
+                break;
+        }
+    }
+
+    public float CalculateExp(bool stageCompleted)
+    {
+        if (stageCompleted)
+        {
+            expToGain = Mathf.RoundToInt(expToGain * bonusExpPercentageForCompletion);           
+        }
+        return expToGain;
     }
 }
