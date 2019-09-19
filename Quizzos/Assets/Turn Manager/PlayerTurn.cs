@@ -207,6 +207,11 @@ public class PlayerTurn : TurnState
 
     public IEnumerator DelayForPassiveProc(int target, float damageModifier)
     {
+        if(turnManager.TurnState is PlayerTurn && player.CharacterClass is Warrior)
+        {
+            Warrior warriorClass = (Warrior)player.CharacterClass;
+            warriorClass.ActivateCooldownOnCharge(); //fix to activate cooldown on charge even if the passive proc
+        }
         player.CharacterClass.currentAbility = Abilities.BasicAttack;
         yield return new WaitForSeconds(1.5f);
         player.CharacterClass.PlaySFX();

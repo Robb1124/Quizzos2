@@ -185,5 +185,10 @@ public class Warrior : CharacterClass
               
     }
 
+    public void ActivateCooldownOnCharge()
+    {
+        abilitySlot.ActivateSpecialAbilityCooldown(1, chargeAttackCooldown);
+    }
+
     
 }
