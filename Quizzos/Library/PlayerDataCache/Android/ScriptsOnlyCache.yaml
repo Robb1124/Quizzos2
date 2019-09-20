@@ -1,12 +1,13 @@
 ScriptsOnlyBuild:
   usedScripts:
+    Assembly-CSharp-firstpass.dll:
+    - Assets.Plugins.ButtonSoundsEditor.ButtonClickSound
     Assembly-CSharp.dll:
     - AbilitySlot
     - DamagePopup
     - JsonHarvester
     - LevelSystem
     - LevelUpGains
-    - LoadingScreen
     - Monster
     - MonsterManager
     - MonsterSheet
@@ -41,11 +42,10 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Image
     - UnityEngine.UI.LayoutElement
     - UnityEngine.UI.Outline
-    - UnityEngine.UI.Slider
     - UnityEngine.UI.Text
     - UnityEngine.UI.VerticalLayoutGroup
   sceneClasses:
-    Assets/Scenes/Loading Screen.unity:
+    Assets/Scenes/SampleScene.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -59,63 +59,6 @@ ScriptsOnlyBuild:
     - Class: 48
       Script: {instanceID: 0}
     - Class: 49
-      Script: {instanceID: 0}
-    - Class: 81
-      Script: {instanceID: 0}
-    - Class: 104
-      Script: {instanceID: 0}
-    - Class: 109
-      Script: {instanceID: 0}
-    - Class: 114
-      Script: {instanceID: 9464}
-    - Class: 114
-      Script: {instanceID: 9470}
-    - Class: 114
-      Script: {instanceID: 9476}
-    - Class: 114
-      Script: {instanceID: 9484}
-    - Class: 114
-      Script: {instanceID: 9518}
-    - Class: 114
-      Script: {instanceID: 9520}
-    - Class: 114
-      Script: {instanceID: 9850}
-    - Class: 114
-      Script: {instanceID: 10358}
-    - Class: 114
-      Script: {instanceID: 10370}
-    - Class: 114
-      Script: {instanceID: 10484}
-    - Class: 114
-      Script: {instanceID: 10706}
-    - Class: 114
-      Script: {instanceID: 96856}
-    - Class: 115
-      Script: {instanceID: 0}
-    - Class: 128
-      Script: {instanceID: 0}
-    - Class: 157
-      Script: {instanceID: 0}
-    - Class: 213
-      Script: {instanceID: 0}
-    - Class: 222
-      Script: {instanceID: 0}
-    - Class: 223
-      Script: {instanceID: 0}
-    - Class: 224
-      Script: {instanceID: 0}
-    Assets/Scenes/SampleScene.unity:
-    - Class: 1
-      Script: {instanceID: 0}
-    - Class: 4
-      Script: {instanceID: 0}
-    - Class: 20
-      Script: {instanceID: 0}
-    - Class: 21
-      Script: {instanceID: 0}
-    - Class: 28
-      Script: {instanceID: 0}
-    - Class: 48
       Script: {instanceID: 0}
     - Class: 74
       Script: {instanceID: 0}
@@ -131,74 +74,84 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
+    - Class: 109
+      Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9396}
+      Script: {instanceID: 9398}
     - Class: 114
-      Script: {instanceID: 9404}
-    - Class: 114
-      Script: {instanceID: 9462}
+      Script: {instanceID: 9406}
     - Class: 114
       Script: {instanceID: 9464}
     - Class: 114
       Script: {instanceID: 9466}
     - Class: 114
-      Script: {instanceID: 9470}
+      Script: {instanceID: 9468}
     - Class: 114
-      Script: {instanceID: 9476}
+      Script: {instanceID: 9472}
     - Class: 114
-      Script: {instanceID: 9480}
+      Script: {instanceID: 9478}
     - Class: 114
-      Script: {instanceID: 9484}
+      Script: {instanceID: 9482}
     - Class: 114
-      Script: {instanceID: 9488}
+      Script: {instanceID: 9486}
     - Class: 114
-      Script: {instanceID: 9496}
+      Script: {instanceID: 9490}
     - Class: 114
-      Script: {instanceID: 9520}
+      Script: {instanceID: 9498}
     - Class: 114
       Script: {instanceID: 9522}
     - Class: 114
-      Script: {instanceID: 9532}
+      Script: {instanceID: 9524}
     - Class: 114
-      Script: {instanceID: 9686}
+      Script: {instanceID: 9534}
     - Class: 114
-      Script: {instanceID: 9694}
+      Script: {instanceID: 9688}
     - Class: 114
-      Script: {instanceID: 9730}
+      Script: {instanceID: 9696}
     - Class: 114
-      Script: {instanceID: 9778}
+      Script: {instanceID: 9732}
     - Class: 114
-      Script: {instanceID: 9872}
+      Script: {instanceID: 9780}
     - Class: 114
-      Script: {instanceID: 9958}
+      Script: {instanceID: 9852}
     - Class: 114
-      Script: {instanceID: 10184}
+      Script: {instanceID: 9874}
     - Class: 114
-      Script: {instanceID: 10190}
+      Script: {instanceID: 9960}
     - Class: 114
-      Script: {instanceID: 10230}
+      Script: {instanceID: 10186}
     - Class: 114
-      Script: {instanceID: 10234}
+      Script: {instanceID: 10192}
     - Class: 114
-      Script: {instanceID: 10358}
+      Script: {instanceID: 10232}
     - Class: 114
-      Script: {instanceID: 10474}
+      Script: {instanceID: 10236}
     - Class: 114
-      Script: {instanceID: 10484}
+      Script: {instanceID: 10360}
     - Class: 114
-      Script: {instanceID: 10502}
+      Script: {instanceID: 10372}
     - Class: 114
-      Script: {instanceID: 10616}
+      Script: {instanceID: 10476}
     - Class: 114
-      Script: {instanceID: 10748}
+      Script: {instanceID: 10486}
     - Class: 114
-      Script: {instanceID: 10774}
+      Script: {instanceID: 10504}
     - Class: 114
-      Script: {instanceID: 10778}
+      Script: {instanceID: 10600}
     - Class: 114
-      Script: {instanceID: 10794}
+      Script: {instanceID: 10618}
     - Class: 114
-      Script: {instanceID: 10808}
+      Script: {instanceID: 10708}
+    - Class: 114
+      Script: {instanceID: 10750}
+    - Class: 114
+      Script: {instanceID: 10776}
+    - Class: 114
+      Script: {instanceID: 10780}
+    - Class: 114
+      Script: {instanceID: 10796}
+    - Class: 114
+      Script: {instanceID: 10810}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -220,6 +173,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_SelectionCaret
+  - hash:
+      serializedVersion: 2
+      Hash: 1028c39545bcfa841aaab54121e69a47
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: LoadingScreen
   - hash:
       serializedVersion: 2
       Hash: 87ff43d2baf3385cba327d8f803a4ebb
@@ -1350,7 +1309,7 @@ ScriptsOnlyBuild:
     className: Monster
   - hash:
       serializedVersion: 2
-      Hash: 9fafdcd80ba6d6e1e2bced5c3d6079da
+      Hash: 617662dec05c1c9c65db183be0ccc985
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: StageManager
@@ -1792,14 +1751,7 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 1028c39545bcfa841aaab54121e69a47
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: LoadingScreen
   platform: 13
   scenePathNames:
-  - Assets/Scenes/Loading Screen.unity
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/Client/Desktop/Gamebuild/quizzos/Quizzos 0.1.1.apk
+  playerPath: C:/Users/Client/Desktop/Gamebuild/quizzos/Quizzos 0.1.2.apk

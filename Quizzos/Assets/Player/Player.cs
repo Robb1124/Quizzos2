@@ -168,7 +168,7 @@ public class Player : MonoBehaviour
         classIndex = data.classIndex;
         stageManager.StageCompleted = data.stageCompleted;
         stageManager.ActivateUnlockedStageButtons();
-        if(quizManager.PlayerDeckQuestionIds != null)
+        if(data.playerDeckQuestionIds != null)
         {
             quizManager.PlayerDeckQuestionIds = data.playerDeckQuestionIds;
             quizManager.RecreatePlayerDeckOnLoad();

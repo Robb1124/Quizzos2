@@ -15,6 +15,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] List<bool> stageCompleted;
     [SerializeField] TextMeshProUGUI stagePreviewNameField;
     [SerializeField] TextMeshProUGUI stageDescriptionField;
+    [SerializeField] Text xpText;
     [SerializeField] int[] baseExpPerType;
     [SerializeField] float baseExpMultiplier = 1.1f;
     float expMultiplier;
@@ -54,6 +55,7 @@ public class StageManager : MonoBehaviour
     {
         quizManager.BadAnswersInCombat = 0;
         expToGain = 0;
+        xpText.text = "0";
         monsterManager.InitialSetup();
         monsterManager.ReceiveStageFile(currentStage);
         monsterManager.SpawnWaveOfMonsters(1);
@@ -138,13 +140,15 @@ public class StageManager : MonoBehaviour
                 expToGain += Mathf.RoundToInt(baseExpPerType[3] * expMultiplier);
                 break;
         }
+        xpText.text = expToGain.ToString();
     }
 
     public float CalculateExp(bool stageCompleted)
     {
         if (stageCompleted)
         {
-            expToGain = Mathf.RoundToInt(expToGain * bonusExpPercentageForCompletion);           
+            expToGain = Mathf.RoundToInt(expToGain * bonusExpPercentageForCompletion);
+            xpText.text = expToGain.ToString();
         }
         return expToGain;
     }
