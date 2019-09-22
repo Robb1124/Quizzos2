@@ -77,7 +77,6 @@ public class StageManager : MonoBehaviour
             for (int j = 0; j < currentStage.rounds[i].round.Length; j++)
             {
                 expList.Add(currentStage.rounds[i].round[j].GetExpType());
-                Debug.Log("lol");
             }
         }
         expMultiplier = Mathf.Pow(baseExpMultiplier, currentStage.stageLevel - 1);

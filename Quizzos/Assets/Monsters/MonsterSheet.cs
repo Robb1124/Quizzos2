@@ -11,6 +11,7 @@ public class MonsterSheet : ScriptableObject
     [SerializeField] Sprite monsterImage;
     [SerializeField] float monsterBaseDamage = 1;
     [SerializeField] SpecialEffects specialEffectOnHit;
+    [SerializeField] MonsterAttacksHolder[] monsterAttacksHolders;
     [SerializeField] bool isABoss = false;
     [SerializeField] ExpType expType;
 
@@ -47,5 +48,10 @@ public class MonsterSheet : ScriptableObject
     public ExpType GetExpType()
     {
         return expType;
+    }
+
+    public MonsterAttacksHolder[] GetMonsterAttacksHolders()
+    {
+        return monsterAttacksHolders;
     }
 }

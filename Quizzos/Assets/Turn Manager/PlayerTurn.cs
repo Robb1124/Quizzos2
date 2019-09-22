@@ -9,6 +9,7 @@ public class PlayerTurn : TurnState
     [SerializeField] Image[] shockMasks;
     [SerializeField] AbilitySlot abilitySlot;
     [SerializeField] Button[] targetButtons;
+    [SerializeField] Image[] targetFrames;
     [SerializeField] GameObject selectTargetPopUp;
     [SerializeField] Monster[] monstersSlot;
     [SerializeField] Player player;
@@ -83,7 +84,7 @@ public class PlayerTurn : TurnState
             quizManager.AbilityText.text = player.CharacterClass.GetAbilityTextForQuizTitle(2);
             if (player.CharacterClass.SpecialAbility2SelfCast)
             {
-                DesactivateAbilityButtons();
+                DesactivateAbilityButtonsAndTargets();
                 quizManager.DrawQuestions(player.CharacterClass.CastAbilities(currentAbility)); //self cast doesnt need to go throught targeting.
             }
         }
@@ -101,8 +102,8 @@ public class PlayerTurn : TurnState
             for (int i = 0; i < targetButtons.Length; i++)
             {
                 targetButtons[i].interactable = true;
+                targetFrames[i].gameObject.SetActive(true);
             }
-            //Border qui apparait autour des cibles potentiels
             selectTargetPopUp.SetActive(true);
         }
         else
@@ -118,10 +119,11 @@ public class PlayerTurn : TurnState
         for (int i = 0; i < targetButtons.Length; i++)
         {
             targetButtons[i].interactable = false;
+            targetFrames[i].gameObject.SetActive(true);
             selectTargetPopUp.SetActive(false);
         }
         //Deactivate Ability buttons until next turn
-        DesactivateAbilityButtons();
+        DesactivateAbilityButtonsAndTargets();
 
         switch (monsterNumber)
         {
@@ -137,12 +139,18 @@ public class PlayerTurn : TurnState
         }
     }
 
-    private void DesactivateAbilityButtons()
+    private void DesactivateAbilityButtonsAndTargets()
     {
         for (int i = 0; i < abilityButtons.Length; i++)
         {
-            abilityButtons[i].interactable = false;
+            abilityButtons[i].interactable = false;          
         }
+        for (int i = 0; i < targetFrames.Length; i++)
+        {
+            targetFrames[i].gameObject.SetActive(false);
+            targetButtons[i].interactable = false;
+        }
+        selectTargetPopUp.SetActive(false);
     }
 
     public void CastAbilities(Monster target)
@@ -210,7 +218,10 @@ public class PlayerTurn : TurnState
         if(turnManager.TurnState is PlayerTurn && player.CharacterClass is Warrior)
         {
             Warrior warriorClass = (Warrior)player.CharacterClass;
-            warriorClass.ActivateCooldownOnCharge(); //fix to activate cooldown on charge even if the passive proc
+            if(warriorClass.currentAbility == Abilities.SpecialAbility1)
+            {
+                warriorClass.ActivateCooldownOnCharge(); //fix to activate cooldown on charge even if the passive proc
+            }
         }
         player.CharacterClass.currentAbility = Abilities.BasicAttack;
         yield return new WaitForSeconds(1.5f);
