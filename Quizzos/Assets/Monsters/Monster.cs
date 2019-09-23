@@ -18,6 +18,7 @@ public class Monster : MonoBehaviour
     [SerializeField] Image stunImage;
     [SerializeField] Text damagePopup;
     [SerializeField] float dmgAndHpLevelMultiplier = 1.1f;
+    [SerializeField] MonsterTurn monsterTurn;
     int monsterLevel;
     Animator animator;
     bool isStunned;
@@ -75,9 +76,9 @@ public class Monster : MonoBehaviour
         animator.SetTrigger("AttackTrigger");        
     }
 
-    public void AttackPlayerDamage()
+    public void AttackPlayer()
     {
-        player.TakeDamage(monsterBaseDamage, monsterSheet.GetSpecialEffectOnHit());
+        monsterTurn.TheMonsterAttack();
     }
 
     public void StunEnemy()
@@ -102,5 +103,10 @@ public class Monster : MonoBehaviour
         yield return new WaitForSeconds(0.7f);
         IsStunned = false;
         stunImage.gameObject.SetActive(false);
+    }
+
+    public float GetMonsterBaseDamage()
+    {
+        return monsterBaseDamage;
     }
 }

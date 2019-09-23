@@ -92,42 +92,65 @@
     <Compile Include="Assets\UI\Tooltip\TooltipHandler.cs" />
     <Compile Include="Assets\WorldMap\StageFile.cs" />
     <Compile Include="Assets\WorldMap\StageManager.cs" />
+    <None Include="Assets\wills_magic_particle_effects\magic_implosion_explosion_C\spritesheet.txt" />
+    <None Include="Assets\wills_magic_particle_effects\blue_yellow_spiral\spritesheet.txt" />
+    <None Include="Assets\wills_magic_particle_effects\license.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\wills_magic_particle_effects\shield_spiral\spritesheet.txt" />
+    <None Include="Assets\wills_magic_particle_effects\magic_explosion\spritesheet.txt" />
+    <None Include="Assets\wills_magic_particle_effects\blue_yellow_swoosh\spritesheet.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\wills_magic_particle_effects\magic_implosion_explosion_A\spritesheet.txt" />
+    <None Include="Assets\wills_magic_particle_effects\blue_pink_spiral\spritesheet.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\wills_magic_particle_effects\green_blue_spiral\spritesheet.txt" />
+    <None Include="Assets\wills_magic_particle_effects\thanks.txt" />
+    <None Include="Assets\wills_magic_particle_effects\majestic_spiral\spritesheet.txt" />
+    <None Include="Assets\wills_magic_particle_effects\black_hole\spritesheet.txt" />
+    <None Include="Assets\wills_magic_particle_effects\pink_spiral\spritesheet.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\Universal Sound FX\version_history.txt" />
+    <None Include="Assets\wills_magic_particle_effects\shape_spiral\spritesheet.txt" />
+    <None Include="Assets\wills_magic_particle_effects\fire_pillar\spritesheet.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\wills_magic_particle_effects\magic_implosion_explosion_B\spritesheet.txt" />
+    <None Include="Assets\wills_magic_particle_effects\readme.txt" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\wills_magic_particle_effects\star_spiral\spritesheet.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\wills_magic_particle_effects\sparkle_puff\spritesheet.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\wills_magic_particle_effects\sword_spiral\spritesheet.txt" />
+    <None Include="Assets\wills_magic_particle_effects\green_spiral\spritesheet.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\wills_magic_particle_effects\heart_spiral\spritesheet.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\wills_magic_particle_effects\multi_sparkle_puff\spritesheet.txt" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Users/PC/Desktop/Quizzos Source Control/Quizzos/Quizzos/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/Users/Client/Desktop/Version control/Quizzos/Quizzos/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/PC/Desktop/Quizzos Source Control/Quizzos/Quizzos/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/Client/Desktop/Version control/Quizzos/Quizzos/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/Users/PC/Desktop/Quizzos Source Control/Quizzos/Quizzos/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/Users/Client/Desktop/Version control/Quizzos/Quizzos/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/PC/Desktop/Quizzos Source Control/Quizzos/Quizzos/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/Client/Desktop/Version control/Quizzos/Quizzos/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/PC/Desktop/Quizzos Source Control/Quizzos/Quizzos/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/Client/Desktop/Version control/Quizzos/Quizzos/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>C:/Users/PC/Desktop/Quizzos Source Control/Quizzos/Quizzos/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>C:/Users/Client/Desktop/Version control/Quizzos/Quizzos/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.14f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -306,14 +329,17 @@
     <Reference Include="nunit.framework">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.14f1/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Vuforia.UnityExtensions">
+      <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.14f1/Editor/Data/PlaybackEngines/VuforiaSupport/Managed/Runtime/Vuforia.UnityExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>C:/Users/PC/Desktop/Quizzos Source Control/Quizzos/Quizzos/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>C:/Users/Client/Desktop/Version control/Quizzos/Quizzos/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>C:/Users/PC/Desktop/Quizzos Source Control/Quizzos/Quizzos/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/Client/Desktop/Version control/Quizzos/Quizzos/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>C:/Users/PC/Desktop/Quizzos Source Control/Quizzos/Quizzos/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>C:/Users/Client/Desktop/Version control/Quizzos/Quizzos/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.14f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

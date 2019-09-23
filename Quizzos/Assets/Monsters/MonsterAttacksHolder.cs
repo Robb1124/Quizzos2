@@ -8,8 +8,14 @@ public enum MonsterAttacks {
     BasicAttack,
     [Description("Headbutt")]
     Headbutt,
-    [Description("Tail Whip")]
-    TailWhip
+    [Description("Venomous Sting")]
+    VenomousSting,
+    [Description("Heavy Hit")]
+    HeavyHit,
+    [Description("Punch")]
+    Punch,
+    [Description("Cure")]
+    Cure
 }
 
 [System.Serializable]

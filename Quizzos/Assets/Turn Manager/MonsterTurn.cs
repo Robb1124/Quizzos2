@@ -13,8 +13,18 @@ public class MonsterTurn : TurnState
     [SerializeField] TurnManager turnManager;
     [SerializeField] GameObject monsterAttackPopUp;
     [SerializeField] TextMeshProUGUI monsterAttackText;
+    [SerializeField] Player player;
+
     MonsterAttacksHolder[] monsterAttacksHolders;
     MonsterAttacks monsterAttack;
+    float monsterAttackDamage;
+    [Header("Monster Attacks Settings")]
+    [SerializeField] float basicAttackMultiplier = 1f;
+    [SerializeField] float headButtAttackMultiplier = 1.3f;
+    [SerializeField] float venomousStingMultiplier = 0.8f;
+    [SerializeField] float heavyHitMultiplier = 1.5f;
+    [SerializeField] float punchMultiplier = 0.7f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,19 +69,31 @@ public class MonsterTurn : TurnState
                         break;
                     }
                 }
+                yield return new WaitForSeconds(0.35f);
                 monsterAttackPopUp.SetActive(true);
                 monsterAttackText.text = ToFormattedText(monsterAttack);
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.75f);
+                monsterAttackDamage = monsters[i].GetMonsterBaseDamage();
                 switch (monsterAttack)
                 {
                     case MonsterAttacks.BasicAttack:
-                        //set values for the attack
+                        monsterAttackDamage *= basicAttackMultiplier;
                         monsters[i].AttackPlayerAnimation(); //Trigger event on the animation to OnMonsterAttack method from player
                         break;
                     case MonsterAttacks.Headbutt:
+                        monsterAttackDamage *= headButtAttackMultiplier;
                         monsters[i].AttackPlayerAnimation(); //Trigger event on the animation to OnMonsterAttack method from player
                         break;
-                    case MonsterAttacks.TailWhip:
+                    case MonsterAttacks.HeavyHit:
+                        monsterAttackDamage *= heavyHitMultiplier;
+                        monsters[i].AttackPlayerAnimation(); //Trigger event on the animation to OnMonsterAttack method from player
+                        break;
+                    case MonsterAttacks.Punch:
+                        monsterAttackDamage *= punchMultiplier;
+                        monsters[i].AttackPlayerAnimation(); //Trigger event on the animation to OnMonsterAttack method from player
+                        break;
+                    case MonsterAttacks.VenomousSting:
+                        monsterAttackDamage *= venomousStingMultiplier;
                         monsters[i].AttackPlayerAnimation(); //Trigger event on the animation to OnMonsterAttack method from player
                         break;
                 }
@@ -93,7 +115,18 @@ public class MonsterTurn : TurnState
 
     public void TheMonsterAttack()
     {
-
+        switch (monsterAttack)
+        {
+            case MonsterAttacks.BasicAttack:
+            case MonsterAttacks.Headbutt:
+            case MonsterAttacks.HeavyHit: //chance to stun ?
+            case MonsterAttacks.Punch:
+                player.TakeDamage(monsterAttackDamage, SpecialEffects.None);
+                break;
+            case MonsterAttacks.VenomousSting:
+                player.TakeDamage(monsterAttackDamage, SpecialEffects.Poison);
+                break;
+        }
     }
 
     public static string ToFormattedText(MonsterAttacks monsterAttack)

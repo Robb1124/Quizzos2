@@ -17,5 +17,12 @@ MonoBehaviour:
   monsterImage: {fileID: 21300000, guid: eb84f498204ab694683085ca5cdd6c27, type: 3}
   monsterBaseDamage: 17
   specialEffectOnHit: 0
+  monsterAttacksHolders:
+  - monsterAttack: 0
+    useProbability: 0.35
+  - monsterAttack: 3
+    useProbability: 0.3
+  - monsterAttack: 4
+    useProbability: 0.35
   isABoss: 0
   expType: 1
