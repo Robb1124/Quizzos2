@@ -65,6 +65,14 @@ public class Monster : MonoBehaviour
         }
     }
 
+    public void HealDamage(float damageToHeal)
+    {
+        monsterCurrentHp += damageToHeal;
+        if(monsterCurrentHp > monsterMaxHp)
+        {
+            monsterCurrentHp = monsterMaxHp;
+        }
+    }
     private void ActiveDamagePopup(float damageDone, bool criticalHit)
     {        
         damagePopup.gameObject.SetActive(true);
@@ -108,5 +116,10 @@ public class Monster : MonoBehaviour
     public float GetMonsterBaseDamage()
     {
         return monsterBaseDamage;
+    }
+
+    public float GetHealthPercentage()
+    {
+        return monsterCurrentHp / monsterMaxHp;
     }
 }

@@ -14,7 +14,7 @@ public class MonsterTurn : TurnState
     [SerializeField] GameObject monsterAttackPopUp;
     [SerializeField] TextMeshProUGUI monsterAttackText;
     [SerializeField] Player player;
-
+    [SerializeField] MonsterFX monsterFXHolder;
     MonsterAttacksHolder[] monsterAttacksHolders;
     MonsterAttacks monsterAttack;
     float monsterAttackDamage;
@@ -24,7 +24,7 @@ public class MonsterTurn : TurnState
     [SerializeField] float venomousStingMultiplier = 0.8f;
     [SerializeField] float heavyHitMultiplier = 1.5f;
     [SerializeField] float punchMultiplier = 0.7f;
-
+    [SerializeField] float cureMultiplier = 4f;
     // Start is called before the first frame update
     void Start()
     {
@@ -95,6 +95,21 @@ public class MonsterTurn : TurnState
                     case MonsterAttacks.VenomousSting:
                         monsterAttackDamage *= venomousStingMultiplier;
                         monsters[i].AttackPlayerAnimation(); //Trigger event on the animation to OnMonsterAttack method from player
+                        break;
+                    case MonsterAttacks.Cure:
+                        Monster targetMonster = monsters[i];
+                        float percentageOfHealth = 1;
+                        for (int j = 0; j < monsters.Length; j++)
+                        {
+                            if (monsters[j].isActiveAndEnabled && percentageOfHealth >= monsters[j].GetHealthPercentage())
+                            {
+                                targetMonster = monsters[j];
+                                percentageOfHealth = monsters[j].GetHealthPercentage();
+                            }
+                        }                                              
+                        monsterFXHolder.PlayMonsterFX(MonsterFXs.Cure, targetMonster.transform);
+                        yield return new WaitForSeconds(0.5f);
+                        targetMonster.HealDamage(monsterAttackDamage * cureMultiplier); //TODO when refactoring abilities, make sure cure doesnt scale with damage anymore. so a weak character could heal regardless of its damage.
                         break;
                 }
                 if (monstersThatWillAttack == 0)

@@ -5197,7 +5197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -5345,7 +5345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -9870,7 +9870,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1031816827
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11853,7 +11853,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 45}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1328349015
@@ -12288,7 +12288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1399485353
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13523,11 +13523,13 @@ MonoBehaviour:
   monsterAttackPopUp: {fileID: 1678529048}
   monsterAttackText: {fileID: 998914002}
   player: {fileID: 538342686}
+  monsterFXHolder: {fileID: 1770008661}
   basicAttackMultiplier: 1
   headButtAttackMultiplier: 1.3
   venomousStingMultiplier: 0.8
   heavyHitMultiplier: 1.5
   punchMultiplier: 0.7
+  cureMultiplier: 4
 --- !u!1 &1505126264
 GameObject:
   m_ObjectHideFlags: 0
@@ -15323,6 +15325,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1770008660}
+  - component: {fileID: 1770008661}
   m_Layer: 5
   m_Name: Monster FX Holder
   m_TagString: Untagged
@@ -15350,6 +15353,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1770008661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1770008659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90c6d7067c2bc3d4fa5907247b248694, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterTransforms:
+  - {fileID: 684596673}
+  - {fileID: 374511997}
+  - {fileID: 579392121}
 --- !u!1 &1776868023
 GameObject:
   m_ObjectHideFlags: 0
@@ -18342,6 +18361,11 @@ PrefabInstance:
     - target: {fileID: 4149663960438254463, guid: 5c8e8dced709e97418a61787bdac2b88,
         type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3119464421556691676, guid: 5c8e8dced709e97418a61787bdac2b88,
+        type: 3}
+      propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4149663960438254462, guid: 5c8e8dced709e97418a61787bdac2b88,
