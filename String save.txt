@@ -46,3 +46,5 @@ Passive
 <color=#FBBF4C>Every 3 wrong answers,</color>
 a basic attack is thrown 
 on a random target.
+
+c
