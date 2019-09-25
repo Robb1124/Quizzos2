@@ -61,7 +61,7 @@ public class MonsterManager : MonoBehaviour
     {
 
         //Monster death (on peut inserer un delai pour animation/son)
-        stageManager.MonsterDeathAddExp(monsters[monsterNumber - 1].MonsterSheet.GetExpType());
+        stageManager.MonsterDeathAddExpAndGold(monsters[monsterNumber - 1].MonsterSheet.GetExpType(), monsters[monsterNumber -1].MonsterSheet.GetGoldType());
         monsters[monsterNumber - 1].gameObject.SetActive(false);
         monsterCount--;
         if(monsterCount == 0)

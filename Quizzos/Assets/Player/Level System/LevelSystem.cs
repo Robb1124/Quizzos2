@@ -39,7 +39,7 @@ public class LevelSystem : MonoBehaviour
         
     }
 
-    public void GainExp(float expPointsGained)
+    public void GainExp(int expPointsGained)
     {
         ExperiencePoints += expPointsGained;
         if(ExperiencePoints >= xpRequirementsForLevelUp[PlayerLevel - 1])

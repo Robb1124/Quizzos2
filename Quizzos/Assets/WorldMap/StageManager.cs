@@ -16,11 +16,17 @@ public class StageManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI stagePreviewNameField;
     [SerializeField] TextMeshProUGUI stageDescriptionField;
     [SerializeField] Text xpText;
+    [SerializeField] Text goldText;
     [SerializeField] int[] baseExpPerType;
+    [SerializeField] int[] baseGoldPerType;
     [SerializeField] float baseExpMultiplier = 1.1f;
+    [SerializeField] float baseGoldMultiplier = 1.1f;
     float expMultiplier;
+    float goldMultiplier;
     [SerializeField] float bonusExpPercentageForCompletion;
+    [SerializeField] float bonusGoldPercentageForCompletion;
     int expToGain = 0;
+    int goldToGain = 0;
     [SerializeField] QuizManager quizManager;
     StageFile currentStage;
     [SerializeField] MonsterManager monsterManager;
@@ -55,7 +61,9 @@ public class StageManager : MonoBehaviour
     {
         quizManager.BadAnswersInCombat = 0;
         expToGain = 0;
+        goldToGain = 0;
         xpText.text = "0";
+        goldText.text = "0";
         monsterManager.InitialSetup();
         monsterManager.ReceiveStageFile(currentStage);
         monsterManager.SpawnWaveOfMonsters(1);
@@ -80,7 +88,8 @@ public class StageManager : MonoBehaviour
             }
         }
         expMultiplier = Mathf.Pow(baseExpMultiplier, currentStage.stageLevel - 1);
-        foreach(ExpType expType in expList)
+        goldMultiplier = Mathf.Pow(baseGoldMultiplier, currentStage.stageLevel - 1);
+        foreach (ExpType expType in expList)
         {
             switch (expType)
             {
@@ -122,7 +131,7 @@ public class StageManager : MonoBehaviour
         }
     }
 
-    public void MonsterDeathAddExp(ExpType monsterExpType)
+    public void MonsterDeathAddExpAndGold(ExpType monsterExpType, GoldType monsterGoldType)
     {
         switch (monsterExpType)
         {
@@ -139,16 +148,42 @@ public class StageManager : MonoBehaviour
                 expToGain += Mathf.RoundToInt(baseExpPerType[3] * expMultiplier);
                 break;
         }
+        switch (monsterGoldType)
+        {
+            case GoldType.Low:
+                goldToGain += Mathf.RoundToInt(baseGoldPerType[0] * expMultiplier);
+                break;
+            case GoldType.Medium:
+                goldToGain += Mathf.RoundToInt(baseGoldPerType[1] * expMultiplier);
+                break;
+            case GoldType.High:
+                goldToGain += Mathf.RoundToInt(baseGoldPerType[2] * expMultiplier);
+                break;
+            case GoldType.Boss:
+                goldToGain += Mathf.RoundToInt(baseGoldPerType[3] * expMultiplier);
+                break;
+        }
         xpText.text = expToGain.ToString();
+        goldText.text = goldToGain.ToString();
     }
 
-    public float CalculateExp(bool stageCompleted)
+    public int CalculateExp(bool stageCompleted)
     {
         if (stageCompleted)
         {
             expToGain = Mathf.RoundToInt(expToGain * bonusExpPercentageForCompletion);
-            xpText.text = expToGain.ToString();
+            xpText.text = expToGain.ToString();            
         }
         return expToGain;
+    }
+
+    public int CalculateGold(bool stageCompleted)
+    {
+        if (stageCompleted)
+        {
+            goldToGain = Mathf.RoundToInt(goldToGain * bonusGoldPercentageForCompletion);
+            goldText.text = goldToGain.ToString();
+        }
+        return goldToGain;
     }
 }

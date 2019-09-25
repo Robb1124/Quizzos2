@@ -15,7 +15,11 @@ public enum MonsterAttacks {
     [Description("Punch")]
     Punch,
     [Description("Cure")]
-    Cure
+    Cure,
+    [Description("Shield Bash")]
+    ShieldBash,
+    [Description("Flame Slash")]
+    FlameSlash
 }
 
 [System.Serializable]

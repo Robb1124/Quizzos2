@@ -16,9 +16,11 @@ public class TurnManager : MonoBehaviour
     [SerializeField] LevelSystem levelSystem;
     [SerializeField] StageManager stageManager;
     [SerializeField] QuizManager quizManager;
+    [SerializeField] ItemAndGoldSystem goldSystem;
     bool stageComplete = false;
     public TurnState TurnState { get => turnState; set => turnState = value; }
-    public float ExpCalculated { get; set; } = 0;
+    public int ExpCalculated { get; set; } = 0;
+    public int GoldCalculated { get; set; } = 0;
     public bool CombatIsOver { get; set; } = false;
 
     public delegate void OnTurnChangeForPlayer(); // declare new delegate type
@@ -62,8 +64,10 @@ public class TurnManager : MonoBehaviour
     private void CalculateRewardsAndSetUI()
     {
         ExpCalculated = stageManager.CalculateExp(stageComplete);
+        GoldCalculated = stageManager.CalculateGold(stageComplete);
         rewardText.text = "You have gained : \n" +
-            ExpCalculated + " Experience Points.";
+            ExpCalculated + " Experience Points. \n" +
+            GoldCalculated + " Gold from your adventure!";
         stageComplete = false;
     }
 
@@ -74,9 +78,10 @@ public class TurnManager : MonoBehaviour
         CalculateRewardsAndSetUI();
     }
     public void ClaimRewardsButton()
-    {
+    {       
         levelSystem.GainExp(ExpCalculated);
-        SaveSystem.SavePlayer(player, levelSystem, stageManager, quizManager);
+        goldSystem.AddGold(GoldCalculated);
+        SaveSystem.SavePlayer(player, levelSystem, stageManager, quizManager, goldSystem);
         stageManager.ActivateUnlockedStageButtons();
         CombatIsOver = false;
         //place for other rewards methods

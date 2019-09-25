@@ -8,6 +8,7 @@ public class PlayerData
 {
     public int playerLevel;
     public int expPoints;
+    public int gold;
     public int playerMaxHp;
     public int playerBaseDmg;
     public float poisonResist;
@@ -18,10 +19,11 @@ public class PlayerData
     public List<bool> stageCompleted;
     public int[] playerDeckQuestionIds;
 
-    public PlayerData(Player player, LevelSystem levelSystem, StageManager stageManager, QuizManager quizManager)
+    public PlayerData(Player player, LevelSystem levelSystem, StageManager stageManager, QuizManager quizManager, ItemAndGoldSystem goldSystem)
     {
         playerLevel = levelSystem.PlayerLevel;
         expPoints = (int)levelSystem.ExperiencePoints;
+        gold = goldSystem.GetGold();
         playerMaxHp = player.PlayerMaxHp;
         playerBaseDmg = player.PlayerBaseDmg;
         classIndex = player.ClassIndex;
@@ -30,7 +32,6 @@ public class PlayerData
         poisonResist = player.PoisonResist;
         burnResist = player.BurnResist;
         shockResist = player.ShockResist;
-        frostResist = player.FrostResist;
-        
+        frostResist = player.FrostResist;        
     }
 }

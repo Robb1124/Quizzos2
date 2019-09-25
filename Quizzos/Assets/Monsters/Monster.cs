@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum MonsterAnimations { StandardAttack, ChargeAttack}
 public class Monster : MonoBehaviour
 {
     [SerializeField] MonsterSheet monsterSheet;
@@ -79,9 +80,17 @@ public class Monster : MonoBehaviour
         damagePopup.GetComponent<DamagePopup>().ActivateDamagePopupAnimation(transform, damageDone, criticalHit);
     }
 
-    public void AttackPlayerAnimation()
+    public void AttackPlayerAnimation(MonsterAnimations monsterAnimation = MonsterAnimations.StandardAttack)
     {
-        animator.SetTrigger("AttackTrigger");        
+        switch (monsterAnimation)
+        {
+            case MonsterAnimations.StandardAttack:
+                animator.SetTrigger("AttackTrigger");
+                break;
+            case MonsterAnimations.ChargeAttack:
+                animator.SetTrigger("ChargeAttackTrigger");
+                break;
+        }
     }
 
     public void AttackPlayer()

@@ -70,6 +70,7 @@
     <Compile Include="Assets\Music &amp; SFX\Music\MusicManager.cs" />
     <Compile Include="Assets\Player\AbilitySlot.cs" />
     <Compile Include="Assets\Player\CharacterClass.cs" />
+    <Compile Include="Assets\Player\ItemAndGoldSystem\ItemAndGoldSystem.cs" />
     <Compile Include="Assets\Player\Level System\LevelSystem.cs" />
     <Compile Include="Assets\Player\Level System\LevelUpGains.cs" />
     <Compile Include="Assets\Player\Player.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Assets\Turn Manager\TurnManager.cs" />
     <Compile Include="Assets\Turn Manager\TurnState.cs" />
     <Compile Include="Assets\UI\Damage Popup\DamagePopup.cs" />
+    <Compile Include="Assets\UI\EditorHelper.cs" />
     <Compile Include="Assets\UI\Loading Screen\LoadingScreen.cs" />
     <Compile Include="Assets\UI\Tooltip\Tooltip.cs" />
     <Compile Include="Assets\UI\Tooltip\TooltipHandler.cs" />

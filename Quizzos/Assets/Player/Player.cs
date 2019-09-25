@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] float playerCurrentHp;
     [SerializeField] int playerBaseDmg = 25;
     [SerializeField] float dmgReduction = 0;
+    [SerializeField] float dmgMultiplierEffects = 1f;
     [SerializeField] Text playerHpText;
     [SerializeField] Image playerHpBar;
     [SerializeField] CharacterClass characterClass;
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
     [SerializeField] LevelSystem levelSystem;
     [SerializeField] StageManager stageManager;
     [SerializeField] QuizManager quizManager;
+    [SerializeField] ItemAndGoldSystem goldSystem;
     [SerializeField] AudioClip[] takeDamageSFXs;
     [SerializeField] AudioClip burnDamageSFX;
     bool playerDead = false;
@@ -35,6 +37,8 @@ public class Player : MonoBehaviour
     public float BurnResist { get; set; }
     public float ShockResist { get; set; }
     public float FrostResist { get; set; }
+    public float ConcussionResist { get; set; }
+
 
     public delegate void OnPlayerDeath(); // declare new delegate type
     public event OnPlayerDeath onPlayerDeath; // instantiate an observer set
@@ -83,6 +87,13 @@ public class Player : MonoBehaviour
                         prePlayerTurn.AddSpecialEffects(onHitSpecialEffect);
                     }
                     break;
+                case SpecialEffects.Concussion:
+                    rand = UnityEngine.Random.Range(0.00f, 1.00f);
+                    if (rand > ConcussionResist)
+                    {
+                        prePlayerTurn.AddSpecialEffects(onHitSpecialEffect);
+                    }
+                    break;
                     //frost here
             }
         }
@@ -123,7 +134,7 @@ public class Player : MonoBehaviour
         CharacterClass.OnClassEquip();
     }
 
-    public void SetPlayerMaxHpAndBaseDmgAndResists(int maxHp, int baseDmg, float poisonResist, float burnResist, float shockResist, float frostResist)
+    public void SetPlayerMaxHpAndBaseDmgAndResists(int maxHp, int baseDmg, float poisonResist, float burnResist, float shockResist, float frostResist, float concussionResist)
     {
         PlayerMaxHp = maxHp;
         playerCurrentHp = PlayerMaxHp;
@@ -132,6 +143,7 @@ public class Player : MonoBehaviour
         this.BurnResist = burnResist;
         this.ShockResist = shockResist;
         this.FrostResist = frostResist;
+        this.ConcussionResist = concussionResist;
     }
 
     private void GameOver()
@@ -148,7 +160,7 @@ public class Player : MonoBehaviour
 
     public void SavePlayer()
     {
-        SaveSystem.SavePlayer(this, levelSystem, stageManager, quizManager);
+        SaveSystem.SavePlayer(this, levelSystem, stageManager, quizManager, goldSystem);
     }
 
     public void LoadPlayer()
@@ -158,6 +170,7 @@ public class Player : MonoBehaviour
         levelSystem.PlayerLevel = data.playerLevel;
         levelSystem.ExperiencePoints = data.expPoints;
         levelSystem.UpdateExpBar();
+        goldSystem.AddGold(data.gold);
         playerMaxHp = data.playerMaxHp;
         playerCurrentHp = playerMaxHp;
         PlayerBaseDmg = data.playerBaseDmg;
@@ -195,4 +208,17 @@ public class Player : MonoBehaviour
         prePlayerTurn.RemoveAllSpecialEffects();
     }
 
+    public float GetCalculatedPlayerDmg()
+    {
+        return playerBaseDmg * dmgMultiplierEffects; //can change this to change how effects change the player damage. Ex: concussion gets calculated on top of everything, or removes 25% from 225% player dmg?
+    }
+
+    public void AddConcussion(float baseDmgReductionPercentage)
+    {
+        dmgMultiplierEffects -= baseDmgReductionPercentage;
+    }
+    public void RemoveConcussion(float baseDmgReductionPercentage)
+    {
+        dmgMultiplierEffects += baseDmgReductionPercentage;
+    }
 }

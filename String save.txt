@@ -18,6 +18,10 @@ Every time you give a
 wrong answer, you burn
 for 4% max health.
 
+<i><b><#65651F>Concussion</color></b></i>
+Your attacks deal
+25% reduced damage.
+
 <i><b>Basic Attack</b></i>
 Single Target
 Does 100% base damage

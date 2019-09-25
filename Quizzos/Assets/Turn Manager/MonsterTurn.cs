@@ -25,6 +25,9 @@ public class MonsterTurn : TurnState
     [SerializeField] float heavyHitMultiplier = 1.5f;
     [SerializeField] float punchMultiplier = 0.7f;
     [SerializeField] float cureMultiplier = 4f;
+    [SerializeField] float flameSlashMultiplier = 1.4f;
+    [SerializeField] float shieldBashMultiplier = 1.2f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -82,7 +85,7 @@ public class MonsterTurn : TurnState
                         break;
                     case MonsterAttacks.Headbutt:
                         monsterAttackDamage *= headButtAttackMultiplier;
-                        monsters[i].AttackPlayerAnimation(); //Trigger event on the animation to OnMonsterAttack method from player
+                        monsters[i].AttackPlayerAnimation(MonsterAnimations.ChargeAttack); //Trigger event on the animation to OnMonsterAttack method from player
                         break;
                     case MonsterAttacks.HeavyHit:
                         monsterAttackDamage *= heavyHitMultiplier;
@@ -110,6 +113,14 @@ public class MonsterTurn : TurnState
                         monsterFXHolder.PlayMonsterFX(MonsterFXs.Cure, targetMonster.transform);
                         yield return new WaitForSeconds(0.5f);
                         targetMonster.HealDamage(monsterAttackDamage * cureMultiplier); //TODO when refactoring abilities, make sure cure doesnt scale with damage anymore. so a weak character could heal regardless of its damage.
+                        break;
+                    case MonsterAttacks.FlameSlash:
+                        monsterAttackDamage *= flameSlashMultiplier;
+                        monsters[i].AttackPlayerAnimation(); //Trigger event on the animation to OnMonsterAttack method from player
+                        break;
+                    case MonsterAttacks.ShieldBash:
+                        monsterAttackDamage *= shieldBashMultiplier;
+                        monsters[i].AttackPlayerAnimation(MonsterAnimations.ChargeAttack); //Trigger event on the animation to OnMonsterAttack method from player
                         break;
                 }
                 if (monstersThatWillAttack == 0)
@@ -140,6 +151,12 @@ public class MonsterTurn : TurnState
                 break;
             case MonsterAttacks.VenomousSting:
                 player.TakeDamage(monsterAttackDamage, SpecialEffects.Poison);
+                break;
+            case MonsterAttacks.FlameSlash:
+                player.TakeDamage(monsterAttackDamage, SpecialEffects.Burn);
+                break;
+            case MonsterAttacks.ShieldBash:
+                player.TakeDamage(monsterAttackDamage, SpecialEffects.Concussion);
                 break;
         }
     }

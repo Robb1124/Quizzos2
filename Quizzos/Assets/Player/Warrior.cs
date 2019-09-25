@@ -14,6 +14,7 @@ public class Warrior : CharacterClass
     [SerializeField] float burnResist;
     [SerializeField] float shockResist;
     [SerializeField] float frostResist;
+    [SerializeField] float concussionResist;
     [SerializeField] float basicAttackDmgModifier = 1;
     [SerializeField] int chargeAttackCooldown = 3;
     [SerializeField] float chargeAttackDmgModifier = 4;
@@ -51,7 +52,7 @@ public class Warrior : CharacterClass
         quizManager.onWrongAnswers += OnWrongAnswers;
         player = GetComponent<Player>();
         SpecialAbility2SelfCast = true;
-        player.SetPlayerMaxHpAndBaseDmgAndResists(maxHP, baseDmg, poisonResist, burnResist, shockResist, frostResist);
+        player.SetPlayerMaxHpAndBaseDmgAndResists(maxHP, baseDmg, poisonResist, burnResist, shockResist, frostResist, concussionResist);
     }
 
     // Update is called once per frame

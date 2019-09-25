@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum SpecialEffects { None, Poison, Burn, Shock, ShieldUp};
+public enum SpecialEffects { None, Poison, Burn, Shock, ShieldUp, Concussion};
 
 public class PrePlayerTurn : TurnState
 {
@@ -16,10 +16,13 @@ public class PrePlayerTurn : TurnState
     [SerializeField] Sprite poisonSprite;
     [SerializeField] Sprite shockSprite;
     [SerializeField] Sprite burnSprite;
+    [SerializeField] Sprite concussionSprite;
     [SerializeField] Image shieldUpSlot;
     [SerializeField] Image poisonSlot;
     [SerializeField] Image shockSlot;
     [SerializeField] Image burnSlot;
+    [SerializeField] Image concussionSlot;
+    [SerializeField] float concussionEffectBaseDmgReduction;
     [SerializeField] float burnEffectDamagePercentage;
     [TextArea(2, 5)]
     [SerializeField] string shieldUpText;
@@ -29,12 +32,16 @@ public class PrePlayerTurn : TurnState
     [SerializeField] string shockText;
     [TextArea(2, 5)]
     [SerializeField] string burnText;
+    [TextArea(2, 5)]
+    [SerializeField] string concussionText;
     public List<SpecialEffects> CurrentSpecialEffects { get; set; } = new List<SpecialEffects>();
     public bool CurrentEffectIsDone { get; set; } = false;
     public bool ShieldUpActive { get; set; } = false;
     public bool PoisonActive { get; set; } = false;
     public bool ShockActive { get; set; } = false;
     public bool BurnActive { get; set; } = false;
+    public bool ConcussionActive { get; set; } = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -83,24 +90,6 @@ public class PrePlayerTurn : TurnState
                         yield return new WaitForSeconds(0.1f);
                     }
                     break;
-                //case SpecialEffects.Shock:
-                //    shockSlot = specialEffectsSlots[i];
-                //    shockSlot.gameObject.SetActive(true);
-                //    shockSlot.sprite = shockSprite;
-                //    ShockActive = true;                    
-                //    break;
-                //case SpecialEffects.Burn:
-                //    burnSlot = specialEffectsSlots[i];
-                //    burnSlot.gameObject.SetActive(true);
-                //    burnSlot.sprite = burnSprite;
-                //    BurnActive = true;
-                //    break;
-                //case SpecialEffects.Poison:
-                //    poisonSlot = specialEffectsSlots[i];
-                //    poisonSlot.gameObject.SetActive(true);
-                //    poisonSlot.sprite = poisonSprite;
-                //    PoisonActive = true;
-                //    break;
             }
         }
         
@@ -148,6 +137,10 @@ public class PrePlayerTurn : TurnState
             case SpecialEffects.Poison:
                 PoisonActive = false;
                 break;
+            case SpecialEffects.Concussion:
+                player.RemoveConcussion(concussionEffectBaseDmgReduction);
+                ConcussionActive = false;
+                break;
         }            
         RefreshSpecialEffectsSlots();
     }
@@ -184,6 +177,14 @@ public class PrePlayerTurn : TurnState
                     CurrentSpecialEffects.Add(SpecialEffects.Poison);
                 }
                 break;
+            case SpecialEffects.Concussion:
+                if (!ConcussionActive)
+                {
+                    ConcussionActive = true;
+                    player.AddConcussion(concussionEffectBaseDmgReduction);
+                    CurrentSpecialEffects.Add(SpecialEffects.Concussion);
+                }
+                break;
         }
         RefreshSpecialEffectsSlots();
     }
@@ -193,8 +194,7 @@ public class PrePlayerTurn : TurnState
         if (CurrentSpecialEffects != null)
         {
             for (int i = 0; i < CurrentSpecialEffects.Count; i++)
-            {
-                //specialEffectsSlots[i].gameObject.SetActive(false);
+            {                
                 switch (CurrentSpecialEffects[i])
                 {
                     case SpecialEffects.ShieldUp:
@@ -219,6 +219,12 @@ public class PrePlayerTurn : TurnState
                         specialEffectsSlots[i].gameObject.SetActive(true);
                         poisonSlot.sprite = poisonSprite;
                         PoisonActive = true;
+                        break;
+                    case SpecialEffects.Concussion:
+                        concussionSlot = specialEffectsSlots[i];
+                        specialEffectsSlots[i].gameObject.SetActive(true);
+                        concussionSlot.sprite = concussionSprite;
+                        ConcussionActive = true;
                         break;
                 }
             }            
@@ -253,14 +259,15 @@ public class PrePlayerTurn : TurnState
                 return burnText;
             case SpecialEffects.Poison:
                 return poisonText;
+            case SpecialEffects.Concussion:
+                return concussionText;
         }
         return null;
     }
 
     private void OnPlayerDeath()
     {
-        RemoveAllSpecialEffects();
-        
+        RemoveAllSpecialEffects();       
     }
 
     public void RemoveAllSpecialEffects()
