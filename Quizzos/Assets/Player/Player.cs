@@ -120,6 +120,10 @@ public class Player : MonoBehaviour
         }
     }
    
+    public void HealDamage(float healAmount)
+    {
+        playerCurrentHp = Mathf.Clamp(playerCurrentHp + healAmount, 0, playerMaxHp);
+    }
 
     public void ReceiveClass(int choosenClassIndex)
     {

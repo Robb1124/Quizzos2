@@ -9,6 +9,7 @@ public class Items : ScriptableObject
     [SerializeField] Sprite itemImage;
 
     public int ItemId { get => itemId; set => itemId = value; }
+    public Sprite ItemImage { get => itemImage; set => itemImage = value; }
 
     // Start is called before the first frame update
     void Start()

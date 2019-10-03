@@ -11,6 +11,7 @@ public class Consumables : Items
     [SerializeField] int healingAmount;
 
     public ConsumableType ConsumableType { get => consumableType; set => consumableType = value; }
+    public int HealingAmount { get => healingAmount; set => healingAmount = value; }
 
     // Start is called before the first frame update
     void Start()
