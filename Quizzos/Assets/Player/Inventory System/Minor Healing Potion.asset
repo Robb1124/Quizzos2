@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: Minor Healing Potion
   m_EditorClassIdentifier: 
   itemId: 1
-  nameOfItem: Minor Healing Potion
+  nameOfItem: Tiny Healing Potion
   itemImage: {fileID: 21300000, guid: 2e2c5fbbd88773e40b8dd8b63674dae9, type: 3}
+  stackSize: 25
+  shopPrice: 12
+  itemCategory: 0
+  itemDescription: In combat, drink this potion to heal yourself for {0} health. You
+    may only use one consumable per turn.
   consumableType: 0
   healingAmount: 25

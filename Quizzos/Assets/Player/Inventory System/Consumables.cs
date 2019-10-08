@@ -24,4 +24,9 @@ public class Consumables : Items
     {
         
     }
+
+    public string GetDescription()
+    {
+        return string.Format(itemDescription, healingAmount);
+    }
 }

@@ -26,3 +26,4 @@ MonoBehaviour:
     useProbability: 0.35
   isABoss: 0
   expType: 1
+  goldType: 1

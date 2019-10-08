@@ -4,8 +4,11 @@ ScriptsOnlyBuild:
     - Assets.Plugins.ButtonSoundsEditor.ButtonClickSound
     Assembly-CSharp.dll:
     - AbilitySlot
+    - Consumables
     - DamagePopup
     - EditorHelper
+    - InGameInventorySlot
+    - InventorySystem
     - ItemAndGoldSystem
     - JsonHarvester
     - LevelSystem
@@ -20,6 +23,8 @@ ScriptsOnlyBuild:
     - PlayerTurn
     - PrePlayerTurn
     - QuizManager
+    - Shop
+    - ShopSlots
     - StageFile
     - StageManager
     - Tooltip
@@ -86,87 +91,97 @@ ScriptsOnlyBuild:
     - Class: 109
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9398}
+      Script: {instanceID: 9392}
     - Class: 114
-      Script: {instanceID: 9406}
+      Script: {instanceID: 9400}
     - Class: 114
-      Script: {instanceID: 9464}
+      Script: {instanceID: 9408}
     - Class: 114
       Script: {instanceID: 9466}
     - Class: 114
       Script: {instanceID: 9468}
     - Class: 114
-      Script: {instanceID: 9472}
+      Script: {instanceID: 9470}
     - Class: 114
-      Script: {instanceID: 9478}
+      Script: {instanceID: 9474}
     - Class: 114
-      Script: {instanceID: 9482}
+      Script: {instanceID: 9480}
     - Class: 114
-      Script: {instanceID: 9486}
+      Script: {instanceID: 9484}
     - Class: 114
-      Script: {instanceID: 9490}
+      Script: {instanceID: 9488}
     - Class: 114
-      Script: {instanceID: 9498}
+      Script: {instanceID: 9492}
     - Class: 114
-      Script: {instanceID: 9522}
+      Script: {instanceID: 9500}
     - Class: 114
       Script: {instanceID: 9524}
     - Class: 114
-      Script: {instanceID: 9534}
+      Script: {instanceID: 9526}
     - Class: 114
-      Script: {instanceID: 9688}
+      Script: {instanceID: 9536}
     - Class: 114
-      Script: {instanceID: 9696}
+      Script: {instanceID: 9684}
     - Class: 114
-      Script: {instanceID: 9732}
+      Script: {instanceID: 9692}
     - Class: 114
-      Script: {instanceID: 9780}
+      Script: {instanceID: 9700}
     - Class: 114
-      Script: {instanceID: 9854}
+      Script: {instanceID: 9736}
     - Class: 114
-      Script: {instanceID: 9876}
+      Script: {instanceID: 9786}
     - Class: 114
-      Script: {instanceID: 9962}
+      Script: {instanceID: 9842}
     - Class: 114
-      Script: {instanceID: 10050}
+      Script: {instanceID: 9862}
     - Class: 114
-      Script: {instanceID: 10190}
+      Script: {instanceID: 9884}
     - Class: 114
-      Script: {instanceID: 10196}
+      Script: {instanceID: 9970}
     - Class: 114
-      Script: {instanceID: 10236}
+      Script: {instanceID: 10058}
     - Class: 114
-      Script: {instanceID: 10240}
+      Script: {instanceID: 10060}
     - Class: 114
-      Script: {instanceID: 10364}
+      Script: {instanceID: 10200}
     - Class: 114
-      Script: {instanceID: 10376}
+      Script: {instanceID: 10206}
     - Class: 114
-      Script: {instanceID: 10480}
+      Script: {instanceID: 10248}
     - Class: 114
-      Script: {instanceID: 10490}
+      Script: {instanceID: 10252}
     - Class: 114
-      Script: {instanceID: 10508}
+      Script: {instanceID: 10306}
     - Class: 114
-      Script: {instanceID: 10604}
+      Script: {instanceID: 10370}
     - Class: 114
-      Script: {instanceID: 10622}
+      Script: {instanceID: 10380}
     - Class: 114
-      Script: {instanceID: 10712}
+      Script: {instanceID: 10392}
     - Class: 114
-      Script: {instanceID: 10754}
+      Script: {instanceID: 10496}
     - Class: 114
-      Script: {instanceID: 10780}
+      Script: {instanceID: 10506}
     - Class: 114
-      Script: {instanceID: 10784}
+      Script: {instanceID: 10524}
+    - Class: 114
+      Script: {instanceID: 10620}
+    - Class: 114
+      Script: {instanceID: 10638}
+    - Class: 114
+      Script: {instanceID: 10728}
+    - Class: 114
+      Script: {instanceID: 10770}
+    - Class: 114
+      Script: {instanceID: 10796}
     - Class: 114
       Script: {instanceID: 10800}
     - Class: 114
-      Script: {instanceID: 10814}
+      Script: {instanceID: 10816}
     - Class: 114
-      Script: {instanceID: 30888}
+      Script: {instanceID: 10830}
     - Class: 114
-      Script: {instanceID: 50972}
+      Script: {instanceID: 10918}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -206,6 +221,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_Dropdown
+  - hash:
+      serializedVersion: 2
+      Hash: 459a4240f3cfce6e4b619c2c1eadcec2
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Consumables
   - hash:
       serializedVersion: 2
       Hash: 980be8214e97639b7737cb6f97e1ba06
@@ -634,6 +655,12 @@ ScriptsOnlyBuild:
     className: SignalAsset
   - hash:
       serializedVersion: 2
+      Hash: 7ad2bfed5f8f96212d6ffa483256dfab
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Shop
+  - hash:
+      serializedVersion: 2
       Hash: dc52ed467ee684005e1b30eb8604ccc2
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -692,6 +719,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Analytics.Tracker.dll
     namespaceName: UnityEngine.Analytics
     className: AnalyticsTracker
+  - hash:
+      serializedVersion: 2
+      Hash: 28a3231d2633b233c87f1c6ce3889601
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: EditorHelper
   - hash:
       serializedVersion: 2
       Hash: 0fb27be807aa299702f28ad0bcad1f46
@@ -1138,6 +1171,12 @@ ScriptsOnlyBuild:
     className: MonsterFX
   - hash:
       serializedVersion: 2
+      Hash: 40ee20b41858af891544fb81ec6c7b2a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: InGameInventorySlot
+  - hash:
+      serializedVersion: 2
       Hash: b3ab2106268377ffe25dd18ac23dca28
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -1180,6 +1219,12 @@ ScriptsOnlyBuild:
     className: TurnState
   - hash:
       serializedVersion: 2
+      Hash: f9abcf0f904f466aa0d89f72794807d0
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Items
+  - hash:
+      serializedVersion: 2
       Hash: 6ea5c978ec61fca19bb62445edead50b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -1198,10 +1243,22 @@ ScriptsOnlyBuild:
     className: TextContainer
   - hash:
       serializedVersion: 2
+      Hash: e91560066e62d4bb78aca7ea438fc885
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ItemAndGoldSystem
+  - hash:
+      serializedVersion: 2
       Hash: 3f8d7b92a6be3c715e55d5cfa7cc8384
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: SignalReceiver
+  - hash:
+      serializedVersion: 2
+      Hash: 0ab35e05054563062f72d9434250b25f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: InventorySystem
   - hash:
       serializedVersion: 2
       Hash: 35a9693c388776aaf487636491a20f11
@@ -1564,6 +1621,12 @@ ScriptsOnlyBuild:
     className: WireframeTrackableEventHandler
   - hash:
       serializedVersion: 2
+      Hash: cffd6ef9741abe6487b7c150f8b6ec9a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ShopSlots
+  - hash:
+      serializedVersion: 2
       Hash: 8220b46879dc5e37db1b940c938f5744
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -1772,19 +1835,7 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: e91560066e62d4bb78aca7ea438fc885
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: ItemAndGoldSystem
-  - hash:
-      serializedVersion: 2
-      Hash: 28a3231d2633b233c87f1c6ce3889601
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: EditorHelper
   platform: 13
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/Client/Desktop/Gamebuild/quizzos/Quizzos 0.1.3.apk
+  playerPath: C:/Users/Client/Desktop/Gamebuild/quizzos/Quizzos 0.1.4.apk

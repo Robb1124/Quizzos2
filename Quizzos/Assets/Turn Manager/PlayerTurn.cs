@@ -17,7 +17,7 @@ public class PlayerTurn : TurnState
     [SerializeField] MonsterManager monsterManager;
     [SerializeField] TurnManager turnManager;
     [SerializeField] PrePlayerTurn prePlayerTurn;
-
+    
     Abilities currentAbility;
     Monster currentTarget;
     public bool AttackIsSuccessfull { get; set; } = false;

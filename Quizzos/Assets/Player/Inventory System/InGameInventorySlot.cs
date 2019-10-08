@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,15 +11,19 @@ public class InGameInventorySlot : MonoBehaviour
     [SerializeField] Sprite emptySlotSprite;
     [SerializeField] Text stackAmountText;
     [SerializeField] Button useButton;
-
+    [SerializeField] TurnManager turnManager;
+    [SerializeField] InventorySystem inventorySystem;
     [SerializeField] Image slotImage;
+
     int numberOfItems = 0;
     int itemHeldId = 0;
     Consumables itemHeld;
+
     // Start is called before the first frame update
     void Start()
-    {       
-        if(itemHeldId == 0)
+    {
+        turnManager.onTurnChangeForPlayer += OnTurnChangeForPlayer;
+        if (itemHeldId == 0)
         {
             slotImage.sprite = emptySlotSprite;
         }
@@ -29,13 +34,19 @@ public class InGameInventorySlot : MonoBehaviour
         RefreshTextAndButton();
     }
 
+    private void OnTurnChangeForPlayer()
+    {
+        inventorySystem.ConsumableUsedThisTurn = false;
+        RefreshTextAndButton();
+    }
+
     // Update is called once per frame
     void Update()
     {
         
     }
 
-    public void ReceiveItem(Consumables item)
+    public bool ReceiveItem(Consumables item)
     {
         if(numberOfItems < StackSize && (itemHeldId == 0 || item.ItemId == itemHeldId))
         {
@@ -47,7 +58,9 @@ public class InGameInventorySlot : MonoBehaviour
 
             itemHeld = item;
             itemHeldId = itemHeld.ItemId;
+            return true;
         }
+        return false;
     }
 
     public void UseItem() //faire en sorte que le system permette pas plus d'un usage par tour en disablant les buttons et affichant un avertissement
@@ -59,21 +72,21 @@ public class InGameInventorySlot : MonoBehaviour
                 numberOfItems--;
                 break;
         }
+        inventorySystem.ConsumableUsedThisTurn = true;
         RefreshTextAndButton();
     }
 
     public void RefreshTextAndButton()
     {
-        if(numberOfItems > 0)
-        {
-            stackAmountText.text = numberOfItems.ToString();
-            useButton.interactable = true;
-        }
-        else
+        if (numberOfItems <= 0 || inventorySystem.ConsumableUsedThisTurn)
         {
             useButton.interactable = false;
-            stackAmountText.text = "0";
         }
-    }
+        else if (numberOfItems > 0)
+        {            
+            useButton.interactable = true;
+        }
+        stackAmountText.text = numberOfItems.ToString();
 
+    }
 }

@@ -72,8 +72,11 @@
     <Compile Include="Assets\Player\CharacterClass.cs" />
     <Compile Include="Assets\Player\Inventory System\Consumables.cs" />
     <Compile Include="Assets\Player\Inventory System\InGameInventorySlot.cs" />
+    <Compile Include="Assets\Player\Inventory System\InventorySlot.cs" />
     <Compile Include="Assets\Player\Inventory System\InventorySystem.cs" />
     <Compile Include="Assets\Player\Inventory System\Items.cs" />
+    <Compile Include="Assets\Player\Inventory System\Shop.cs" />
+    <Compile Include="Assets\Player\Inventory System\ShopSlots.cs" />
     <Compile Include="Assets\Player\ItemAndGoldSystem\ItemAndGoldSystem.cs" />
     <Compile Include="Assets\Player\Level System\LevelSystem.cs" />
     <Compile Include="Assets\Player\Level System\LevelUpGains.cs" />
@@ -95,6 +98,7 @@
     <Compile Include="Assets\UI\Damage Popup\DamagePopup.cs" />
     <Compile Include="Assets\UI\EditorHelper.cs" />
     <Compile Include="Assets\UI\Loading Screen\LoadingScreen.cs" />
+    <Compile Include="Assets\UI\MessagePopup.cs" />
     <Compile Include="Assets\UI\Tooltip\Tooltip.cs" />
     <Compile Include="Assets\UI\Tooltip\TooltipHandler.cs" />
     <Compile Include="Assets\WorldMap\StageFile.cs" />
