@@ -4,13 +4,13 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem
 {
-    public static void SavePlayer(Player player, LevelSystem levelSystem, StageManager stageManager, QuizManager quizManager, ItemAndGoldSystem goldSystem)
+    public static void SavePlayer(Player player, LevelSystem levelSystem, StageManager stageManager, QuizManager quizManager, ItemAndGoldSystem goldSystem, InventorySystem inventorySystem)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/Quizzosing.mp4";
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        PlayerData data = new PlayerData(player, levelSystem, stageManager, quizManager, goldSystem);
+        PlayerData data = new PlayerData(player, levelSystem, stageManager, quizManager, goldSystem, inventorySystem);
 
         formatter.Serialize(stream, data);
         stream.Close();

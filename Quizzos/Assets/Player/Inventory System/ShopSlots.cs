@@ -36,7 +36,7 @@ public class ShopSlots : MonoBehaviour
         if(goldSystem.GetGold() >= price)
         {
             goldSystem.RemoveGold(price);
-            inventorySystem.AddItemToBag(itemToSell);
+            inventorySystem.AddItemToMemory(itemToSell);
         }
         else
         {

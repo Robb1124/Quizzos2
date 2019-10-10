@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
+public enum BagFilterType { None}
+
 public class InventorySystem : MonoBehaviour
 {
     [SerializeField] InGameInventorySlot[] inGameInventorySlots;
@@ -15,9 +18,11 @@ public class InventorySystem : MonoBehaviour
     [SerializeField] TextMeshProUGUI previewItemDescription;
     bool previewItemIsOpen = false;
     [SerializeField] List<InventorySlot> inventorySlotsList = new List<InventorySlot>();
+    [SerializeField] List<InventoryMemory> inventoryMemoryList = new List<InventoryMemory>();
     bool consumableUsedThisTurn = false;
 
     public bool ConsumableUsedThisTurn { get => consumableUsedThisTurn; set => consumableUsedThisTurn = value; }
+    public List<InventoryMemory> InventoryMemoryList { get => inventoryMemoryList; set => inventoryMemoryList = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -47,34 +52,67 @@ public class InventorySystem : MonoBehaviour
 #endif
     }
 
-    public void AddItemToBag(Items item)
+    public void AddItemToMemory(Items itemToAdd)
     {
-        if(item.StackSize > 1)//check if there's a slot holding this type of item (if item is stackable)
+        for (int i = 0; i < InventoryMemoryList.Count; i++) //check if theres a memory slot that holds this item so we can just stack them (actual inventory will manage stack size)
         {
-            for (int i = 0; i < inventorySlotsList.Count; i++) 
+            if(InventoryMemoryList[i].item == itemToAdd)
             {
-                InventorySlot currentSlot = inventorySlotsList[i];
-                if (currentSlot.ItemHeld && currentSlot.ItemHeld == item && currentSlot.AmountOfItems < item.StackSize)
-                {                    
-                    currentSlot.AmountOfItems++;
-                    RefreshInventorySlots();
-                    return;
-                }
-            }
-        }       
-        for (int i = 0; i < inventorySlotsList.Count; i++) //find a empty slot
-        {
-            InventorySlot currentSlot = inventorySlotsList[i];
-            if (!currentSlot.ItemHeld)
-            {
-                currentSlot.ItemHeld = item;
-                if(currentSlot.ItemHeld.StackSize > 1)
-                {
-                    currentSlot.AmountOfItems++;
-                }
-                break;
+                InventoryMemoryList[i].quantity++;
+                return;
             }
         }
+        InventoryMemoryList.Add(new InventoryMemory(itemToAdd, 1));        
+    }
+
+    public void RemoveItemFromMemory(Items itemToRemove)
+    {
+        for (int i = 0; i < InventoryMemoryList.Count; i++) //check which memory slot is holding the item to remove
+        {
+            if (InventoryMemoryList[i].item == itemToRemove)
+            {
+                if(InventoryMemoryList[i].quantity > 1) //reduces the stack or remove completely from memory if there no more item of this type.
+                {
+                    InventoryMemoryList[i].quantity--;
+                }
+                else
+                {
+                    InventoryMemoryList.Remove(InventoryMemoryList[i]);
+                }
+                return;
+            }
+        }        
+    }
+
+    public void FromMemoryToBag() //todo add bag filters
+    {
+        int slotCounter = 0;
+        for (int i = 0; i < inventorySlotsList.Count; i++)
+        {
+            inventorySlotsList[i].ItemHeld = null;
+            inventorySlotsList[i].AmountOfItems = 0;           
+        }
+
+        for (int i = 0; i < InventoryMemoryList.Count; i++)
+        {
+            InventorySlot currentSlot = inventorySlotsList[slotCounter];
+            for (int j = 0; j < InventoryMemoryList[i].quantity; j++)
+            {
+                currentSlot.ItemHeld = InventoryMemoryList[i].item;
+                if (currentSlot.AmountOfItems < InventoryMemoryList[i].item.StackSize)
+                {
+                    currentSlot.AmountOfItems++;                                             
+                }
+                else
+                {
+                    slotCounter++;
+                    currentSlot = inventorySlotsList[slotCounter];
+                    currentSlot.ItemHeld = InventoryMemoryList[i].item;
+                    currentSlot.AmountOfItems++;
+                }
+            }
+            slotCounter++;
+        }       
         RefreshInventorySlots();
     }
 
@@ -128,5 +166,7 @@ public class InventorySystem : MonoBehaviour
             inventorySlotsList[i].RefreshInventorySlots();
         }
     }
+
+
    
 }

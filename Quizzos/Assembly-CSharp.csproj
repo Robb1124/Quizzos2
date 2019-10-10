@@ -72,6 +72,7 @@
     <Compile Include="Assets\Player\CharacterClass.cs" />
     <Compile Include="Assets\Player\Inventory System\Consumables.cs" />
     <Compile Include="Assets\Player\Inventory System\InGameInventorySlot.cs" />
+    <Compile Include="Assets\Player\Inventory System\InventoryMemory.cs" />
     <Compile Include="Assets\Player\Inventory System\InventorySlot.cs" />
     <Compile Include="Assets\Player\Inventory System\InventorySystem.cs" />
     <Compile Include="Assets\Player\Inventory System\Items.cs" />

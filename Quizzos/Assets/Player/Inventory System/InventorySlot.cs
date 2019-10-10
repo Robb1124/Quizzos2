@@ -40,7 +40,7 @@ public class InventorySlot : MonoBehaviour
             gameObject.SetActive(true);
             slotImage = (slotImage) ? slotImage : GetComponent<Image>();
             amountOfItemsText = (amountOfItemsText) ? amountOfItemsText : GetComponentInChildren<Text>();
-            amountOfItemsText.text = (amountOfItems > 0) ? amountOfItems.ToString() : "";
+            amountOfItemsText.text = (amountOfItems > 1) ? amountOfItems.ToString() : "";
 
             slotImage.sprite = ItemHeld.ItemImage;
         }

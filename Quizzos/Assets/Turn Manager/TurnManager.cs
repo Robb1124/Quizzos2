@@ -17,6 +17,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField] StageManager stageManager;
     [SerializeField] QuizManager quizManager;
     [SerializeField] ItemAndGoldSystem goldSystem;
+    [SerializeField] InventorySystem inventorySystem;
     bool stageComplete = false;
     public TurnState TurnState { get => turnState; set => turnState = value; }
     public int ExpCalculated { get; set; } = 0;
@@ -81,7 +82,7 @@ public class TurnManager : MonoBehaviour
     {       
         levelSystem.GainExp(ExpCalculated);
         goldSystem.AddGold(GoldCalculated);
-        SaveSystem.SavePlayer(player, levelSystem, stageManager, quizManager, goldSystem);
+        SaveSystem.SavePlayer(player, levelSystem, stageManager, quizManager, goldSystem, inventorySystem);
         stageManager.ActivateUnlockedStageButtons();
         CombatIsOver = false;
         //place for other rewards methods
