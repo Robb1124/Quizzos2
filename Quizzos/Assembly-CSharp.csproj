@@ -76,6 +76,7 @@
     <Compile Include="Assets\Player\Inventory System\InventorySlot.cs" />
     <Compile Include="Assets\Player\Inventory System\InventorySystem.cs" />
     <Compile Include="Assets\Player\Inventory System\Items.cs" />
+    <Compile Include="Assets\Player\Inventory System\ItemsSaveStruct.cs" />
     <Compile Include="Assets\Player\Inventory System\Shop.cs" />
     <Compile Include="Assets\Player\Inventory System\ShopSlots.cs" />
     <Compile Include="Assets\Player\ItemAndGoldSystem\ItemAndGoldSystem.cs" />

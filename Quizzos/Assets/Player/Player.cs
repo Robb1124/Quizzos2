@@ -175,8 +175,8 @@ public class Player : MonoBehaviour
         levelSystem.PlayerLevel = data.playerLevel;
         levelSystem.ExperiencePoints = data.expPoints;
         levelSystem.UpdateExpBar();
-        goldSystem.AddGold(data.gold);
-        inventorySystem.InventoryMemoryList = (data.inventoryMemoryList == null) ? new List<InventoryMemory>() : data.inventoryMemoryList;
+        goldSystem.AddGold(data.gold);                
+        inventorySystem.FromSaveStructToMemory(data.itemsSaveStructs);        
         playerMaxHp = data.playerMaxHp;
         playerCurrentHp = playerMaxHp;
         PlayerBaseDmg = data.playerBaseDmg;
@@ -226,5 +226,14 @@ public class Player : MonoBehaviour
     public void RemoveConcussion(float baseDmgReductionPercentage)
     {
         dmgMultiplierEffects += baseDmgReductionPercentage;
+    }
+
+    public bool IsPlayerFullHealth()
+    {
+        if(playerCurrentHp >= playerMaxHp)
+        {
+            return true;
+        }
+        return false;
     }
 }

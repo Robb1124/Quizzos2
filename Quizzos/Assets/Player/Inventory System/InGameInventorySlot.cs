@@ -14,6 +14,8 @@ public class InGameInventorySlot : MonoBehaviour
     [SerializeField] TurnManager turnManager;
     [SerializeField] InventorySystem inventorySystem;
     [SerializeField] Image slotImage;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip drinkPotionClip;
 
     int numberOfItems = 0;
     int itemHeldId = 0;
@@ -58,6 +60,7 @@ public class InGameInventorySlot : MonoBehaviour
 
             itemHeld = item;
             itemHeldId = itemHeld.ItemId;
+            RefreshTextAndButton();
             return true;
         }
         return false;
@@ -65,28 +68,79 @@ public class InGameInventorySlot : MonoBehaviour
 
     public void UseItem() //faire en sorte que le system permette pas plus d'un usage par tour en disablant les buttons et affichant un avertissement
     {
-        switch (consumableTypeToHold)
+        if (!inventorySystem.ConsumableUsedThisTurn)
         {
-            case ConsumableType.HealingPotion:
-                player.HealDamage(itemHeld.HealingAmount);
-                numberOfItems--;
-                break;
+            switch (consumableTypeToHold)
+            {
+                
+                case ConsumableType.HealingPotion:
+                    if (!player.IsPlayerFullHealth())
+                    {
+                        player.HealDamage(itemHeld.HealingAmount);
+                        numberOfItems--;
+                    }
+                    else
+                    {
+                        inventorySystem.SetMessagePopup("You are already full health");
+                        return;
+                    }                   
+                    break;
+            }
+            audioSource.PlayOneShot(drinkPotionClip);
+            inventorySystem.ConsumableUsedThisTurn = true;
+            RefreshTextAndButton();
         }
-        inventorySystem.ConsumableUsedThisTurn = true;
-        RefreshTextAndButton();
+        else
+        {
+            inventorySystem.SetMessagePopup("You already used an item this turn");
+        }
     }
+        
 
     public void RefreshTextAndButton()
     {
-        if (numberOfItems <= 0 || inventorySystem.ConsumableUsedThisTurn)
-        {
-            useButton.interactable = false;
-        }
-        else if (numberOfItems > 0)
-        {            
-            useButton.interactable = true;
-        }
-        stackAmountText.text = numberOfItems.ToString();
+        useButton.interactable = (numberOfItems > 0) ? true : false;
+        stackAmountText.text = (numberOfItems <= 0) ? "" : numberOfItems.ToString();
+    }
 
+    public void RemoveItemFromPreInstanceInventory()
+    {
+        if (itemHeld)
+        {
+            inventorySystem.AddItemToMemory(itemHeld);
+            if (numberOfItems > 1)
+            {
+                numberOfItems--;
+            }
+            else if (numberOfItems == 1)
+            {
+                numberOfItems--;
+                itemHeld = null;
+                itemHeldId = 0; //resets the slot so it can welcome a new item
+                slotImage.sprite = emptySlotSprite;
+            }
+            RefreshTextAndButton();
+            inventorySystem.FromMemoryToBag(true);
+        }
+    }
+
+    public void RemoveFromActualInGameInventory() //TODO Huge copy of code to mirror changes from pre instance inventory to ingame inventory. Refactoring needed.
+    {
+        if (itemHeld)
+        {
+            inventorySystem.AddItemToMemory(itemHeld);
+            if (numberOfItems > 1)
+            {
+                numberOfItems--;
+            }
+            else if (numberOfItems == 1)
+            {
+                numberOfItems--;
+                itemHeld = null;
+                itemHeldId = 0; //resets the slot so it can welcome a new item
+                slotImage.sprite = emptySlotSprite;
+            }
+            RefreshTextAndButton();
+        }
     }
 }

@@ -18,14 +18,14 @@ public class PlayerData
     public int classIndex;
     public List<bool> stageCompleted;
     public int[] playerDeckQuestionIds;
-    public List<InventoryMemory> inventoryMemoryList;
+    public List<ItemsSaveStruct> itemsSaveStructs;
 
     public PlayerData(Player player, LevelSystem levelSystem, StageManager stageManager, QuizManager quizManager, ItemAndGoldSystem goldSystem, InventorySystem inventorySystem)
     {
         playerLevel = levelSystem.PlayerLevel;
         expPoints = (int)levelSystem.ExperiencePoints;
         gold = goldSystem.GetGold();
-        inventoryMemoryList = inventorySystem.InventoryMemoryList;
+        itemsSaveStructs = inventorySystem.FromMemoryToSaveStruct();
         playerMaxHp = player.PlayerMaxHp;
         playerBaseDmg = player.PlayerBaseDmg;
         classIndex = player.ClassIndex;

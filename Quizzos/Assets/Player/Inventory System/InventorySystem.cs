@@ -9,6 +9,7 @@ public enum BagFilterType { None}
 public class InventorySystem : MonoBehaviour
 {
     [SerializeField] InGameInventorySlot[] inGameInventorySlots;
+    [SerializeField] InGameInventorySlot[] preInstanceInventorySlots;
     [SerializeField] MessagePopup messagePopup;
     [SerializeField] GameObject itemPreview;
     [SerializeField] Image itemImagePreview;
@@ -17,13 +18,19 @@ public class InventorySystem : MonoBehaviour
     [SerializeField] TextMeshProUGUI previewItemSubCategory;
     [SerializeField] TextMeshProUGUI previewItemDescription;
     bool previewItemIsOpen = false;
+
+    [SerializeField] Button[] buttonsToDisableOnPreInstance;
+    [SerializeField] GameObject[] panelsToActivatePreInstance;
+    bool inGameInventoryEnabled = false;
+    bool bagToggled = false;
+    [SerializeField] GameObject inventoryPanel;
     [SerializeField] List<InventorySlot> inventorySlotsList = new List<InventorySlot>();
     [SerializeField] List<InventoryMemory> inventoryMemoryList = new List<InventoryMemory>();
     bool consumableUsedThisTurn = false;
-
+    List<ItemsSaveStruct> itemSaveStructs = new List<ItemsSaveStruct>();
+    [SerializeField] Items[] itemsPool;
     public bool ConsumableUsedThisTurn { get => consumableUsedThisTurn; set => consumableUsedThisTurn = value; }
     public List<InventoryMemory> InventoryMemoryList { get => inventoryMemoryList; set => inventoryMemoryList = value; }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -79,12 +86,14 @@ public class InventorySystem : MonoBehaviour
                 {
                     InventoryMemoryList.Remove(InventoryMemoryList[i]);
                 }
+                FromMemoryToBag(inGameInventoryEnabled);
                 return;
             }
-        }        
+        }
+       
     }
 
-    public void FromMemoryToBag() //todo add bag filters
+    public void FromMemoryToBag(bool consumablesFilter) //todo add bag filters
     {
         int slotCounter = 0;
         for (int i = 0; i < inventorySlotsList.Count; i++)
@@ -96,37 +105,50 @@ public class InventorySystem : MonoBehaviour
         for (int i = 0; i < InventoryMemoryList.Count; i++)
         {
             InventorySlot currentSlot = inventorySlotsList[slotCounter];
-            for (int j = 0; j < InventoryMemoryList[i].quantity; j++)
+
+            if (consumablesFilter && inventoryMemoryList[i].item.ItemCategory != ItemCategory.Consumable) //you skip (to only show consumables in pre-instance menu.
             {
-                currentSlot.ItemHeld = InventoryMemoryList[i].item;
-                if (currentSlot.AmountOfItems < InventoryMemoryList[i].item.StackSize)
-                {
-                    currentSlot.AmountOfItems++;                                             
-                }
-                else
-                {
-                    slotCounter++;
-                    currentSlot = inventorySlotsList[slotCounter];
-                    currentSlot.ItemHeld = InventoryMemoryList[i].item;
-                    currentSlot.AmountOfItems++;
-                }
+
             }
-            slotCounter++;
+            else
+            {
+                for (int j = 0; j < InventoryMemoryList[i].quantity; j++)
+                {
+                    currentSlot.ItemHeld = InventoryMemoryList[i].item;
+                    if (currentSlot.AmountOfItems < InventoryMemoryList[i].item.StackSize)
+                    {
+                        currentSlot.AmountOfItems++;
+                    }
+                    else
+                    {
+                        slotCounter++;
+                        currentSlot = inventorySlotsList[slotCounter];
+                        currentSlot.ItemHeld = InventoryMemoryList[i].item;
+                        currentSlot.AmountOfItems++;
+                    }
+                }
+                slotCounter++;
+            }            
         }       
         RefreshInventorySlots();
     }
 
     public bool AddConsumableToInGameInventory(Consumables item)
     {
-        switch (item.ConsumableType)
+        if (inGameInventoryEnabled)
         {
-            case ConsumableType.HealingPotion:
-                if (inGameInventorySlots[0].ReceiveItem(item))
-                {
-                    return true;
-                }               
-                break;
-        }
+            switch (item.ConsumableType)
+            {
+                case ConsumableType.HealingPotion:
+                    if (preInstanceInventorySlots[0].ReceiveItem(item))
+                    {
+                        inGameInventorySlots[0].ReceiveItem(item);
+                        RemoveItemFromMemory(item);
+                        return true;
+                    }
+                    break;
+            }
+        }        
         return false;
     }
 
@@ -163,10 +185,67 @@ public class InventorySystem : MonoBehaviour
     {
         for (int i = 0; i < inventorySlotsList.Count; i++)
         {
-            inventorySlotsList[i].RefreshInventorySlots();
+            inventorySlotsList[i].RefreshInventorySlots(inGameInventoryEnabled);
         }
     }
 
+    public List<ItemsSaveStruct> FromMemoryToSaveStruct()
+    {
+        itemSaveStructs.Clear();
+        for (int i = 0; i < inventoryMemoryList.Count; i++)
+        {
+            InventoryMemory currentMemorySlot = inventoryMemoryList[i];
+            itemSaveStructs.Add(new ItemsSaveStruct(currentMemorySlot.item.ItemId, currentMemorySlot.quantity));
+        }
+        return itemSaveStructs;
+    }
 
-   
+    public void FromSaveStructToMemory(List<ItemsSaveStruct> itemSaveStructsFromData)
+    {
+        itemSaveStructs = (itemSaveStructsFromData != null)? itemSaveStructsFromData : itemSaveStructs;
+        inventoryMemoryList.Clear();
+        for (int i = 0; i < itemSaveStructs.Count; i++)
+        {                        
+            for (int j = 0; j < itemsPool.Length; j++)
+            {
+                if(itemsPool[j].ItemId == itemSaveStructs[i].ItemId)
+                {
+                    inventoryMemoryList.Add(new InventoryMemory(itemsPool[j], itemSaveStructs[i].Quantity));                   
+                    break;
+                }
+            }
+        }
+    }
+
+    public void SetUpPreInstanceInventory()
+    {
+        for (int i = 0; i < panelsToActivatePreInstance.Length; i++)
+        {
+            panelsToActivatePreInstance[i].SetActive(true);
+        }
+        for (int i = 0; i < buttonsToDisableOnPreInstance.Length; i++)
+        {
+            buttonsToDisableOnPreInstance[i].gameObject.SetActive(false);
+        }
+        inGameInventoryEnabled = true;
+    }
+
+    public void ClosePreInstanceInventory()
+    {
+        for (int i = 0; i < panelsToActivatePreInstance.Length; i++)
+        {
+            panelsToActivatePreInstance[i].SetActive(false);
+        }
+        for (int i = 0; i < buttonsToDisableOnPreInstance.Length; i++)
+        {
+            buttonsToDisableOnPreInstance[i].gameObject.SetActive(true);
+        }
+        inGameInventoryEnabled = false;
+    }
+
+    public void ToggleInventory()
+    {
+        bagToggled = !bagToggled;
+        inventoryPanel.SetActive(bagToggled);
+    }
 }
