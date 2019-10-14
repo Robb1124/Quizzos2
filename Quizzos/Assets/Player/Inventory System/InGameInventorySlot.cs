@@ -127,8 +127,7 @@ public class InGameInventorySlot : MonoBehaviour
     public void RemoveFromActualInGameInventory() //TODO Huge copy of code to mirror changes from pre instance inventory to ingame inventory. Refactoring needed.
     {
         if (itemHeld)
-        {
-            inventorySystem.AddItemToMemory(itemHeld);
+        {           
             if (numberOfItems > 1)
             {
                 numberOfItems--;
@@ -142,5 +141,14 @@ public class InGameInventorySlot : MonoBehaviour
             }
             RefreshTextAndButton();
         }
+    }
+
+    public void EmptyPreInstanceAndInGameInventory()
+    {
+        numberOfItems = 0;
+        itemHeld = null;
+        itemHeldId = 0; //resets the slot so it can welcome a new item
+        slotImage.sprite = emptySlotSprite;
+        RefreshTextAndButton();
     }
 }

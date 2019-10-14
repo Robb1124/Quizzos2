@@ -248,4 +248,13 @@ public class InventorySystem : MonoBehaviour
         bagToggled = !bagToggled;
         inventoryPanel.SetActive(bagToggled);
     }
+
+    public void EmptyPreInstanceAndInGameInventory()
+    {
+        for (int i = 0; i < preInstanceInventorySlots.Length; i++)
+        {
+            preInstanceInventorySlots[i].EmptyPreInstanceAndInGameInventory();
+            inGameInventorySlots[i].EmptyPreInstanceAndInGameInventory();
+        }
+    }
 }
