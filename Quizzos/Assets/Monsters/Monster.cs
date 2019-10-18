@@ -9,17 +9,19 @@ public class Monster : MonoBehaviour
 {
     [SerializeField] MonsterSheet monsterSheet;
     MonsterManager monsterManager;
-    [SerializeField] float monsterCurrentHp;
+    [SerializeField] int monsterCurrentHp;
     [SerializeField] int monsterMaxHp;
     [SerializeField] float monsterBaseDamage;
     [SerializeField] Text monsterName;
     [SerializeField] Image monsterHpBar;
+    [SerializeField] Image monsterImage;
     [SerializeField] int monsterNumber;
     [SerializeField] Player player;
     [SerializeField] Image stunImage;
     [SerializeField] Text damagePopup;
     [SerializeField] float dmgAndHpLevelMultiplier = 1.1f;
     [SerializeField] MonsterTurn monsterTurn;
+    bool isDead = false;
     int monsterLevel;
     Animator animator;
     bool isStunned;
@@ -27,6 +29,8 @@ public class Monster : MonoBehaviour
     public MonsterSheet MonsterSheet { get => monsterSheet; set => monsterSheet = value; }
     public int MonsterNumber { get => monsterNumber; set => monsterNumber = value; }
     public bool IsStunned { get => isStunned; set => isStunned = value; }
+    public Image MonsterImage { get => monsterImage; set => monsterImage = value; }
+    public bool IsDead { get => isDead; set => isDead = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -37,28 +41,33 @@ public class Monster : MonoBehaviour
 
     public void OnSpawn(int monsterLevel)
     {
+        IsDead = false;
         this.monsterLevel = monsterLevel;
         monsterMaxHp = Mathf.RoundToInt(monsterSheet.GetMonsterHp() * Mathf.Pow(dmgAndHpLevelMultiplier, monsterLevel - 1));
         monsterBaseDamage = Mathf.RoundToInt(monsterSheet.GetMonsterBaseDamage() * Mathf.Pow(dmgAndHpLevelMultiplier, monsterLevel - 1));
         monsterName.text = monsterSheet.GetMonsterName();
-        GetComponent<Image>().sprite = monsterSheet.GetMonsterImage();
+        MonsterImage.sprite = monsterSheet.GetMonsterImage();
         monsterCurrentHp = monsterMaxHp;
     }
 
     // Update is called once per frame
     void Update()
     {
-        monsterHpBar.fillAmount = monsterCurrentHp / monsterMaxHp;
+        monsterHpBar.fillAmount = (float)monsterCurrentHp / monsterMaxHp;
     }
 
     public void TakeDamage(float damageDone, bool criticalHit)
     {
-        monsterCurrentHp -= damageDone;
+        //Randomness in the dmg +- 10% TODO make this customizable with different weapons
+        float randomnDmgMultiplier = UnityEngine.Random.Range(0.9f, 1.1f);
+        damageDone *= randomnDmgMultiplier;
+        monsterCurrentHp -= Mathf.RoundToInt(damageDone);
         ActiveDamagePopup(damageDone, criticalHit);                
         animator.SetTrigger("TakeDamageTrigger");
         if(monsterCurrentHp <= 0)
         {
-            //Monster death            
+            //Monster death
+            IsDead = true;
             monsterManager.MonsterDeath(monsterNumber);
             //Unstunning
             IsStunned = false;
@@ -66,7 +75,7 @@ public class Monster : MonoBehaviour
         }
     }
 
-    public void HealDamage(float damageToHeal)
+    public void HealDamage(int damageToHeal)
     {
         monsterCurrentHp += damageToHeal;
         if(monsterCurrentHp > monsterMaxHp)
@@ -95,7 +104,10 @@ public class Monster : MonoBehaviour
 
     public void AttackPlayer()
     {
-        monsterTurn.TheMonsterAttack();
+        if (!IsDead)
+        {
+            monsterTurn.TheMonsterAttack();
+        }
     }
 
     public void StunEnemy()

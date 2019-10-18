@@ -25,21 +25,24 @@ Your attacks deal
 <i><b>Basic Attack</b></i>
 Single Target
 Does 100% base damage
-Cost: 1 questions from the 
-<color=#b2951a>Player Deck</color>
+Cost: 1 questions from :
+75 % <color=#b2951a>Player Deck</color>
+25 % <color=#ff00f">Pool of Knowledge</color>
+
 
 <i><b>Charge</b></i>
 Single Target
 Does 175% base damage
 Stuns the enemy for 1 turn
-Cost : 1 SPORT question from
-the <color=#ff00f">Pool of Knowledge</color>
+Cost : 1 SPORT question from :
+50 % : <color=#ff00f">Pool of Knowledge</color>
+50 % : <color=#b2951a>Player Deck</color>
 
 <i><b>Shield Up</b></i>
 Self-Cast - Channeling
 Reduces damage taken by 35%
-Cost: 1 question from the <color=#b2951a>Player
-Deck</color> every turn
+Cost: 1 question every turn from : 
+100 % : <color=#b2951a>Player Deck</color>
 
 <i><b>Learning from mistakes</b></i>
 Passive

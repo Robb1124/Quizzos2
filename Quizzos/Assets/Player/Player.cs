@@ -100,9 +100,10 @@ public class Player : MonoBehaviour
         }
         audioSource.clip = (prePlayerTurn.ShieldUpActive) ? takeDamageSFXs[1] : takeDamageSFXs[0];
         audioSource.Play();
-        
 
-        playerCurrentHp -= (int)(amountOfDamage * (1 - DmgReduction));
+        //Randomness in the dmg +- 10%
+        float randomnDmgMultiplier = UnityEngine.Random.Range(0.9f, 1.1f);
+        playerCurrentHp -= (int)((amountOfDamage*randomnDmgMultiplier) * (1 - DmgReduction));
         if (playerCurrentHp <= 0 && !playerDead)
         {
             GameOver();

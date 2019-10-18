@@ -50,7 +50,7 @@ public class MonsterTurn : TurnState
         int monstersThatWillAttack = 0;
         for (int i = 0; i < monsters.Length; i++)
         {
-            if (monsters[i].isActiveAndEnabled)
+            if (monsters[i].isActiveAndEnabled && !monsters[i].IsDead)
             {
                 monstersThatWillAttack++;
             }
@@ -58,7 +58,7 @@ public class MonsterTurn : TurnState
 
         for (int i = 0; i < monsters.Length; i++)
         {
-            if (monsters[i].isActiveAndEnabled && !monsterManager.AllDead && !monsters[i].IsStunned)
+            if (monsters[i].isActiveAndEnabled && !monsters[i].IsDead && !monsterManager.AllDead && !monsters[i].IsStunned)
             {
                 monstersThatWillAttack--;
                 monsterAttacksHolders = monsters[i].MonsterSheet.GetMonsterAttacksHolders();
@@ -112,7 +112,7 @@ public class MonsterTurn : TurnState
                         }                                              
                         monsterFXHolder.PlayMonsterFX(MonsterFXs.Cure, targetMonster.transform);
                         yield return new WaitForSeconds(0.5f);
-                        targetMonster.HealDamage(monsterAttackDamage * cureMultiplier); //TODO when refactoring abilities, make sure cure doesnt scale with damage anymore. so a weak character could heal regardless of its damage.
+                        targetMonster.HealDamage(Mathf.RoundToInt(monsterAttackDamage * cureMultiplier)); //TODO when refactoring abilities, make sure cure doesnt scale with damage anymore. so a weak character could heal regardless of its damage.
                         break;
                     case MonsterAttacks.FlameSlash:
                         monsterAttackDamage *= flameSlashMultiplier;

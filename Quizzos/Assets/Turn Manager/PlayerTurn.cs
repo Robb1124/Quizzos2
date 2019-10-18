@@ -200,6 +200,10 @@ public class PlayerTurn : TurnState
         {
             prePlayerTurn.RemoveSpecialEffects(SpecialEffects.Concussion);
         }
+        while (!monsterManager.IsReadyForMonsterTurn)
+        {
+            yield return new WaitForEndOfFrame();
+        }
         turnManager.ChangeTurnState(turnManager.GetComponentInChildren<MonsterTurn>());
     }
 

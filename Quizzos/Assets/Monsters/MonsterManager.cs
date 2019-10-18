@@ -17,12 +17,14 @@ public class MonsterManager : MonoBehaviour
     [SerializeField] TurnManager turnManager;
     [SerializeField] StageManager stageManager;
     [SerializeField] MusicManager musicManager;
+    [SerializeField] MessagePopup messagePopup;
     MonsterSheet[] currentRound;
     StageFile stageFile;
     int stageRoundsCount;
     bool stageComplete = false;
     int expCalculated = 0;
     public bool AllDead { get; set; } = false;
+    public bool IsReadyForMonsterTurn { get; internal set; } = true;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +33,8 @@ public class MonsterManager : MonoBehaviour
     }
 
     public void SpawnWaveOfMonsters(int roomNumber)
-    {        
+    {
+        messagePopup.ReceiveStringAndShowPopup("Room " + roomNumber);
         currentRound = stageFile.rounds[roomNumber - 1].round;
         roomText.text = "Room : " + roomNumber;
         monstersToSpawn = currentRound.Length;
@@ -61,14 +64,34 @@ public class MonsterManager : MonoBehaviour
     {
 
         //Monster death (on peut inserer un delai pour animation/son)
-        stageManager.MonsterDeathAddExpAndGold(monsters[monsterNumber - 1].MonsterSheet.GetExpType(), monsters[monsterNumber -1].MonsterSheet.GetGoldType());
-        monsters[monsterNumber - 1].gameObject.SetActive(false);
+        IsReadyForMonsterTurn = false;
+        stageManager.MonsterDeathAddExpAndGold(monsters[monsterNumber - 1].MonsterSheet.GetExpType(), monsters[monsterNumber - 1].MonsterSheet.GetGoldType());
+        StartCoroutine(DeathAnimation(monsterNumber));
         monsterCount--;
-        if(monsterCount == 0)
+        
+    }
+
+    private IEnumerator DeathAnimation(int monsterNumber)
+    {
+        print("dead");
+        float fillAmount = 1f;
+        while (fillAmount > 0f)
+        {
+            print("looping");
+            fillAmount -= 0.02f;
+            monsters[monsterNumber - 1].MonsterImage.fillAmount = fillAmount;
+            yield return new WaitForSeconds(0.015f);
+        }
+        monsters[monsterNumber - 1].gameObject.SetActive(false);
+        monsters[monsterNumber - 1].MonsterImage.fillAmount = 1f;
+        if (monsterCount == 0)
         {
             AllDead = true;
             StartCoroutine(DelayBetweenSpawn());
-            
+        }
+        else
+        {
+            IsReadyForMonsterTurn = true;
         }
     }
 
@@ -83,6 +106,7 @@ public class MonsterManager : MonoBehaviour
         if(roomNumber <= stageRoundsCount)
         {
             SpawnWaveOfMonsters(roomNumber);
+            IsReadyForMonsterTurn = true;
         }
         else
         {

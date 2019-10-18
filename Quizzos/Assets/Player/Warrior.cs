@@ -31,8 +31,8 @@ public class Warrior : CharacterClass
     [SerializeField] string[] abilityTextsForTooltip;
     [SerializeField] TextMeshProUGUI passiveText;
     [SerializeField] string[] abilityTextForQuestionPopUp = { "Basic Attack", "Charge", "Shield Up" };
-    [SerializeField] QuestionQuery basicAttackQuestionQuery = new QuestionQuery(false, 1, QuestionCategory.Any);
-    [SerializeField] QuestionQuery chargeAttackQuestionQuery = new QuestionQuery(true, 1, QuestionCategory.Sports);
+    [SerializeField] QuestionQuery basicAttackQuestionQuery = new QuestionQuery(0.75f, 1, QuestionCategory.Any); //Do not forget to change skill description when you modify skills.
+    [SerializeField] QuestionQuery chargeAttackQuestionQuery = new QuestionQuery(0.5f, 1, QuestionCategory.Sports);
     [SerializeField] QuestionCategory mainQuestionCategory;
     AudioSource audioSource;
     Monster currentTarget;
@@ -40,7 +40,7 @@ public class Warrior : CharacterClass
 
     public int ChargeAttackCooldown { get => chargeAttackCooldown; set => chargeAttackCooldown = value; }
     public int ShieldUpCooldown { get => shieldUpCooldown; set => shieldUpCooldown = value; }
-    public QuestionQuery ShieldUpQuestionQuery { get; set; } = new QuestionQuery(false, 1, QuestionCategory.Any);
+    public QuestionQuery ShieldUpQuestionQuery { get; } = new QuestionQuery(1f, 1, QuestionCategory.Any);
     public float ShieldUpDmgReduction { get => shieldUpDmgReduction; set => shieldUpDmgReduction = value; }
     public QuestionCategory MainQuestionCategory { get => mainQuestionCategory; set => mainQuestionCategory = value; }
 

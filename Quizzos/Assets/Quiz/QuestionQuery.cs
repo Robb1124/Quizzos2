@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class QuestionQuery
 {
-    public bool inThePool;
+    public float percentageToDrawFromDeck;
     public int amountOfQuestions;
     public QuestionCategory questionCategory;
 
-    public QuestionQuery(bool inThePool, int amountOfCards, QuestionCategory questionCategory)
+    public QuestionQuery(float percentageToDrawFromDeck, int amountOfCards, QuestionCategory questionCategory)
     {
-        this.inThePool = inThePool;
+        this.percentageToDrawFromDeck = percentageToDrawFromDeck;
         this.amountOfQuestions = amountOfCards;
         this.questionCategory = questionCategory;
     }

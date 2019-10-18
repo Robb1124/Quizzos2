@@ -42,7 +42,7 @@ public class TurnManager : MonoBehaviour
 
     public void ChangeTurnState(TurnState turnState)
     {
-        if (turnState.GetComponent<PrePlayerTurn>())
+        if (turnState is PrePlayerTurn)
         {
             onTurnChangeForPlayer?.Invoke(); //Observer pattern for cooldown and special ability availability management. If it isnt null, it will run (invoke)
         }

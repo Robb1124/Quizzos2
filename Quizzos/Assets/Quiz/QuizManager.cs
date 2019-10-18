@@ -18,6 +18,10 @@ public class QuizManager : MonoBehaviour
     [SerializeField] PlayerTurn playerTurnState;
     [SerializeField] PrePlayerTurn prePlayerTurn;
     [SerializeField] TextMeshProUGUI abilityText;
+    [SerializeField] TextMeshProUGUI poolOrDeckText;
+    [SerializeField] string poolText;
+    [SerializeField] string deckText;
+    [SerializeField] TextMeshProUGUI categoryText;
     [SerializeField] AudioClip poisonClip;
     AudioSource audioSource;
     int previousQuestionId = -1;
@@ -50,14 +54,17 @@ public class QuizManager : MonoBehaviour
     }
 
     public void DrawQuestions(QuestionQuery questionQuery)
-    {
+    {       
+        float rand = UnityEngine.Random.Range(0.00f, 1.00f);
+        bool inThePool = (rand <= questionQuery.percentageToDrawFromDeck) ? false : true;
+        
         if (!initialSetupIsDone)
         {
             InitialSetup(questionQuery.amountOfQuestions);
             initialSetupIsDone = true;
         }
         
-        if(questionQuery.inThePool && questionQuery.questionCategory == QuestionCategory.Any)
+        if(inThePool && questionQuery.questionCategory == QuestionCategory.Any)
         {
             do
             {
@@ -65,7 +72,7 @@ public class QuizManager : MonoBehaviour
             } while (previousQuestionId == currentQuestion.id);
 
         }
-        else if(questionQuery.inThePool && questionQuery.questionCategory != QuestionCategory.Any)
+        else if(inThePool && questionQuery.questionCategory != QuestionCategory.Any)
         {
             string requestedCategory = questionQuery.questionCategory.ToString();           
             do
@@ -73,13 +80,22 @@ public class QuizManager : MonoBehaviour
                 currentQuestion = PoolOfKnowledge[UnityEngine.Random.Range(0, PoolOfKnowledge.Count)];
             } while ( currentQuestion.category != requestedCategory || previousQuestionId == currentQuestion.id);
         }
-        else if(!questionQuery.inThePool && questionQuery.questionCategory == QuestionCategory.Any)
+        else if(!inThePool && questionQuery.questionCategory == QuestionCategory.Any)
         {
             do
             {
                 currentQuestion = PlayerDeckOfQuestions[UnityEngine.Random.Range(0, PlayerDeckOfQuestions.Count)];
             } while (previousQuestionId == currentQuestion.id);
         }
+        else if(!inThePool && questionQuery.questionCategory != QuestionCategory.Any)
+        {
+            string requestedCategory = questionQuery.questionCategory.ToString();
+            do
+            {
+                currentQuestion = PlayerDeckOfQuestions[UnityEngine.Random.Range(0, PlayerDeckOfQuestions.Count)];
+            } while (currentQuestion.category != requestedCategory || previousQuestionId == currentQuestion.id);
+        }
+
         questionPopUp.SetActive(true);
         if (prePlayerTurn.PoisonActive)
         {
@@ -87,6 +103,8 @@ public class QuizManager : MonoBehaviour
             audioSource.clip = poisonClip;
             audioSource.Play();
         }
+        categoryText.text = currentQuestion.category;
+        poolOrDeckText.text = (inThePool) ? poolText : deckText;
         questionText.text = currentQuestion.question;
         previousQuestionId = currentQuestion.id;
         ShuffleAnswers();
