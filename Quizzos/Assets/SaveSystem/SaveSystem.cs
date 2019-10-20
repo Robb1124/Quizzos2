@@ -4,7 +4,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem
 {
-    public static void SavePlayer(Player player, LevelSystem levelSystem, StageManager stageManager, QuizManager quizManager, ItemAndGoldSystem goldSystem, InventorySystem inventorySystem)
+    public static void SavePlayer(Player player, LevelSystem levelSystem, StageManager stageManager, QuizManager quizManager, GemsAndGoldSystem goldSystem, InventorySystem inventorySystem)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/Quizzosing.mp4";

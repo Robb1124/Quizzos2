@@ -16,7 +16,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField] LevelSystem levelSystem;
     [SerializeField] StageManager stageManager;
     [SerializeField] QuizManager quizManager;
-    [SerializeField] ItemAndGoldSystem goldSystem;
+    [SerializeField] GemsAndGoldSystem goldSystem;
     [SerializeField] InventorySystem inventorySystem;
     bool stageComplete = false;
     public TurnState TurnState { get => turnState; set => turnState = value; }

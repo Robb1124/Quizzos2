@@ -8,7 +8,7 @@ public class ShopSlots : MonoBehaviour
     [SerializeField] Items itemToSell;
     [SerializeField] bool unlimited;
     [SerializeField] int amountOfItems;
-    [SerializeField] ItemAndGoldSystem goldSystem;
+    [SerializeField] GemsAndGoldSystem goldSystem;
     [SerializeField] InventorySystem inventorySystem;
     [SerializeField] TextMeshProUGUI priceText;  
     

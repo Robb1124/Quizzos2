@@ -9,6 +9,7 @@ public class PlayerData
     public int playerLevel;
     public int expPoints;
     public int gold;
+    public int gems;
     public int playerMaxHp;
     public int playerBaseDmg;
     public float poisonResist;
@@ -20,11 +21,12 @@ public class PlayerData
     public int[] playerDeckQuestionIds;
     public List<ItemsSaveStruct> itemsSaveStructs;
 
-    public PlayerData(Player player, LevelSystem levelSystem, StageManager stageManager, QuizManager quizManager, ItemAndGoldSystem goldSystem, InventorySystem inventorySystem)
+    public PlayerData(Player player, LevelSystem levelSystem, StageManager stageManager, QuizManager quizManager, GemsAndGoldSystem gemsAndGoldSystem, InventorySystem inventorySystem)
     {
         playerLevel = levelSystem.PlayerLevel;
         expPoints = (int)levelSystem.ExperiencePoints;
-        gold = goldSystem.GetGold();
+        gold = gemsAndGoldSystem.GetGold();
+        gems = gemsAndGoldSystem.GetGems();
         itemsSaveStructs = inventorySystem.FromMemoryToSaveStruct();
         playerMaxHp = player.PlayerMaxHp;
         playerBaseDmg = player.PlayerBaseDmg;

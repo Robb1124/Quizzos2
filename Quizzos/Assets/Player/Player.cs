@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     [SerializeField] LevelSystem levelSystem;
     [SerializeField] StageManager stageManager;
     [SerializeField] QuizManager quizManager;
-    [SerializeField] ItemAndGoldSystem goldSystem;
+    [SerializeField] GemsAndGoldSystem gemsAndGoldSystem;
     [SerializeField] InventorySystem inventorySystem;
     [SerializeField] AudioClip[] takeDamageSFXs;
     [SerializeField] AudioClip burnDamageSFX;
@@ -166,7 +166,7 @@ public class Player : MonoBehaviour
 
     public void SavePlayer()
     {
-        SaveSystem.SavePlayer(this, levelSystem, stageManager, quizManager, goldSystem, inventorySystem);
+        SaveSystem.SavePlayer(this, levelSystem, stageManager, quizManager, gemsAndGoldSystem, inventorySystem);
     }
 
     public void LoadPlayer()
@@ -176,7 +176,8 @@ public class Player : MonoBehaviour
         levelSystem.PlayerLevel = data.playerLevel;
         levelSystem.ExperiencePoints = data.expPoints;
         levelSystem.UpdateExpBar();
-        goldSystem.AddGold(data.gold);                
+        gemsAndGoldSystem.AddGold(data.gold);
+        gemsAndGoldSystem.AddGems(data.gems);
         inventorySystem.FromSaveStructToMemory(data.itemsSaveStructs);        
         playerMaxHp = data.playerMaxHp;
         playerCurrentHp = playerMaxHp;
