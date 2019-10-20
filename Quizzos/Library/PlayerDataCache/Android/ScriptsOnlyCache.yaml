@@ -7,10 +7,10 @@ ScriptsOnlyBuild:
     - Consumables
     - DamagePopup
     - EditorHelper
+    - GemsAndGoldSystem
     - InGameInventorySlot
     - InventorySlot
     - InventorySystem
-    - ItemAndGoldSystem
     - JsonHarvester
     - LevelSystem
     - LevelUpGains
@@ -25,10 +25,12 @@ ScriptsOnlyBuild:
     - PlayerTurn
     - PrePlayerTurn
     - QuizManager
+    - RewardedAdsButton
     - Shop
     - ShopSlots
     - StageFile
     - StageManager
+    - TimeManager
     - Tooltip
     - TooltipHandler
     - TurnManager
@@ -47,6 +49,10 @@ ScriptsOnlyBuild:
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.TestListCacheData
+    UnityEngine.Advertisements.dll:
+    - UnityEngine.Advertisements.Banner
+    - UnityEngine.Advertisements.CallbackExecutor
+    - UnityEngine.Advertisements.Placeholder
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
@@ -93,101 +99,105 @@ ScriptsOnlyBuild:
     - Class: 109
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9392}
+      Script: {instanceID: 9414}
     - Class: 114
-      Script: {instanceID: 9400}
+      Script: {instanceID: 9428}
     - Class: 114
-      Script: {instanceID: 9408}
+      Script: {instanceID: 9442}
     - Class: 114
-      Script: {instanceID: 9466}
+      Script: {instanceID: 9508}
     - Class: 114
-      Script: {instanceID: 9468}
+      Script: {instanceID: 9510}
     - Class: 114
-      Script: {instanceID: 9470}
+      Script: {instanceID: 9512}
     - Class: 114
-      Script: {instanceID: 9474}
+      Script: {instanceID: 9516}
     - Class: 114
-      Script: {instanceID: 9480}
-    - Class: 114
-      Script: {instanceID: 9484}
-    - Class: 114
-      Script: {instanceID: 9488}
-    - Class: 114
-      Script: {instanceID: 9492}
-    - Class: 114
-      Script: {instanceID: 9500}
-    - Class: 114
-      Script: {instanceID: 9524}
+      Script: {instanceID: 9522}
     - Class: 114
       Script: {instanceID: 9526}
     - Class: 114
-      Script: {instanceID: 9536}
+      Script: {instanceID: 9530}
     - Class: 114
-      Script: {instanceID: 9684}
+      Script: {instanceID: 9534}
     - Class: 114
-      Script: {instanceID: 9692}
+      Script: {instanceID: 9542}
     - Class: 114
-      Script: {instanceID: 9700}
+      Script: {instanceID: 9566}
     - Class: 114
-      Script: {instanceID: 9738}
+      Script: {instanceID: 9568}
     - Class: 114
-      Script: {instanceID: 9788}
+      Script: {instanceID: 9578}
     - Class: 114
-      Script: {instanceID: 9844}
+      Script: {instanceID: 9586}
     - Class: 114
-      Script: {instanceID: 9864}
+      Script: {instanceID: 9730}
     - Class: 114
-      Script: {instanceID: 9886}
+      Script: {instanceID: 9740}
+    - Class: 114
+      Script: {instanceID: 9750}
+    - Class: 114
+      Script: {instanceID: 9796}
+    - Class: 114
+      Script: {instanceID: 9860}
+    - Class: 114
+      Script: {instanceID: 9924}
+    - Class: 114
+      Script: {instanceID: 9944}
     - Class: 114
       Script: {instanceID: 9972}
     - Class: 114
-      Script: {instanceID: 10054}
+      Script: {instanceID: 10058}
     - Class: 114
-      Script: {instanceID: 10062}
+      Script: {instanceID: 10146}
     - Class: 114
-      Script: {instanceID: 10064}
+      Script: {instanceID: 10154}
     - Class: 114
-      Script: {instanceID: 10204}
+      Script: {instanceID: 10156}
     - Class: 114
-      Script: {instanceID: 10210}
+      Script: {instanceID: 10310}
     - Class: 114
-      Script: {instanceID: 10252}
-    - Class: 114
-      Script: {instanceID: 10256}
-    - Class: 114
-      Script: {instanceID: 10274}
-    - Class: 114
-      Script: {instanceID: 10312}
+      Script: {instanceID: 10318}
     - Class: 114
       Script: {instanceID: 10376}
     - Class: 114
-      Script: {instanceID: 10386}
+      Script: {instanceID: 10380}
     - Class: 114
-      Script: {instanceID: 10398}
+      Script: {instanceID: 10404}
     - Class: 114
-      Script: {instanceID: 10502}
+      Script: {instanceID: 10444}
     - Class: 114
-      Script: {instanceID: 10512}
+      Script: {instanceID: 10516}
     - Class: 114
-      Script: {instanceID: 10530}
+      Script: {instanceID: 10526}
     - Class: 114
-      Script: {instanceID: 10626}
+      Script: {instanceID: 10538}
     - Class: 114
-      Script: {instanceID: 10644}
+      Script: {instanceID: 10660}
     - Class: 114
-      Script: {instanceID: 10736}
+      Script: {instanceID: 10670}
     - Class: 114
-      Script: {instanceID: 10778}
+      Script: {instanceID: 10688}
     - Class: 114
-      Script: {instanceID: 10804}
+      Script: {instanceID: 10796}
     - Class: 114
-      Script: {instanceID: 10808}
+      Script: {instanceID: 10816}
     - Class: 114
-      Script: {instanceID: 10824}
+      Script: {instanceID: 10910}
     - Class: 114
-      Script: {instanceID: 10838}
+      Script: {instanceID: 10958}
     - Class: 114
-      Script: {instanceID: 10926}
+      Script: {instanceID: 10984}
+    - Class: 114
+      Script: {instanceID: 10990}
+    - Class: 114
+      Script: {instanceID: 11006}
+    - Class: 114
+      Script: {instanceID: 11022}
+    - Class: 114
+      Script: {instanceID: 11036}
+    - Class: 114
+      Script: {instanceID: 11118}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -235,7 +245,13 @@ ScriptsOnlyBuild:
     className: Consumables
   - hash:
       serializedVersion: 2
-      Hash: e833fa843b0fc543da206f1612e2e7b8
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UnityEngine.Advertisements.dll
+    namespaceName: UnityEngine.Advertisements
+    className: Placeholder
+  - hash:
+      serializedVersion: 2
+      Hash: 1927a2883c9cf57db8959298f915c25a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TurnManager
@@ -457,6 +473,12 @@ ScriptsOnlyBuild:
     className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
+      Hash: edaa31b2ccfd4aa3f0be528965daac2a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: RewardedAdsButton
+  - hash:
+      serializedVersion: 2
       Hash: 9e70ecf91466f07d9bd649be625cae52
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -673,7 +695,7 @@ ScriptsOnlyBuild:
     className: Warrior
   - hash:
       serializedVersion: 2
-      Hash: db36892f9582b0a524007d252ae4ad58
+      Hash: 48581988efe0cb6a9b475e04b8006232
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MonsterManager
@@ -1213,10 +1235,16 @@ ScriptsOnlyBuild:
     className: MonsterTurn
   - hash:
       serializedVersion: 2
-      Hash: 63452b2adaeb127aaf527ed467562205
+      Hash: effcf577b7ca09d1db2bc50eb04301b1
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: QuizManager
+  - hash:
+      serializedVersion: 2
+      Hash: 54cced885152d06928d346de2f106c9d
+    assemblyName: UnityEngine.Advertisements.dll
+    namespaceName: UnityEngine.Advertisements
+    className: Banner
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -1235,6 +1263,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Items
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UnityEngine.Monetization.dll
+    namespaceName: UnityEngine.Monetization
+    className: Placeholder
   - hash:
       serializedVersion: 2
       Hash: 6ea5c978ec61fca19bb62445edead50b
@@ -1261,10 +1295,10 @@ ScriptsOnlyBuild:
     className: InventorySlot
   - hash:
       serializedVersion: 2
-      Hash: e91560066e62d4bb78aca7ea438fc885
+      Hash: 531f1c41a51aba5ea41ad7ea961987f1
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: ItemAndGoldSystem
+    className: GemsAndGoldSystem
   - hash:
       serializedVersion: 2
       Hash: 3f8d7b92a6be3c715e55d5cfa7cc8384
@@ -1399,10 +1433,16 @@ ScriptsOnlyBuild:
     className: PlayerTurn
   - hash:
       serializedVersion: 2
-      Hash: 6fc0e382170baf9f245793889c545eb8
+      Hash: 4a0d8459436620ac27e3d457f0805ca8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Monster
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UnityEngine.Advertisements.dll
+    namespaceName: UnityEngine.Advertisements
+    className: CallbackExecutor
   - hash:
       serializedVersion: 2
       Hash: 7deb313fc91063ca9918191ddc286bd5
@@ -1429,7 +1469,7 @@ ScriptsOnlyBuild:
     className: PrePlayerTurn
   - hash:
       serializedVersion: 2
-      Hash: c9a62952f5301c7ba596d17a4b987721
+      Hash: c4879d6e2b5164cae4875f187eb416e3
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -1439,6 +1479,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_SubMesh
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TimeManager
   - hash:
       serializedVersion: 2
       Hash: 0077fc8e4fbae67f80e80ebd534de5a0
@@ -1639,7 +1685,7 @@ ScriptsOnlyBuild:
     className: WireframeTrackableEventHandler
   - hash:
       serializedVersion: 2
-      Hash: cffd6ef9741abe6487b7c150f8b6ec9a
+      Hash: 50453e72ae40fc873ec03373ca6e4c49
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ShopSlots
@@ -1649,6 +1695,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: SignalEmitter
+  - hash:
+      serializedVersion: 2
+      Hash: e30ac85dbbcece1c862d8aa174f9f736
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: AdsManager
   - hash:
       serializedVersion: 2
       Hash: 0077fc8e4fbae67f80e80ebd534de5a0
@@ -1856,4 +1908,4 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/Client/Desktop/Gamebuild/quizzos/Quizzos 0.1.5.1.apk
+  playerPath: C:/Users/Client/Desktop/Gamebuild/quizzos/Quizzos ad test.apk

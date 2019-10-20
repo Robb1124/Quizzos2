@@ -10,7 +10,10 @@ public class TimeManager : MonoBehaviour
     string currentTime;
     string dailyAdsCompletionDate;
     const string defaultDate = "10-18-2019";
-    void Start()
+
+    public string DailyAdsCompletionDate { get => dailyAdsCompletionDate; set => dailyAdsCompletionDate = value; }
+
+    private void Start()
     {
         StartCoroutine(GetText());
     }
@@ -37,27 +40,28 @@ public class TimeManager : MonoBehaviour
             currentDate = words[0];
             currentTime = words[1];
         }
-        IsDailyAdsAvailable();
     }
 
     public void SaveCompletionDate()
     {
-        dailyAdsCompletionDate = currentDate;
+        DailyAdsCompletionDate = currentDate;
     }
 
-    public void IsDailyAdsAvailable()
+    public bool IsDailyAdsRefreshable()
     {
-        DateTime completionDate = (dailyAdsCompletionDate is null) ? DateTime.Parse(defaultDate) : DateTime.Parse(dailyAdsCompletionDate);
+        DateTime completionDate = (DailyAdsCompletionDate is null) ? DateTime.Parse(defaultDate) : DateTime.Parse(DailyAdsCompletionDate);
         print(completionDate);
         print(currentDate);
         if(completionDate < DateTime.Parse(currentDate))
         {
             //check if its a specific hour ? ie : unlock only at 9PM on next day.
-            print("daily ads are available");         
+            print("daily ads are refreshable");
+            return true;
         }
         else
         {
-            print("daily ads are not available");
+            print("daily ads are not refreshable");
+            return false;
         }
     }
 }

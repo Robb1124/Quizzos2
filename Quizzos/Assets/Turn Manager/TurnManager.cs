@@ -12,12 +12,9 @@ public class TurnManager : MonoBehaviour
     [SerializeField] GameObject gameOverPopup;
     [SerializeField] GameObject stageCompletedPopup;
     [SerializeField] TextMeshProUGUI rewardText;
-    [SerializeField] MonsterManager monsterManager;
     [SerializeField] LevelSystem levelSystem;
     [SerializeField] StageManager stageManager;
-    [SerializeField] QuizManager quizManager;
     [SerializeField] GemsAndGoldSystem goldSystem;
-    [SerializeField] InventorySystem inventorySystem;
     bool stageComplete = false;
     public TurnState TurnState { get => turnState; set => turnState = value; }
     public int ExpCalculated { get; set; } = 0;
@@ -82,7 +79,7 @@ public class TurnManager : MonoBehaviour
     {       
         levelSystem.GainExp(ExpCalculated);
         goldSystem.AddGold(GoldCalculated);
-        SaveSystem.SavePlayer(player, levelSystem, stageManager, quizManager, goldSystem, inventorySystem);
+        player.SavePlayer();
         stageManager.ActivateUnlockedStageButtons();
         CombatIsOver = false;
         //place for other rewards methods
