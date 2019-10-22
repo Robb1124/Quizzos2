@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af3db0a00bbd7e14cb4ec0bd70d61ab4, type: 3}
+  m_Name: Strength Potion
+  m_EditorClassIdentifier: 
+  itemId: 51
+  nameOfItem: Strength Potion
+  itemImage: {fileID: 21300000, guid: a361a2e5f1e33ae4fbc22d181774a2cf, type: 3}
+  stackSize: 5
+  currency: 1
+  shopPrice: 15
+  itemCategory: 0
+  itemDescription: In combat, drink this potion to boost your {0} by {1}%. Lasts {2}
+    turns. You may only use one consumable per turn. Effect does not stack.
+  consumableType: 1
+  healingAmount: 0
+  specialEffect: 6
+  percentageAffectedBy: 0.15
+  turnsDuration: 5

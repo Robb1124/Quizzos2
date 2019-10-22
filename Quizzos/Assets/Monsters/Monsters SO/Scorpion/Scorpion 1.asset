@@ -16,12 +16,19 @@ MonoBehaviour:
   monsterName: Skorpion
   monsterImage: {fileID: 21300000, guid: 3b4a09ab8ee41af4a9d01427fda5d640, type: 3}
   monsterBaseDamage: 11
-  specialEffectOnHit: 1
   monsterAttacksHolders:
   - monsterAttack: 0
     useProbability: 0.5
+    specialEffectOnHit:
+      effectType: 0
+      turnDuration: 0
+      percentageAffectedBy: 0
   - monsterAttack: 2
     useProbability: 0.5
+    specialEffectOnHit:
+      effectType: 1
+      turnDuration: 1
+      percentageAffectedBy: 0
   isABoss: 0
   expType: 1
   goldType: 1

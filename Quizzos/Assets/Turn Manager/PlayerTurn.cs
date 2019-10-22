@@ -186,19 +186,19 @@ public class PlayerTurn : TurnState
         yield return new WaitForSeconds(0.7f);
         if (prePlayerTurn.ShockActive)
         {
-            prePlayerTurn.RemoveSpecialEffects(SpecialEffects.Shock);
+            prePlayerTurn.RemoveSpecialEffects(SpecialEffectsType.Shock);
         }
         if (prePlayerTurn.PoisonActive)
         {
-            prePlayerTurn.RemoveSpecialEffects(SpecialEffects.Poison);
+            prePlayerTurn.RemoveSpecialEffects(SpecialEffectsType.Poison);
         }
         if (prePlayerTurn.BurnActive)
         {
-            prePlayerTurn.RemoveSpecialEffects(SpecialEffects.Burn);
+            prePlayerTurn.RemoveSpecialEffects(SpecialEffectsType.Burn);
         }
         if (prePlayerTurn.ConcussionActive)
         {
-            prePlayerTurn.RemoveSpecialEffects(SpecialEffects.Concussion);
+            prePlayerTurn.RemoveSpecialEffects(SpecialEffectsType.Concussion);
         }
         while (!monsterManager.IsReadyForMonsterTurn)
         {

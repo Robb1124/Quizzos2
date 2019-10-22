@@ -20,16 +20,11 @@ MonoBehaviour:
   rounds:
   - round:
     - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
-    xp: 0
   - round:
     - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
     - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
-    xp: 0
   - round:
     - {fileID: 11400000, guid: 273e04939c0f8f846b06f096c8276ca5, type: 2}
-    xp: 0
   - round:
     - {fileID: 11400000, guid: 273e04939c0f8f846b06f096c8276ca5, type: 2}
     - {fileID: 11400000, guid: d40c03a5817ccae419dfc144de7236cd, type: 2}
-    xp: 0
-  xpBonusForCompletion: 0

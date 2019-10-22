@@ -1199,6 +1199,10 @@ MonoBehaviour:
   goldSystem: {fileID: 831641513}
   inventorySystem: {fileID: 1403423942}
   priceText: {fileID: 216254774}
+  goldOrGemsSprites:
+  - {fileID: 21300000, guid: 45fff3ea329c43b4cb833666511b82ce, type: 3}
+  - {fileID: 21300000, guid: dad094c70b9798e4da754a43a1063b28, type: 3}
+  currencyImageSlot: {fileID: 500937157}
 --- !u!114 &77184176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4420,7 +4424,6 @@ GameObject:
   - component: {fileID: 269235961}
   - component: {fileID: 269235960}
   - component: {fileID: 269235962}
-  - component: {fileID: 269235959}
   - component: {fileID: 269235958}
   m_Layer: 5
   m_Name: Special effect potion holder
@@ -4493,24 +4496,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1330470563}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 269235962}
+        m_MethodName: RemoveItemFromPreInstanceInventory
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1610108785}
+        m_MethodName: RemoveFromActualInGameInventory
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &269235959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 269235956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbe8d78c86228d4eb2f87fdbcc395c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooltipsType: 4
-  simpleTextField: Coming soon !
-  specialEffectSlot: 0
 --- !u!114 &269235960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4560,15 +4570,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28088c065a652c549933e97eb76b691c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StackSize: 2
+  StackSize: 3
   consumableTypeToHold: 1
   player: {fileID: 538342686}
   emptySlotSprite: {fileID: 21300000, guid: eb5e02ec933512c4f88194b88c8ba956, type: 3}
   stackAmountText: {fileID: 1119045950}
   useButton: {fileID: 269235958}
   turnManager: {fileID: 1053521920}
+  prePlayerTurn: {fileID: 0}
   inventorySystem: {fileID: 1403423942}
   slotImage: {fileID: 269235960}
+  actualInGameSlot: {fileID: 1610108785}
   audioSource: {fileID: 0}
   drinkPotionClip: {fileID: 0}
 --- !u!114 &277885298 stripped
@@ -5304,8 +5316,10 @@ MonoBehaviour:
   stackAmountText: {fileID: 137542921}
   useButton: {fileID: 321499459}
   turnManager: {fileID: 1053521920}
+  prePlayerTurn: {fileID: 0}
   inventorySystem: {fileID: 1403423942}
   slotImage: {fileID: 321499458}
+  actualInGameSlot: {fileID: 0}
   audioSource: {fileID: 0}
   drinkPotionClip: {fileID: 0}
 --- !u!114 &321499458
@@ -9915,6 +9929,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1403423942}
+        m_MethodName: ReturnItemsToInventory
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &554262755
@@ -11150,6 +11175,10 @@ MonoBehaviour:
   goldSystem: {fileID: 831641513}
   inventorySystem: {fileID: 1403423942}
   priceText: {fileID: 105576784}
+  goldOrGemsSprites:
+  - {fileID: 21300000, guid: 45fff3ea329c43b4cb833666511b82ce, type: 3}
+  - {fileID: 21300000, guid: dad094c70b9798e4da754a43a1063b28, type: 3}
+  currencyImageSlot: {fileID: 40534134}
 --- !u!114 &629793586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11430,6 +11459,10 @@ MonoBehaviour:
   goldSystem: {fileID: 831641513}
   inventorySystem: {fileID: 1403423942}
   priceText: {fileID: 476515942}
+  goldOrGemsSprites:
+  - {fileID: 21300000, guid: 45fff3ea329c43b4cb833666511b82ce, type: 3}
+  - {fileID: 21300000, guid: dad094c70b9798e4da754a43a1063b28, type: 3}
+  currencyImageSlot: {fileID: 1051815655}
 --- !u!114 &649902508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12704,6 +12737,10 @@ MonoBehaviour:
   goldSystem: {fileID: 831641513}
   inventorySystem: {fileID: 1403423942}
   priceText: {fileID: 1580477353}
+  goldOrGemsSprites:
+  - {fileID: 21300000, guid: 45fff3ea329c43b4cb833666511b82ce, type: 3}
+  - {fileID: 21300000, guid: dad094c70b9798e4da754a43a1063b28, type: 3}
+  currencyImageSlot: {fileID: 831434839}
 --- !u!114 &721250345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22028,8 +22065,10 @@ MonoBehaviour:
   stackAmountText: {fileID: 1421593296}
   useButton: {fileID: 1330470564}
   turnManager: {fileID: 1053521920}
+  prePlayerTurn: {fileID: 0}
   inventorySystem: {fileID: 1403423942}
   slotImage: {fileID: 1330470563}
+  actualInGameSlot: {fileID: 2100786117}
   audioSource: {fileID: 0}
   drinkPotionClip: {fileID: 0}
 --- !u!1 &1332759908
@@ -26056,8 +26095,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -9.700016}
-  m_SizeDelta: {x: -174.4, y: -547.3}
+  m_AnchoredPosition: {x: 0, y: -55.1}
+  m_SizeDelta: {x: -174.4, y: -638.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1545963429
 MonoBehaviour:
@@ -26819,7 +26858,6 @@ GameObject:
   - component: {fileID: 1610108783}
   - component: {fileID: 1610108782}
   - component: {fileID: 1610108785}
-  - component: {fileID: 1610108784}
   - component: {fileID: 1610108786}
   m_Layer: 5
   m_Name: Special effect potion holder
@@ -26887,21 +26925,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1610108780}
   m_CullTransparentMesh: 0
---- !u!114 &1610108784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1610108780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbe8d78c86228d4eb2f87fdbcc395c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooltipsType: 4
-  simpleTextField: Coming soon !
-  specialEffectSlot: 0
 --- !u!114 &1610108785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26914,15 +26937,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28088c065a652c549933e97eb76b691c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StackSize: 2
+  StackSize: 3
   consumableTypeToHold: 1
   player: {fileID: 538342686}
   emptySlotSprite: {fileID: 21300000, guid: eb5e02ec933512c4f88194b88c8ba956, type: 3}
   stackAmountText: {fileID: 1877115231}
   useButton: {fileID: 1610108786}
   turnManager: {fileID: 1053521920}
+  prePlayerTurn: {fileID: 1776868025}
   inventorySystem: {fileID: 1403423942}
   slotImage: {fileID: 1610108782}
+  actualInGameSlot: {fileID: 0}
   audioSource: {fileID: 1805199796}
   drinkPotionClip: {fileID: 8300000, guid: 84954f80ba4ff43488bbbd7d4ff00bb1, type: 3}
 --- !u!114 &1610108786
@@ -26968,7 +26993,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2100786117}
+      - m_Target: {fileID: 1610108785}
         m_MethodName: UseItem
         m_Mode: 1
         m_Arguments:
@@ -29385,36 +29410,53 @@ MonoBehaviour:
   shockSprite: {fileID: 21300000, guid: 552014ee1e7664849b1a3efb2f848674, type: 3}
   burnSprite: {fileID: 21300000, guid: 11d32dc8d95b1464f880f9c0fdda3d4f, type: 3}
   concussionSprite: {fileID: 21300000, guid: 7e398d10337a2ac4580eeea566ff97b4, type: 3}
+  damageBoostSprite: {fileID: 21300000, guid: 0cca9b57478169c409e5d3c5473cc08c, type: 3}
   shieldUpSlot: {fileID: 0}
   poisonSlot: {fileID: 0}
   shockSlot: {fileID: 0}
   burnSlot: {fileID: 0}
   concussionSlot: {fileID: 0}
+  damageBoostSlot: {fileID: 0}
   concussionEffectBaseDmgReduction: 0.25
   burnEffectDamagePercentage: 0.04
   shieldUpText: "<i><b><#D0AD7B>Shield Up</color></b></i>\nReceive 35% less \ndamage
-    while this\nis channeled."
+    while this\nis channeled.\n<i><#C5A5A5>Channeling</color></i>"
   poisonText: "<i><b><#b30cff>Poison</color></b></i>\nOne choice will be\nhidden when
-    you \nanswer a question."
+    you \nanswer a question.\n<i><#C5A5A5>{0} turns remaining</color></i>"
   shockText: '<i><b><#e8ea00>Shock</color></b></i>
 
     At the beggining of
 
     the turn, a random
 
-    action is disabled.'
+    action is disabled.
+
+    <i><#C5A5A5>{0} turns remaining</color></i>'
   burnText: '<i><b><#ea3b00>Burn</color></b></i>
 
     Every time you give a
 
     wrong answer, you burn
 
-    for 4% max health.'
+    for 4% max health.
+
+    <i><#C5A5A5>{0} turns remaining</color></i>'
   concussionText: '<i><b><#65651F>Concussion</color></b></i>
 
     Your attacks deal
 
-    25% reduced damage.'
+    25% reduced damage.
+
+    <i><#C5A5A5>{0} turns remaining</color></i>'
+  damageBoostText: '<i><b><#740003>Damage Boost</color></b></i>
+
+    Your damage dealt is
+
+    increased by <b>{0}%</b>.
+
+    <i><#C5A5A5>{1} turns remaining</color></i>
+
+'
 --- !u!1001 &1777533520
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32393,8 +32435,10 @@ MonoBehaviour:
   stackAmountText: {fileID: 1097560711}
   useButton: {fileID: 1921420870}
   turnManager: {fileID: 1053521920}
+  prePlayerTurn: {fileID: 0}
   inventorySystem: {fileID: 1403423942}
   slotImage: {fileID: 1921420866}
+  actualInGameSlot: {fileID: 0}
   audioSource: {fileID: 1805199796}
   drinkPotionClip: {fileID: 8300000, guid: 84954f80ba4ff43488bbbd7d4ff00bb1, type: 3}
 --- !u!114 &1921420870
@@ -34066,8 +34110,10 @@ MonoBehaviour:
   stackAmountText: {fileID: 1721326086}
   useButton: {fileID: 2100786118}
   turnManager: {fileID: 1053521920}
+  prePlayerTurn: {fileID: 0}
   inventorySystem: {fileID: 1403423942}
   slotImage: {fileID: 2100786115}
+  actualInGameSlot: {fileID: 0}
   audioSource: {fileID: 1805199796}
   drinkPotionClip: {fileID: 8300000, guid: 84954f80ba4ff43488bbbd7d4ff00bb1, type: 3}
 --- !u!114 &2100786118
@@ -34178,12 +34224,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3083a91f1ba25494389f90cac66fe934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemToSell: {fileID: 11400000, guid: 8518358e362dd314885c5a9374a290e6, type: 2}
+  itemToSell: {fileID: 11400000, guid: bd9c5c6683c96654cbdd0da169e5cbad, type: 2}
   unlimited: 1
   amountOfItems: 0
   goldSystem: {fileID: 831641513}
   inventorySystem: {fileID: 1403423942}
   priceText: {fileID: 371693260}
+  goldOrGemsSprites:
+  - {fileID: 21300000, guid: 45fff3ea329c43b4cb833666511b82ce, type: 3}
+  - {fileID: 21300000, guid: dad094c70b9798e4da754a43a1063b28, type: 3}
+  currencyImageSlot: {fileID: 979538261}
 --- !u!114 &2101347509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34441,12 +34491,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3083a91f1ba25494389f90cac66fe934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemToSell: {fileID: 11400000, guid: 4f1402bf174d8f44994c7b7d1d8bce19, type: 2}
+  itemToSell: {fileID: 11400000, guid: ff4185629887a0e4c815ad3245de8585, type: 2}
   unlimited: 1
   amountOfItems: 0
   goldSystem: {fileID: 831641513}
   inventorySystem: {fileID: 1403423942}
   priceText: {fileID: 1007694591}
+  goldOrGemsSprites:
+  - {fileID: 21300000, guid: 45fff3ea329c43b4cb833666511b82ce, type: 3}
+  - {fileID: 21300000, guid: dad094c70b9798e4da754a43a1063b28, type: 3}
+  currencyImageSlot: {fileID: 366700995}
 --- !u!114 &2134914592
 MonoBehaviour:
   m_ObjectHideFlags: 0

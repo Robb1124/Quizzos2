@@ -28,4 +28,6 @@ public class MonsterAttacksHolder
     public MonsterAttacks monsterAttack;
     [Range(0f, 1f)]
     public float useProbability;
+    
+    public SpecialEffect specialEffectOnHit;
 }

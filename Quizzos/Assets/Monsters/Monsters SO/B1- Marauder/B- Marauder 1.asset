@@ -16,14 +16,25 @@ MonoBehaviour:
   monsterName: MARAUDER
   monsterImage: {fileID: 21300000, guid: 47a5c2e7be296284fb6d86826036d50a, type: 3}
   monsterBaseDamage: 14
-  specialEffectOnHit: 0
   monsterAttacksHolders:
   - monsterAttack: 4
     useProbability: 0.25
+    specialEffectOnHit:
+      effectType: 0
+      turnDuration: 0
+      percentageAffectedBy: 0
   - monsterAttack: 7
     useProbability: 0.5
+    specialEffectOnHit:
+      effectType: 2
+      turnDuration: 2
+      percentageAffectedBy: 0
   - monsterAttack: 6
     useProbability: 0.25
+    specialEffectOnHit:
+      effectType: 5
+      turnDuration: 2
+      percentageAffectedBy: 0
   isABoss: 1
   expType: 3
   goldType: 3

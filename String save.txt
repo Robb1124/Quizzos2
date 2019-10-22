@@ -2,25 +2,35 @@
 Receive 35% less 
 damage while this
 is channeled.
+<i><#C5A5A5>Channeling</color></i>
 
 <i><b><#b30cff>Poison</color></b></i>
 One choice will be
 hidden when you 
 answer a question.
+<i><#C5A5A5>{0} turns remaining</color></i>
 
 <i><b><#e8ea00>Shock</color></b></i>
 At the beggining of
 the turn, a random
 action is disabled.
+<i><#C5A5A5>{0} turns remaining</color></i>
 
 <i><b><#ea3b00>Burn</color></b></i>
 Every time you give a
 wrong answer, you burn
 for 4% max health.
+<i><#C5A5A5>{0} turns remaining</color></i>
 
 <i><b><#65651F>Concussion</color></b></i>
 Your attacks deal
 25% reduced damage.
+<i><#C5A5A5>{0} turns remaining</color></i>
+
+<i><b><#740003>Damage Boost</color></b></i>
+Your damage dealt is
+increased by <b>{0}%</b>.
+<i><#C5A5A5>{1} turns remaining</color></i>
 
 <i><b>Basic Attack</b></i>
 Single Target

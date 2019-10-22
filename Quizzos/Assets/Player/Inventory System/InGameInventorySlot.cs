@@ -12,8 +12,10 @@ public class InGameInventorySlot : MonoBehaviour
     [SerializeField] Text stackAmountText;
     [SerializeField] Button useButton;
     [SerializeField] TurnManager turnManager;
+    [SerializeField] PrePlayerTurn prePlayerTurn;
     [SerializeField] InventorySystem inventorySystem;
     [SerializeField] Image slotImage;
+    [SerializeField] InGameInventorySlot actualInGameSlot;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip drinkPotionClip;
 
@@ -71,8 +73,7 @@ public class InGameInventorySlot : MonoBehaviour
         if (!inventorySystem.ConsumableUsedThisTurn)
         {
             switch (consumableTypeToHold)
-            {
-                
+            {                
                 case ConsumableType.HealingPotion:
                     if (!player.IsPlayerFullHealth())
                     {
@@ -84,6 +85,10 @@ public class InGameInventorySlot : MonoBehaviour
                         inventorySystem.SetMessagePopup("You are already full health");
                         return;
                     }                   
+                    break;
+                case ConsumableType.SpecialEffectPotion:
+                    prePlayerTurn.AddSpecialEffects(itemHeld.SpecialEffect, itemHeld.PercentageAffectedBy, itemHeld.TurnsDuration);
+                    numberOfItems--;
                     break;
             }
             audioSource.PlayOneShot(drinkPotionClip);
@@ -143,6 +148,15 @@ public class InGameInventorySlot : MonoBehaviour
         }
     }
 
+    public void ReturnItemsToInventory()
+    {
+        int max = numberOfItems;
+        for (int i = 0; i < max; i++)
+        {
+            RemoveItemFromPreInstanceInventory();
+            actualInGameSlot.RemoveFromActualInGameInventory();
+        }
+    }
     public void EmptyPreInstanceAndInGameInventory()
     {
         numberOfItems = 0;

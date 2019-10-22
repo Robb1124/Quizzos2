@@ -16,6 +16,7 @@ public class MonsterTurn : TurnState
     [SerializeField] Player player;
     [SerializeField] MonsterFX monsterFXHolder;
     MonsterAttacksHolder[] monsterAttacksHolders;
+    SpecialEffect monsterAttackEffect;
     MonsterAttacks monsterAttack;
     float monsterAttackDamage;
     [Header("Monster Attacks Settings")]
@@ -69,6 +70,7 @@ public class MonsterTurn : TurnState
                     if(randAttackNum <= 0)
                     {
                         monsterAttack = monsterAttacksHolders[j].monsterAttack;
+                        monsterAttackEffect = monsterAttacksHolders[j].specialEffectOnHit;
                         break;
                     }
                 }
@@ -147,16 +149,16 @@ public class MonsterTurn : TurnState
             case MonsterAttacks.Headbutt:
             case MonsterAttacks.HeavyHit: //chance to stun ?
             case MonsterAttacks.Punch:
-                player.TakeDamage(monsterAttackDamage, SpecialEffects.None);
+                player.TakeDamage(monsterAttackDamage, monsterAttackEffect);
                 break;
             case MonsterAttacks.VenomousSting:
-                player.TakeDamage(monsterAttackDamage, SpecialEffects.Poison);
+                player.TakeDamage(monsterAttackDamage, monsterAttackEffect);
                 break;
             case MonsterAttacks.FlameSlash:
-                player.TakeDamage(monsterAttackDamage, SpecialEffects.Burn);
+                player.TakeDamage(monsterAttackDamage, monsterAttackEffect);
                 break;
             case MonsterAttacks.ShieldBash:
-                player.TakeDamage(monsterAttackDamage, SpecialEffects.Concussion);
+                player.TakeDamage(monsterAttackDamage, monsterAttackEffect);
                 break;
         }
     }

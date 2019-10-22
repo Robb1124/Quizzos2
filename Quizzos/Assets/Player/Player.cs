@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     [SerializeField] InventorySystem inventorySystem;
     [SerializeField] AudioClip[] takeDamageSFXs;
     [SerializeField] AudioClip burnDamageSFX;
+    float dmgBoostPercentage;
     bool playerDead = false;
     AudioSource audioSource { get; set; }
     int classIndex;
@@ -62,39 +63,39 @@ public class Player : MonoBehaviour
         playerHpBar.fillAmount = playerCurrentHp / PlayerMaxHp;
     }
 
-    public void TakeDamage(float amountOfDamage, SpecialEffects onHitSpecialEffect = SpecialEffects.None)
+    public void TakeDamage(float amountOfDamage, SpecialEffect onHitSpecialEffect = null)
     {      
-        if(onHitSpecialEffect != SpecialEffects.None)
+        if(onHitSpecialEffect.EffectType != SpecialEffectsType.None)
         {
             float rand;
-            switch (onHitSpecialEffect)
+            switch (onHitSpecialEffect.EffectType)
             {
-                case SpecialEffects.Poison:
+                case SpecialEffectsType.Poison:
                     rand = UnityEngine.Random.Range(0.00f, 1.00f);
                     if(rand > PoisonResist)
                     {
-                        prePlayerTurn.AddSpecialEffects(onHitSpecialEffect);
+                        prePlayerTurn.AddSpecialEffects(onHitSpecialEffect.EffectType, 0, onHitSpecialEffect.TurnDuration);
                     }
                     break;
-                case SpecialEffects.Burn:
+                case SpecialEffectsType.Burn:
                     rand = UnityEngine.Random.Range(0.00f, 1.00f);
                     if (rand > BurnResist)
                     {
-                        prePlayerTurn.AddSpecialEffects(onHitSpecialEffect);
+                        prePlayerTurn.AddSpecialEffects(onHitSpecialEffect.EffectType, 0, onHitSpecialEffect.TurnDuration);
                     }
                     break;
-                case SpecialEffects.Shock:
+                case SpecialEffectsType.Shock:
                     rand = UnityEngine.Random.Range(0.00f, 1.00f);
                     if (rand > ShockResist)
                     {
-                        prePlayerTurn.AddSpecialEffects(onHitSpecialEffect);
+                        prePlayerTurn.AddSpecialEffects(onHitSpecialEffect.EffectType, 0, onHitSpecialEffect.TurnDuration);
                     }
                     break;
-                case SpecialEffects.Concussion:
+                case SpecialEffectsType.Concussion:
                     rand = UnityEngine.Random.Range(0.00f, 1.00f);
                     if (rand > ConcussionResist)
                     {
-                        prePlayerTurn.AddSpecialEffects(onHitSpecialEffect);
+                        prePlayerTurn.AddSpecialEffects(onHitSpecialEffect.EffectType, 0, onHitSpecialEffect.TurnDuration); //TODO : enable customisation of concussion dmg reduc?
                     }
                     break;
                     //frost here
@@ -232,6 +233,17 @@ public class Player : MonoBehaviour
     public void RemoveConcussion(float baseDmgReductionPercentage)
     {
         dmgMultiplierEffects += baseDmgReductionPercentage;
+    }
+
+    public void AddDamageBoost(float baseDmgIncreasePercentage)
+    {
+        dmgBoostPercentage = baseDmgIncreasePercentage;
+        dmgMultiplierEffects += baseDmgIncreasePercentage;
+    }
+
+    public void RemoveDamageBoost()
+    {        
+        dmgMultiplierEffects -= dmgBoostPercentage;
     }
 
     public bool IsPlayerFullHealth()

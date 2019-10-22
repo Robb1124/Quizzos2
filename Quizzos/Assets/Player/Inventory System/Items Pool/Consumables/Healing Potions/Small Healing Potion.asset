@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 2
   nameOfItem: Small Healing Potion
-  itemImage: {fileID: 21300000, guid: ca82381c2907ed346b0808676d6dd0a3, type: 3}
+  itemImage: {fileID: 21300000, guid: b6ac5bb4ab7ca664cae25897e8cafee7, type: 3}
   stackSize: 25
   shopPrice: 40
   itemCategory: 0

@@ -131,7 +131,7 @@ public class Warrior : CharacterClass
                 {
                     playerTurnState.AttackIsSuccessfull = true;
                     playerTurnState.isAnAttack = false;
-                    prePlayerTurnState.AddSpecialEffects(SpecialEffects.ShieldUp);
+                    prePlayerTurnState.AddSpecialEffects(SpecialEffectsType.ShieldUp);
                     PlaySFX();
                     player.DmgReduction += shieldUpDmgReduction;
                 }

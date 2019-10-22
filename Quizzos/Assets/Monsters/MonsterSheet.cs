@@ -12,7 +12,6 @@ public class MonsterSheet : ScriptableObject
     [SerializeField] string monsterName = "default monster name";
     [SerializeField] Sprite monsterImage;
     [SerializeField] float monsterBaseDamage = 1;
-    [SerializeField] SpecialEffects specialEffectOnHit;
     [SerializeField] MonsterAttacksHolder[] monsterAttacksHolders;
     [SerializeField] bool isABoss = false;
     [SerializeField] ExpType expType;
@@ -37,11 +36,6 @@ public class MonsterSheet : ScriptableObject
     public Sprite GetMonsterImage()
     {
         return monsterImage;
-    }
-
-    public SpecialEffects GetSpecialEffectOnHit()
-    {
-        return specialEffectOnHit;
     }
 
     public bool IsABoss()

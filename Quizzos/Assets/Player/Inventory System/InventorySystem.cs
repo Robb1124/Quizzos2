@@ -147,6 +147,14 @@ public class InventorySystem : MonoBehaviour
                         return true;
                     }
                     break;
+                case ConsumableType.SpecialEffectPotion:
+                    if (preInstanceInventorySlots[1].ReceiveItem(item))
+                    {
+                        inGameInventorySlots[1].ReceiveItem(item);
+                        RemoveItemFromMemory(item);
+                        return true;
+                    }
+                    break;
             }
         }        
         return false;
@@ -255,6 +263,14 @@ public class InventorySystem : MonoBehaviour
         {
             preInstanceInventorySlots[i].EmptyPreInstanceAndInGameInventory();
             inGameInventorySlots[i].EmptyPreInstanceAndInGameInventory();
+        }
+    }
+
+    public void ReturnItemsToInventory()
+    {
+        for (int i = 0; i < preInstanceInventorySlots.Length; i++)
+        {
+            preInstanceInventorySlots[i].ReturnItemsToInventory();            
         }
     }
 }
