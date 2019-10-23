@@ -20,6 +20,7 @@ public class PlayerData
     public float frostResist;
     public int classIndex;
     public List<bool> stageCompleted;
+    public List<bool> stageRewardReceived;
     public int[] playerDeckQuestionIds;
     public List<ItemsSaveStruct> itemsSaveStructs;
 
@@ -36,6 +37,7 @@ public class PlayerData
         playerBaseDmg = player.PlayerBaseDmg;
         classIndex = player.ClassIndex;
         stageCompleted = stageManager.StageCompleted;
+        stageRewardReceived = stageManager.StageRewardReceived;
         playerDeckQuestionIds = quizManager.PlayerDeckQuestionIds;
         poisonResist = player.PoisonResist;
         burnResist = player.BurnResist;

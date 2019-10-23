@@ -23,6 +23,8 @@ public class InGameInventorySlot : MonoBehaviour
     int itemHeldId = 0;
     Consumables itemHeld;
 
+    public int ItemHeldId { get => itemHeldId;}
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,9 +52,9 @@ public class InGameInventorySlot : MonoBehaviour
         
     }
 
-    public bool ReceiveItem(Consumables item)
+    public bool ReceiveItem(Consumables item, int otherSpecialEffectSlotItemId = 0)
     {
-        if(numberOfItems < StackSize && (itemHeldId == 0 || item.ItemId == itemHeldId))
+        if(numberOfItems < StackSize && (itemHeldId == 0 || item.ItemId == itemHeldId) && otherSpecialEffectSlotItemId != item.ItemId)
         {
             if(itemHeldId == 0)
             {                

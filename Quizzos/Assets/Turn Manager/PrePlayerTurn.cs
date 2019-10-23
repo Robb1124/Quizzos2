@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum SpecialEffectsType { None, Poison, Burn, Shock, ShieldUp, Concussion, DamageBoost};
+public enum SpecialEffectsType { None, Poison, Burn, Shock, ShieldUp, Concussion, DamageBoost, Regeneration, CriticalHitChance};
 
 [System.Serializable]
 public class SpecialEffect
@@ -34,20 +34,26 @@ public class PrePlayerTurn : TurnState
     [SerializeField] QuizManager quizManager;
     [SerializeField] Player player;
     [SerializeField] Image[] specialEffectsSlots;
+    [Header("Special Effects sprites")]
     [SerializeField] Sprite shieldUpSprite;
     [SerializeField] Sprite poisonSprite;
     [SerializeField] Sprite shockSprite;
     [SerializeField] Sprite burnSprite;
     [SerializeField] Sprite concussionSprite;
     [SerializeField] Sprite damageBoostSprite;
-    [SerializeField] Image shieldUpSlot;
-    [SerializeField] Image poisonSlot;
-    [SerializeField] Image shockSlot;
-    [SerializeField] Image burnSlot;
-    [SerializeField] Image concussionSlot;
-    [SerializeField] Image damageBoostSlot;
+    [SerializeField] Sprite regenerationSprite;
+    [SerializeField] Sprite criticalHitChanceSprite;
+    Image shieldUpSlot;
+    Image poisonSlot;
+    Image shockSlot;
+    Image burnSlot;
+    Image concussionSlot;
+    Image damageBoostSlot;
+    Image regenerationSlot;
+    Image criticalHitChanceSlot;
     [SerializeField] float concussionEffectBaseDmgReduction;
     [SerializeField] float burnEffectDamagePercentage;
+    [Header("Special Effects Tooltip Description")]
     [TextArea(2, 5)]
     [SerializeField] string shieldUpText;
     [TextArea(2, 5)]
@@ -60,7 +66,14 @@ public class PrePlayerTurn : TurnState
     [SerializeField] string concussionText;
     [TextArea(2, 5)]
     [SerializeField] string damageBoostText;
+    [TextArea(2, 5)]
+    [SerializeField] string regenerationText;
+    [TextArea(2, 5)]
+    [SerializeField] string criticalHitChanceText;
+
     float damageBoostPercentageMemory;
+    float critHitChanceBoostPercentageMemory;
+    float regenPercentage;
     public List<SpecialEffect> CurrentSpecialEffects { get; set; } = new List<SpecialEffect>();
     public bool CurrentEffectIsDone { get; set; } = false;
     public bool ShieldUpActive { get; set; } = false;
@@ -69,6 +82,8 @@ public class PrePlayerTurn : TurnState
     public bool BurnActive { get; set; } = false;
     public bool ConcussionActive { get; set; } = false;
     public bool DamageBoostActive { get; set; } = false;
+    public bool RegenerationActive { get; set; } = false;
+    public bool CriticalHitChanceActive { get; set; } = false;
 
 
     // Start is called before the first frame update
@@ -103,10 +118,14 @@ public class PrePlayerTurn : TurnState
 
     void ReduceEffectsDurationAndRemoveExpired()
     {
+        if (RegenerationActive) //triggers regen if active
+        {
+            player.RegeneratePercentageOfLife(regenPercentage);
+        }
         for (int i = 0; i < CurrentSpecialEffects.Count; i++)
         {
-            if(CurrentSpecialEffects[i].EffectType != SpecialEffectsType.ShieldUp)
-            {
+            if(CurrentSpecialEffects[i].EffectType != SpecialEffectsType.ShieldUp) //shield up is channeling effect so is excluded from this method
+            {                
                 CurrentSpecialEffects[i].TurnDuration--;
                 if(CurrentSpecialEffects[i].TurnDuration <= 0)
                 {
@@ -116,7 +135,7 @@ public class PrePlayerTurn : TurnState
             }
         }
     }
-    private IEnumerator WaitForSpecialEffectsCompletion()
+    private IEnumerator WaitForSpecialEffectsCompletion() //answering questions for channeled effects
     {       
         CurrentEffectIsDone = false;        
         for (int i = 0; i < CurrentSpecialEffects.Count; i++)
@@ -136,10 +155,7 @@ public class PrePlayerTurn : TurnState
                     }
                     break;
             }
-        }
-        
-        
-        //RESOLVE ALL OTHER EFFECTS UP THERE.
+        }      
         yield return new WaitForSeconds(0.1f);
         GoToPlayerTurn();
     }
@@ -200,6 +216,13 @@ public class PrePlayerTurn : TurnState
                 case SpecialEffectsType.DamageBoost:
                     player.RemoveDamageBoost();
                     DamageBoostActive = false;
+                    break;
+                case SpecialEffectsType.Regeneration:
+                    RegenerationActive = false;
+                    break;
+                case SpecialEffectsType.CriticalHitChance:
+                    player.RemoveCriticalHitChanceBoost();
+                    CriticalHitChanceActive = false;
                     break;
             }
             RefreshSpecialEffectsSlots();
@@ -277,6 +300,31 @@ public class PrePlayerTurn : TurnState
                 }
                 damageBoostPercentageMemory = percentageAffectedBy;
                 break;
+            case SpecialEffectsType.Regeneration:
+                if (RegenerationActive)
+                {
+                    added = true;
+                }
+                else
+                {
+                    RegenerationActive = true;
+                }
+                regenPercentage = percentageAffectedBy;
+                break;
+            case SpecialEffectsType.CriticalHitChance:
+                if (CriticalHitChanceActive)
+                {
+                    player.RemoveCriticalHitChanceBoost();
+                    player.AddCriticalHitChanceBoost(percentageAffectedBy);
+                    added = true;
+                }
+                else
+                {
+                    player.AddCriticalHitChanceBoost(percentageAffectedBy);
+                    CriticalHitChanceActive = true;
+                }
+                critHitChanceBoostPercentageMemory = percentageAffectedBy;
+                break;
         }
         if (!added)
         {
@@ -328,6 +376,17 @@ public class PrePlayerTurn : TurnState
                         damageBoostSlot.sprite = damageBoostSprite;
                         DamageBoostActive = true;
                         break;
+                    case SpecialEffectsType.Regeneration:
+                        regenerationSlot = specialEffectsSlots[i];
+                        regenerationSlot.sprite = regenerationSprite;
+                        RegenerationActive = true;
+                        break;
+                    case SpecialEffectsType.CriticalHitChance:
+                        criticalHitChanceSlot = specialEffectsSlots[i];
+                        criticalHitChanceSlot.sprite = criticalHitChanceSprite;
+                        CriticalHitChanceActive = true;
+                        break;
+
 
                 }
             }            
@@ -367,6 +426,10 @@ public class PrePlayerTurn : TurnState
                 return string.Format(concussionText, turnRemaining);
             case SpecialEffectsType.DamageBoost:
                 return string.Format(damageBoostText, (damageBoostPercentageMemory * 100), turnRemaining);
+            case SpecialEffectsType.Regeneration:
+                return string.Format(regenerationText, (regenPercentage * 100), turnRemaining);
+            case SpecialEffectsType.CriticalHitChance:
+                return string.Format(criticalHitChanceText, (critHitChanceBoostPercentageMemory * 100), turnRemaining);
         }
         return null;
     }

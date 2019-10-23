@@ -13,6 +13,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] StageFile[] stages;
     [SerializeField] Button[] stageButtons;
     [SerializeField] List<bool> stageCompleted;
+    [SerializeField] List<bool> stageRewardReceived;
     [SerializeField] TextMeshProUGUI stagePreviewNameField;
     [SerializeField] TextMeshProUGUI stageDescriptionField;
     [SerializeField] Text xpText;
@@ -25,14 +26,19 @@ public class StageManager : MonoBehaviour
     float goldMultiplier;
     [SerializeField] float bonusExpPercentageForCompletion;
     [SerializeField] float bonusGoldPercentageForCompletion;
+    [SerializeField] int gemsRewardForCompletingStage;
+    bool firstTimeCompletion = false;
     int expToGain = 0;
     int goldToGain = 0;
     [SerializeField] QuizManager quizManager;
     StageFile currentStage;
     [SerializeField] MonsterManager monsterManager;
+    [SerializeField] GemsAndGoldSystem gemsAndGoldSystem;
     int totalStageExpPreview;
     List<ExpType> expList = new List<ExpType>();
     public List<bool> StageCompleted { get => stageCompleted; set => stageCompleted = value; }
+    public List<bool> StageRewardReceived { get => stageRewardReceived; set => stageRewardReceived = value; }
+    public bool FirstTimeCompletion { get => firstTimeCompletion; set => firstTimeCompletion = value; }
 
     public delegate void OnStageLoad(); // declare new delegate type
     public event OnStageLoad onStageLoad; // instantiate an observer set
@@ -40,9 +46,10 @@ public class StageManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < stages.Length; i++)
+        for (int i = -1; i < stages.Length; i++)
         {
             StageCompleted.Add(false);
+            StageRewardReceived.Add(false);
         }
         ActivateUnlockedStageButtons();
         monsterManager = FindObjectOfType<MonsterManager>();
@@ -59,6 +66,7 @@ public class StageManager : MonoBehaviour
 
     public void LoadLevel()
     {
+        FirstTimeCompletion = false;
         quizManager.BadAnswersInCombat = 0;
         expToGain = 0;
         goldToGain = 0;
@@ -185,5 +193,28 @@ public class StageManager : MonoBehaviour
             goldText.text = goldToGain.ToString();
         }
         return goldToGain;
+    }
+
+    public void FirstTimeStageCompletionReward()
+    {
+        FirstTimeCompletion = true;
+        gemsAndGoldSystem.AddGems(gemsRewardForCompletingStage);
+    }
+
+    public void RewardPlayerForPastCompletedStage()
+    {
+        for (int i = 0; i < StageCompleted.Count; i++)
+        {
+            if(StageRewardReceived[i] == false && stageCompleted[i] == true)
+            {
+                StageRewardReceived[i] = true;
+                gemsAndGoldSystem.AddGems(gemsRewardForCompletingStage);
+            }
+            else
+            {
+                return;
+            }
+        }
+        
     }
 }

@@ -15,6 +15,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField] LevelSystem levelSystem;
     [SerializeField] StageManager stageManager;
     [SerializeField] GemsAndGoldSystem goldSystem;
+    [SerializeField] GameObject gemsRewardText;
     bool stageComplete = false;
     public TurnState TurnState { get => turnState; set => turnState = value; }
     public int ExpCalculated { get; set; } = 0;
@@ -66,6 +67,10 @@ public class TurnManager : MonoBehaviour
         rewardText.text = "You have gained : \n" +
             ExpCalculated + " Experience Points. \n" +
             GoldCalculated + " Gold from your adventure!";
+        if (stageManager.FirstTimeCompletion)
+        {
+            gemsRewardText.SetActive(true);
+        }
         stageComplete = false;
     }
 
@@ -76,7 +81,8 @@ public class TurnManager : MonoBehaviour
         CalculateRewardsAndSetUI();
     }
     public void ClaimRewardsButton()
-    {       
+    {
+        gemsRewardText.SetActive(false);
         levelSystem.GainExp(ExpCalculated);
         goldSystem.AddGold(GoldCalculated);
         player.SavePlayer();

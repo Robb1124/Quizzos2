@@ -32,6 +32,12 @@ Your damage dealt is
 increased by <b>{0}%</b>.
 <i><#C5A5A5>{1} turns remaining</color></i>
 
+<i><b><#C73650>Regeneration</color></b></i>
+At the beggining of
+each turn. Regenerate
+<b>{0}%</b> of your max life.
+<i><#C5A5A5>{1} turns remaining</color></i>
+
 <i><b>Basic Attack</b></i>
 Single Target
 Does 100% base damage
@@ -60,4 +66,11 @@ Passive
 a basic attack is thrown 
 on a random target.
 
-c
+Healing Potion :
+In combat, drink this potion to heal yourself for {0} health. You may only use one consumable per turn.
+
+Regeneration Potion : 
+In combat, drink this potion to <b>regenerate</b> {0}% of your max life at the beggining of each turn. Lasts {1} turns. You may only use one consumable per turn. Effect does not stack.
+
+Strength Potion : 
+In combat, drink this potion to boost your <b>Base Damage</b> by {0}%. Lasts {1} turns. You may only use one consumable per turn. Effect does not stack.

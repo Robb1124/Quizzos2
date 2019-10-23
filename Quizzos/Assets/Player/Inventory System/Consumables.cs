@@ -45,7 +45,7 @@ public class Consumables : Items
         }
         else if (consumableType == ConsumableType.SpecialEffectPotion)
         {
-            return string.Format(itemDescription, specialEffect, (percentageAffectedBy * 100), TurnsDuration);
+            return string.Format(itemDescription, (percentageAffectedBy * 100), TurnsDuration);
         }
         else
         {

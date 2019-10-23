@@ -17,10 +17,11 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: a361a2e5f1e33ae4fbc22d181774a2cf, type: 3}
   stackSize: 5
   currency: 1
-  shopPrice: 15
+  shopPrice: 10
   itemCategory: 0
-  itemDescription: In combat, drink this potion to boost your {0} by {1}%. Lasts {2}
-    turns. You may only use one consumable per turn. Effect does not stack.
+  itemDescription: In combat, drink this potion to boost your <b>Base Damage</b> by
+    {0}%. Lasts {1} turns. You may only use one consumable per turn. Effect does not
+    stack.
   consumableType: 1
   healingAmount: 0
   specialEffect: 6

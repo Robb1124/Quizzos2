@@ -146,14 +146,29 @@ public class InventorySystem : MonoBehaviour
                         RemoveItemFromMemory(item);
                         return true;
                     }
+                    else if(preInstanceInventorySlots[0].ItemHeldId == item.ItemId)
+                    {
+                        SetMessagePopup("You cannot have more than 3 healing potions.");
+                    }
+                    else
+                    {
+                        SetMessagePopup("You can only bring 1 type of healing potion.");
+                    }
                     break;
                 case ConsumableType.SpecialEffectPotion:
-                    if (preInstanceInventorySlots[1].ReceiveItem(item))
+                    if (preInstanceInventorySlots[1].ReceiveItem(item, preInstanceInventorySlots[2].ItemHeldId))
                     {
                         inGameInventorySlots[1].ReceiveItem(item);
                         RemoveItemFromMemory(item);
                         return true;
                     }
+                    else if(preInstanceInventorySlots[2].ReceiveItem(item, preInstanceInventorySlots[1].ItemHeldId))
+                    {                        
+                        inGameInventorySlots[2].ReceiveItem(item);
+                        RemoveItemFromMemory(item);
+                        return true;
+                    }
+                    SetMessagePopup("You cannot have more than 3 potions per slot. \n Each slot must have different type of potion");
                     break;
             }
         }        

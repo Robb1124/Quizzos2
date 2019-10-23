@@ -18,7 +18,7 @@ public class DamagePopup : MonoBehaviour
     [SerializeField] float animationHeightJumps = 2f;
     [SerializeField] float delayBetweenJumps = 0.1f;
     [SerializeField] float fadeSpeed = 4f;
-
+    [SerializeField] AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +32,12 @@ public class DamagePopup : MonoBehaviour
 
     public void ActivateDamagePopupAnimation(Transform targetPosition, float damageDone, bool criticalHit)
     {
-        damagePopupText.text = damageDone.ToString("0");
+        if (criticalHit)
+        {
+            audioSource.Play();
+        }
+
+        damagePopupText.text = criticalHit ? "CRIT " + damageDone.ToString("0"): damageDone.ToString("0");
         damagePopupText.color = criticalHit ? criticalHitFontColor : normalFontColor;
         damagePopupText.fontSize = criticalHit ? criticalHitFontSize : normalFontSize;
         transform.position = new Vector3(targetPosition.transform.position.x + UnityEngine.Random.Range(-xPosRandomness, xPosRandomness), targetPosition.transform.position.y + UnityEngine.Random.Range(yPosRandomness, -yPosRandomness), 0);

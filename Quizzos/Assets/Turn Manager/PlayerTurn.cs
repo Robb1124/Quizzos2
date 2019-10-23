@@ -172,7 +172,7 @@ public class PlayerTurn : TurnState
         yield return new WaitForSeconds(0.7f);
         if (AttackIsSuccessfull && isAnAttack)
         {
-            CurrentTarget.TakeDamage(player.GetCalculatedPlayerDmg() * CurrentAbilityDmgModifier, false); //check if its a crit here
+            CurrentTarget.TakeDamage(player.GetCalculatedPlayerDmg() * CurrentAbilityDmgModifier, player.IsCrit); //check if its a crit here            
             player.CharacterClass.PlaySFX();
         }
         else if (AttackIsSuccessfull && !isAnAttack)

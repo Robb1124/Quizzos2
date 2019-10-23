@@ -12,6 +12,11 @@ public class Player : MonoBehaviour
     [SerializeField] int playerMaxHp = 100;
     [SerializeField] float playerCurrentHp;
     [SerializeField] int playerBaseDmg = 25;
+
+    [Range(0.00f, 1.00f)]
+    [SerializeField] float critChance = 0.1f;
+    [SerializeField] float critDamage = 1.5f;
+
     [SerializeField] float dmgReduction = 0;
     [SerializeField] float dmgMultiplierEffects = 1f;
     [SerializeField] Text playerHpText;
@@ -26,9 +31,12 @@ public class Player : MonoBehaviour
     [SerializeField] RewardedAdsButton rewardedAdsButton;
     [SerializeField] InventorySystem inventorySystem;
     [SerializeField] AudioClip[] takeDamageSFXs;
+    [SerializeField] AudioClip regenerationSFX;
     [SerializeField] AudioClip burnDamageSFX;
     float dmgBoostPercentage;
+    float critHitChanceBoostPercentage;
     bool playerDead = false;
+    bool isCrit = false;
     AudioSource audioSource { get; set; }
     int classIndex;
     
@@ -42,7 +50,7 @@ public class Player : MonoBehaviour
     public float ShockResist { get; set; }
     public float FrostResist { get; set; }
     public float ConcussionResist { get; set; }
-
+    public bool IsCrit { get => isCrit; set => isCrit = value; }
 
     public delegate void OnPlayerDeath(); // declare new delegate type
     public event OnPlayerDeath onPlayerDeath; // instantiate an observer set
@@ -130,6 +138,13 @@ public class Player : MonoBehaviour
         playerCurrentHp = Mathf.Clamp(playerCurrentHp + healAmount, 0, playerMaxHp);
     }
 
+    public void RegeneratePercentageOfLife(float percentage)
+    {
+        audioSource.clip = regenerationSFX;
+        audioSource.Play();
+        playerCurrentHp = Mathf.Clamp(Mathf.RoundToInt(playerCurrentHp + (percentage * playerMaxHp)), 0, playerMaxHp);
+    }
+
     public void ReceiveClass(int choosenClassIndex)
     {
         switch (choosenClassIndex)
@@ -192,9 +207,23 @@ public class Player : MonoBehaviour
         ShockResist = data.shockResist;
         FrostResist = data.frostResist;
         classIndex = data.classIndex;
-        stageManager.StageCompleted = data.stageCompleted;
+
+        for (int i = 0; i < data.stageCompleted.Count; i++)
+        {
+            stageManager.StageCompleted[i] = data.stageCompleted[i];
+        }
+
+        if(!(data.stageRewardReceived is null))
+        {
+            for (int i = 0; i < data.stageRewardReceived.Count; i++)
+            {
+                stageManager.StageRewardReceived[i] = data.stageRewardReceived[i];
+            }
+        }
+        
+        stageManager.RewardPlayerForPastCompletedStage();
         stageManager.ActivateUnlockedStageButtons();
-        if(data.playerDeckQuestionIds != null)
+        if(!(data.playerDeckQuestionIds is null))
         {
             quizManager.PlayerDeckQuestionIds = data.playerDeckQuestionIds;
             quizManager.RecreatePlayerDeckOnLoad();
@@ -223,7 +252,10 @@ public class Player : MonoBehaviour
 
     public float GetCalculatedPlayerDmg()
     {
-        return playerBaseDmg * dmgMultiplierEffects; //can change this to change how effects change the player damage. Ex: concussion gets calculated on top of everything, or removes 25% from 225% player dmg?
+        isCrit = false;
+        float rand = UnityEngine.Random.Range(0.00f, 1.00f);
+        IsCrit = (rand <= critChance) ? true : false;
+        return (IsCrit) ? (playerBaseDmg * dmgMultiplierEffects) * critDamage: playerBaseDmg * dmgMultiplierEffects; //can change this to change how effects change the player damage. Ex: concussion gets calculated on top of everything, or removes 25% from 225% player dmg?
     }
 
     public void AddConcussion(float baseDmgReductionPercentage)
@@ -246,6 +278,17 @@ public class Player : MonoBehaviour
         dmgMultiplierEffects -= dmgBoostPercentage;
     }
 
+    public void AddCriticalHitChanceBoost(float critHitChancePercentage)
+    {
+        critHitChanceBoostPercentage = critHitChancePercentage;
+        critChance += critHitChancePercentage;
+    }
+
+    public void RemoveCriticalHitChanceBoost()
+    {
+        critChance -= critHitChanceBoostPercentage;
+    }
+
     public bool IsPlayerFullHealth()
     {
         if(playerCurrentHp >= playerMaxHp)
@@ -254,4 +297,6 @@ public class Player : MonoBehaviour
         }
         return false;
     }
+
+
 }

@@ -113,6 +113,8 @@ public class MonsterManager : MonoBehaviour
             if(!stageManager.StageCompleted[stageFile.stageNumber - 1])
             {
                 stageManager.StageCompleted[stageFile.stageNumber - 1] = true;
+                stageManager.StageRewardReceived[stageFile.stageNumber - 1] = true;
+                stageManager.FirstTimeStageCompletionReward();
             }
             roomNumber++;
             turnManager.StageCompleted();           
