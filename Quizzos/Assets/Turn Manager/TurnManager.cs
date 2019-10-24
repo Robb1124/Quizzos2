@@ -56,17 +56,19 @@ public class TurnManager : MonoBehaviour
     {
         gameOverPopup.SetActive(true);
         //Game over Sound
-        CalculateRewardsAndSetUI();
+        CalculateRewardsSetUIAndRemoveEffects();
         //button click closes menu and calls the claim reward method
     }
 
-    private void CalculateRewardsAndSetUI()
+    private void CalculateRewardsSetUIAndRemoveEffects()
     {
+        PrePlayerTurn prePlayerTurn = GetComponentInChildren<PrePlayerTurn>();
+        prePlayerTurn.RemoveAllSpecialEffects();
         ExpCalculated = stageManager.CalculateExp(stageComplete);
         GoldCalculated = stageManager.CalculateGold(stageComplete);
-        rewardText.text = "You have gained : \n" +
-            ExpCalculated + " Experience Points. \n" +
-            GoldCalculated + " Gold from your adventure!";
+        rewardText.text = "You have gained : \n \n" +
+            ExpCalculated + " <sprite=2> & \n" +
+            GoldCalculated + " <sprite=0> from your adventure!";
         if (stageManager.FirstTimeCompletion)
         {
             gemsRewardText.SetActive(true);
@@ -78,7 +80,7 @@ public class TurnManager : MonoBehaviour
     {
         stageCompletedPopup.SetActive(true);
         stageComplete = true;
-        CalculateRewardsAndSetUI();
+        CalculateRewardsSetUIAndRemoveEffects();
     }
     public void ClaimRewardsButton()
     {

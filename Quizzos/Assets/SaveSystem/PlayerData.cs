@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerData
 {
     public int playerLevel;
+    public bool lvlUpRewardsCorrected;
     public int expPoints;
     public int gold;
     public int gems;
@@ -27,6 +28,7 @@ public class PlayerData
     public PlayerData(Player player, LevelSystem levelSystem, StageManager stageManager, QuizManager quizManager, GemsAndGoldSystem gemsAndGoldSystem, InventorySystem inventorySystem, TimeManager timeManager, RewardedAdsButton rewardedAdsButton)
     {
         playerLevel = levelSystem.PlayerLevel;
+        lvlUpRewardsCorrected = levelSystem.LvlupRewardsCorrected;
         expPoints = (int)levelSystem.ExperiencePoints;
         gold = gemsAndGoldSystem.GetGold();
         gems = gemsAndGoldSystem.GetGems();

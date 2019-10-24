@@ -9,6 +9,7 @@ public class LevelSystem : MonoBehaviour
 {
     [SerializeField] int playerLevel = 1;
     [SerializeField] int[] xpRequirementsForLevelUp;
+    [SerializeField] int gemsGainedPerLevel = 25;
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] Image levelUpBar;
     [SerializeField] TextMeshProUGUI worldLevelText;
@@ -16,15 +17,18 @@ public class LevelSystem : MonoBehaviour
     [SerializeField] GameObject levelUpPopUp;
     [SerializeField] TextMeshProUGUI levelUpPopUpText;
     [SerializeField] TurnManager turnManager;
+    [SerializeField] GemsAndGoldSystem gemsAndGoldSystem;
     [SerializeField] float maxHpGainOnLvlUp;
     [SerializeField] float baseDmgGainOnLvlUp;
     [SerializeField] int questionsAddedOnLvlUp;
     [SerializeField] LevelUpGains warriorsLvlUpGains;
     [SerializeField] JsonHarvester jsonHarvester;
     Player player;
+    bool lvlupRewardsCorrected = false;
 
     public int PlayerLevel { get => playerLevel; set => playerLevel = value; }
     public float ExperiencePoints { get; set; }
+    public bool LvlupRewardsCorrected { get => lvlupRewardsCorrected; set => lvlupRewardsCorrected = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -60,7 +64,6 @@ public class LevelSystem : MonoBehaviour
 
     private void OnLevelUp()
     {
-        Debug.Log("LEVEL UP!");
         PlayerLevel++;
         if (player.GetComponent<Warrior>())
         {
@@ -71,7 +74,9 @@ public class LevelSystem : MonoBehaviour
         levelUpPopUpText.text = "You are now level " + PlayerLevel + " !\n" +
                                                             "+" + maxHpGainOnLvlUp + " Maximum Health points.\n" +
                                                             "+" + baseDmgGainOnLvlUp + " Base Damage\n" +
-                                                            "+" + questionsAddedOnLvlUp + " Questions added to your Player Deck.";
+                                                            "+" + questionsAddedOnLvlUp + " Questions added to your Player Deck." +
+                                                            "+" + gemsGainedPerLevel + "<sprite=1> for leveling up!";
+        gemsAndGoldSystem.AddGems(gemsGainedPerLevel);
         levelUpPopUp.gameObject.SetActive(true);
         player.AddMaxHpAndBaseDamage((int)maxHpGainOnLvlUp, (int)baseDmgGainOnLvlUp);
         jsonHarvester.AddQuestionsToTheDeck(questionsAddedOnLvlUp);

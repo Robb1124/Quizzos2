@@ -35,7 +35,9 @@ public class StageManager : MonoBehaviour
     [SerializeField] MonsterManager monsterManager;
     [SerializeField] GemsAndGoldSystem gemsAndGoldSystem;
     int totalStageExpPreview;
+    int totalStageGoldPreview;
     List<ExpType> expList = new List<ExpType>();
+    List<GoldType> goldList = new List<GoldType>();
     public List<bool> StageCompleted { get => stageCompleted; set => stageCompleted = value; }
     public List<bool> StageRewardReceived { get => stageRewardReceived; set => stageRewardReceived = value; }
     public bool FirstTimeCompletion { get => firstTimeCompletion; set => firstTimeCompletion = value; }
@@ -86,6 +88,7 @@ public class StageManager : MonoBehaviour
     public void StagePreviewPopUp(int stageClicked)
     {
         totalStageExpPreview = 0;
+        totalStageGoldPreview = 0;
         expList.Clear();
         currentStage = stages[stageClicked - 1];
         for (int i = 0; i < currentStage.rounds.Length; i++)
@@ -93,6 +96,14 @@ public class StageManager : MonoBehaviour
             for (int j = 0; j < currentStage.rounds[i].round.Length; j++)
             {
                 expList.Add(currentStage.rounds[i].round[j].GetExpType());
+            }
+        }
+        goldList.Clear();
+        for (int i = 0; i < currentStage.rounds.Length; i++)
+        {
+            for (int j = 0; j < currentStage.rounds[i].round.Length; j++)
+            {
+                goldList.Add(currentStage.rounds[i].round[j].GetGoldType());
             }
         }
         expMultiplier = Mathf.Pow(baseExpMultiplier, currentStage.stageLevel - 1);
@@ -115,12 +126,33 @@ public class StageManager : MonoBehaviour
                     break;
             }
         }
+        foreach (GoldType goldType in goldList)
+        {
+            switch (goldType)
+            {
+                case GoldType.Low:
+                    totalStageGoldPreview += Mathf.RoundToInt(baseGoldPerType[0] * goldMultiplier);
+                    break;
+                case GoldType.Medium:
+                    totalStageGoldPreview += Mathf.RoundToInt(baseGoldPerType[1] * goldMultiplier);
+                    break;
+                case GoldType.High:
+                    totalStageGoldPreview += Mathf.RoundToInt(baseGoldPerType[2] * goldMultiplier);
+                    break;
+                case GoldType.Boss:
+                    totalStageGoldPreview += Mathf.RoundToInt(baseGoldPerType[3] * goldMultiplier);
+                    break;
+            }
+        }
+
         totalStageExpPreview = (int)(totalStageExpPreview * bonusExpPercentageForCompletion);
+        totalStageGoldPreview = (int)(totalStageGoldPreview * bonusGoldPercentageForCompletion);
         stagePreviewNameField.text = currentStage.stageName;
         stageDescriptionField.text = "Level Range : " + currentStage.stageLevel + "\n" +
                                        "Number of fights : " + currentStage.rounds.Length + "\n" +
                                         "Reward : \n" +
-                                        "Up to " + totalStageExpPreview + " XP";
+                                        "Up to " + totalStageExpPreview + " <sprite=2>\n" +
+                                        "Up to " + totalStageGoldPreview + " <sprite=0>";
     }
 
     public void ActivateUnlockedStageButtons()

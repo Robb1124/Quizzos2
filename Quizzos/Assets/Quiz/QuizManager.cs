@@ -22,8 +22,14 @@ public class QuizManager : MonoBehaviour
     [SerializeField] string poolText;
     [SerializeField] string deckText;
     [SerializeField] TextMeshProUGUI categoryText;
+    [SerializeField] Image timerFillImage;
+    [SerializeField] float timeToAnswer;
+    [SerializeField] Color[] timerBarColors;
     [SerializeField] AudioClip poisonClip;
     AudioSource audioSource;
+    float timer;
+    bool stopTimer = false;
+    bool ranOutOfTime = false;
     int previousQuestionId = -1;
     bool playerHasAnswered = false;
     int numberOfQuestionsRemaining;
@@ -114,13 +120,34 @@ public class QuizManager : MonoBehaviour
         }
         numberOfQuestionsRemaining--;
         StartCoroutine(WaitForPlayerToAnswer());
+        StartCoroutine(WaitForTriviaResolution());
+
     }
 
     private IEnumerator WaitForPlayerToAnswer()
-    {        
+    {
+        ranOutOfTime = false;
+        stopTimer = false;
+        timer = timeToAnswer;
+        timerFillImage.fillAmount = timer / timeToAnswer;
+        while(timer > 0 && !stopTimer)
+        {
+            yield return new WaitForEndOfFrame();
+            timer -= Time.deltaTime;
+            timerFillImage.fillAmount = timer / timeToAnswer;
+            timerFillImage.color = Color.Lerp(timerBarColors[1], timerBarColors[0], (timer / timeToAnswer));
+        }
+        if (timer <= 0)
+        {
+            ranOutOfTime = true;
+            IsThisTheRightAnswer(0);
+        }
+    }
+    private IEnumerator WaitForTriviaResolution()
+    {
         while (!playerHasAnswered)
         {
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForEndOfFrame();
         }
         if (turnManager.TurnState is PlayerTurn)
         {
@@ -129,7 +156,7 @@ public class QuizManager : MonoBehaviour
         else if(turnManager.TurnState is PrePlayerTurn)
         {
             prePlayerTurn.DoneWithTheQuiz(NumberOfRightAnswers);
-        }
+        }        
     }
 
     private void InitialSetup(int numberOfQuestions)
@@ -160,8 +187,9 @@ public class QuizManager : MonoBehaviour
 
     public void IsThisTheRightAnswer(int answerChosen)
     {
+        stopTimer = true;
         poisonMask.SetActive(false);
-        if (choices[answerChosen] == currentQuestion.correct_answer)
+        if (choices[answerChosen] == currentQuestion.correct_answer && !ranOutOfTime)
         {
             choicesBackgrounds[answerChosen].color = Color.green;
             //Popup une felicitation
@@ -171,33 +199,26 @@ public class QuizManager : MonoBehaviour
         {
             BadAnswersInCombat++;
             onWrongAnswers(BadAnswersInCombat);
-            choicesBackgrounds[answerChosen].color = Color.red;
-            for(int i = 0; i < choices.Count; i++)
+            if (!ranOutOfTime)
+            {
+                choicesBackgrounds[answerChosen].color = Color.red;
+            }
+            else
+            {
+                for (int i = 0; i < choices.Count; i++)
+                {
+                    choicesBackgrounds[i].color = Color.red;
+                }
+            }
+            for (int i = 0; i < choices.Count; i++)
             {
                 if(choices[i] == currentQuestion.correct_answer)
                 {
                     choicesBackgrounds[i].color = Color.green;
                 }
             }
-            //Popup un mauvaise reponse
-        }
-        
+        }        
         StartCoroutine(ShowGoodAnswerDelay());
-
-    }
-
-    private void CheckQuestionsRemaining()
-    {
-        if (numberOfQuestionsRemaining == 0)
-        {
-            playerHasAnswered = true;
-            questionPopUp.SetActive(false);
-            initialSetupIsDone = false;
-        }
-        else
-        {
-            //demander une autre question
-        }
     }
 
     public IEnumerator ShowGoodAnswerDelay()
@@ -213,6 +234,20 @@ public class QuizManager : MonoBehaviour
             choices.Remove(choices[choicesCount - 1 - i]);
         }       
         CheckQuestionsRemaining();
+    }
+
+    private void CheckQuestionsRemaining()
+    {
+        if (numberOfQuestionsRemaining == 0)
+        {
+            playerHasAnswered = true;
+            questionPopUp.SetActive(false);
+            initialSetupIsDone = false;
+        }
+        else
+        {
+            //demander une autre question
+        }
     }
 
     public void RefreshQuestionsIdsForSave()

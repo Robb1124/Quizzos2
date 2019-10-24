@@ -11,9 +11,6 @@ public class ShopSlots : MonoBehaviour
     [SerializeField] GemsAndGoldSystem goldSystem;
     [SerializeField] InventorySystem inventorySystem;
     [SerializeField] TextMeshProUGUI priceText;
-    [SerializeField] Sprite[] goldOrGemsSprites;
-    [SerializeField] Image currencyImageSlot;
-
     int price;
 
     public Items ItemToSell { get => itemToSell; set => itemToSell = value; }
@@ -21,9 +18,8 @@ public class ShopSlots : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currencyImageSlot.sprite = (ItemToSell.Currency == Currency.Gold) ? goldOrGemsSprites[0] : goldOrGemsSprites[1];
         price = ItemToSell.ShopPrice;
-        priceText.text = price.ToString();
+        priceText.text = (ItemToSell.Currency == Currency.Gold)? price.ToString() + "<sprite=0>" : price.ToString() + "<sprite=1>";
         GetComponent<Image>().sprite = ItemToSell.ItemImage;
     }
 

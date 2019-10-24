@@ -192,6 +192,15 @@ public class Player : MonoBehaviour
         PlayerData data = SaveSystem.LoadPlayer();
 
         levelSystem.PlayerLevel = data.playerLevel;
+        if(!data.lvlUpRewardsCorrected) //so players can retroactively claim new level up rewards
+        {
+            gemsAndGoldSystem.AddGems(25 * (levelSystem.PlayerLevel - 1));
+            levelSystem.LvlupRewardsCorrected = true;
+        }
+        else
+        {
+            levelSystem.LvlupRewardsCorrected = data.lvlUpRewardsCorrected;
+        }
         levelSystem.ExperiencePoints = data.expPoints;
         levelSystem.UpdateExpBar();
         gemsAndGoldSystem.AddGold(data.gold);

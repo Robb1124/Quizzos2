@@ -90,7 +90,6 @@ public class PrePlayerTurn : TurnState
     void Start()
     {
         quizManager.onWrongAnswers += OnWrongAnswers;
-        player.onPlayerDeath += OnPlayerDeath;
     }
 
     // Update is called once per frame
@@ -236,10 +235,13 @@ public class PrePlayerTurn : TurnState
         switch (specialEffectToAdd)
         {
             case SpecialEffectsType.ShieldUp: //Channeling effect, no turn duration taken into account
-                if (!ShieldUpActive)
+                if (ShieldUpActive)
+                {
+                    added = true;
+                }
+                else
                 {
                     ShieldUpActive = true;
-                    CurrentSpecialEffects.Add(new SpecialEffect(SpecialEffectsType.ShieldUp, turnDuration));
                 }
                 break;
             case SpecialEffectsType.Shock:                
@@ -432,11 +434,6 @@ public class PrePlayerTurn : TurnState
                 return string.Format(criticalHitChanceText, (critHitChanceBoostPercentageMemory * 100), turnRemaining);
         }
         return null;
-    }
-
-    private void OnPlayerDeath()
-    {
-        RemoveAllSpecialEffects();       
     }
 
     public void RemoveAllSpecialEffects()

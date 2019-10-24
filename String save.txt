@@ -1,3 +1,15 @@
+50 sport
+50 geo
+50 histoire
+30 polique
+15 art
+30 animals
+50 general knowledge
+
+
+
+
+
 <i><b><#D0AD7B>Shield Up</color></b></i>
 Receive 35% less 
 damage while this
@@ -36,6 +48,11 @@ increased by <b>{0}%</b>.
 At the beggining of
 each turn. Regenerate
 <b>{0}%</b> of your max life.
+<i><#C5A5A5>{1} turns remaining</color></i>
+
+<i><b><#562E8A>Critical Hit Chance Boost</color></b></i>
+Your critical hit chance
+is increased by <b>{0}%</b>.
 <i><#C5A5A5>{1} turns remaining</color></i>
 
 <i><b>Basic Attack</b></i>
